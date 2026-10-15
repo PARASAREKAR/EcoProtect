@@ -6,6 +6,10 @@
     <meta name="description" content="EcoProtect – The Environmental Protection Platform. Education, data, action."/>
     <title>{% block title %}EcoProtect | Environmental Protection Platform{% endblock %}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="/static/images/favicon.jpg" />
+    <link rel="apple-touch-icon" href="/static/images/logo.jpg" />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -243,7 +247,9 @@
 <nav class="eco-nav" id="eco-nav">
     <div class="nav-inner">
         <a href="/" class="nav-logo">
-            <div class="nav-logo-icon">🌿</div>
+            <div class="nav-logo-icon" style="padding:0;overflow:hidden;background:#030712;border:1px solid rgba(56,189,248,0.3);">
+                <img src="/static/images/logo.jpg" alt="EcoProtect" style="width:100%;height:100%;object-fit:cover;border-radius:9px;" />
+            </div>
             <div class="nav-logo-text">Eco<span>Protect</span></div>
         </a>
 
