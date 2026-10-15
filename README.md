@@ -1,3 +1,5 @@
+#PARAS MANOHAR AREKAR 
+#AD2331 SY C DIGITAL MARKETING
 # 🌍 EcoProtect — 1:1 Planetary Observation Center & Global Crisis Platform
 
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
