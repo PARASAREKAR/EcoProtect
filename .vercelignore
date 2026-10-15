@@ -1,0 +1,9 @@
+*.exe
+*.bat
+*.cpp
+__pycache__/
+*.py[cod]
+.git
+.gitignore
+.vscode
+.idea
