@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="EcoProtect – The Environmental Protection Platform. Education, data, action."/>
+    <title>{% block title %}EcoProtect | Environmental Protection Platform{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/static/css/style.css"/>
+    <link rel="stylesheet" href="/static/css/components.css"/>
+    <link rel="stylesheet" href="/static/css/dark-mode.css"/>
+
+    <style>
+    /* ── SHARED MULTI-PAGE STYLES ── */
+    :root {
+        --nav-h: 68px;
+        --sidebar-w: 260px;
+        --transition-med: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* BODY */
+    body { padding-top: var(--nav-h); }
+
+    /* ── NAVBAR ──────────────────────────────────────── */
+    .eco-nav {
+        position: fixed; top:0; left:0; right:0; z-index:1000;
+        height: var(--nav-h);
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(16,124,65,0.1);
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .eco-nav.scrolled {
+        background: rgba(255,255,255,0.97);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+        max-width: 1400px; margin: 0 auto; padding: 0 1.5rem;
+        height: 100%; display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-logo {
+        display:flex; align-items:center; gap:.6rem; text-decoration:none;
+        flex-shrink:0; font-family:'Plus Jakarta Sans',sans-serif;
+    }
+    .nav-logo-icon {
+        width:36px; height:36px;
+        background: linear-gradient(135deg,#107c41,#22c55e);
+        border-radius:10px; display:flex; align-items:center; justify-content:center;
+        font-size:1.1rem; box-shadow:0 4px 12px rgba(16,124,65,.3);
+    }
+    .nav-logo-text { font-weight:800; font-size:1.15rem; color:#0f172a; }
+    .nav-logo-text span { color:#107c41; }
+
+    .nav-links {
+        display:flex; align-items:center; gap:.25rem; list-style:none; flex:1;
+    }
+    .nav-links a {
+        display:block; padding:.45rem .75rem;
+        font-size:.86rem; font-weight:600; color:#475569; border-radius:8px;
+        text-decoration:none; transition:color .2s,background .2s; white-space:nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active { color:#107c41; background:rgba(16,124,65,.08); }
+
+    /* Dropdown */
+    .nav-dropdown { position:relative; }
+    .nav-dropdown > a { display:flex; align-items:center; gap:.3rem; }
+    .dropdown-chevron { font-size:.6rem; transition:transform .2s; }
+    .nav-dropdown:hover .dropdown-chevron { transform:rotate(180deg); }
+    .dropdown-panel {
+        position:absolute; top:calc(100% + .5rem); left:0;
+        background:#fff; border:1px solid #e2e8f0; border-radius:14px;
+        padding:.5rem; min-width:200px;
+        box-shadow:0 16px 40px rgba(0,0,0,.12);
+        opacity:0; visibility:hidden; transform:translateY(-8px);
+        transition:all .22s cubic-bezier(0.4,0,0.2,1);
+        z-index:100;
+    }
+    .nav-dropdown:hover .dropdown-panel {
+        opacity:1; visibility:visible; transform:translateY(0);
+    }
+    .dropdown-panel a {
+        display:flex; align-items:center; gap:.6rem;
+        padding:.55rem .85rem; border-radius:9px;
+        font-size:.84rem; font-weight:500; color:#374151;
+        text-decoration:none; transition:all .15s;
+    }
+    .dropdown-panel a:hover { background:rgba(16,124,65,.08); color:#107c41; }
+    .dropdown-panel a span.dd-icon { font-size:1rem; }
+
+    /* Nav actions */
+    .nav-actions { display:flex; align-items:center; gap:.5rem; margin-left:auto; flex-shrink:0; }
+    .nav-auth-link {
+        display: inline-flex; align-items: center; gap: .4rem;
+        padding: .42rem .9rem; background: linear-gradient(135deg, #107c41, #22c55e);
+        color: #fff !important; border-radius: 9px; font-weight: 700; font-size: .84rem;
+        text-decoration: none; box-shadow: 0 2px 8px rgba(16,124,65,0.25); transition: all .2s;
+    }
+    .nav-auth-link:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,124,65,0.35); }
+    .nav-user-pill {
+        display: inline-flex; align-items: center; gap: .45rem;
+        padding: .35rem .8rem; background: rgba(16,124,65,0.08);
+        border: 1px solid rgba(16,124,65,0.2); border-radius: 99px;
+        color: #0f172a; font-weight: 700; font-size: .84rem;
+        text-decoration: none; transition: all .2s;
+    }
+    .nav-user-pill:hover { background: rgba(16,124,65,0.15); border-color: #107c41; }
+    .nav-icon-btn {
+        width:36px; height:36px; border-radius:10px; border:1px solid #e2e8f0;
+        background:transparent; cursor:pointer; display:flex; align-items:center;
+        justify-content:center; font-size:1rem; transition:all .2s; color:#475569;
+    }
+    .nav-icon-btn:hover { background:rgba(16,124,65,.08); border-color:#107c41; color:#107c41; }
+    .hamburger { display:none; }
+
+    @media (max-width:1024px) {
+        .nav-links { display:none; }
+        .hamburger { display:flex; }
+    }
+
+    /* ── MOBILE FULL SCREEN NAV ── */
+    .mobile-nav-overlay {
+        position:fixed; inset:0; z-index:999;
+        background:rgba(255,255,255,0.98); backdrop-filter:blur(20px);
+        display:flex; flex-direction:column; padding:5rem 2rem 2rem;
+        transform:translateX(100%); transition:transform .35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .mobile-nav-overlay.open { transform:translateX(0); }
+    .mobile-nav-overlay a {
+        display:block; padding:1rem 0; font-size:1.15rem; font-weight:700;
+        color:#0f172a; text-decoration:none; border-bottom:1px solid #e2e8f0;
+    }
+    .mobile-nav-overlay a:hover { color:#107c41; }
+    .mobile-nav-close {
+        position:absolute; top:1.25rem; right:1.25rem;
+        background:none; border:none; font-size:1.5rem; cursor:pointer; color:#475569;
+    }
+
+    /* ── PAGE HERO COMMON ── */
+    .page-hero {
+        padding: 5rem 0 4rem;
+        text-align: center;
+        position: relative; overflow: hidden;
+    }
+    .page-hero-content { position:relative; z-index:1; }
+    .page-hero-breadcrumb {
+        display:inline-flex; align-items:center; gap:.4rem;
+        font-size:.8rem; color:rgba(255,255,255,.7); margin-bottom:1.25rem;
+        background:rgba(255,255,255,.12); padding:.35rem .85rem; border-radius:99px;
+    }
+    .page-hero-breadcrumb a { color:rgba(255,255,255,.7); text-decoration:none; }
+    .page-hero-breadcrumb a:hover { color:#fff; }
+    .page-hero-icon { font-size:3.5rem; display:block; margin-bottom:1rem; }
+    .page-hero-title {
+        font-size: clamp(2rem,5vw,3rem); font-weight:800; color:#fff;
+        margin-bottom:.75rem; line-height:1.15;
+        font-family:'Plus Jakarta Sans',sans-serif;
+    }
+    .page-hero-subtitle {
+        font-size:1.05rem; color:rgba(255,255,255,.8);
+        max-width:600px; margin:0 auto 1.5rem; line-height:1.65;
+    }
+    .hero-wave {
+        position:absolute; bottom:-1px; left:0; right:0;
+        width:100%; overflow:hidden; line-height:0;
+    }
+    .hero-wave svg { display:block; width:100%; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .eco-footer {
+        background:#0a0f12; color:#cbd5e1;
+        border-top:1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+        max-width:1400px; margin:0 auto; padding:3.5rem 1.5rem 2rem;
+        display:grid; grid-template-columns:2fr 1fr 1fr 1.4fr; gap:3rem;
+    }
+    @media(max-width:900px){ .footer-inner { grid-template-columns:1fr 1fr; gap:2rem; } }
+    @media(max-width:560px){ .footer-inner { grid-template-columns:1fr; } }
+    .footer-brand-name { font-size:1.25rem; font-weight:800; color:#fff; margin-bottom:.75rem; font-family:'Plus Jakarta Sans',sans-serif; }
+    .footer-brand-name span { color:#22c55e; }
+    .footer-desc { font-size:.85rem; color:#64748b; line-height:1.75; margin-bottom:1.25rem; }
+    .footer-social { display:flex; gap:.65rem; }
+    .footer-social-btn {
+        width:36px; height:36px; border-radius:9px; background:rgba(255,255,255,.06);
+        border:1px solid rgba(255,255,255,.1); display:flex; align-items:center;
+        justify-content:center; font-size:1rem; cursor:pointer; text-decoration:none;
+        transition:all .2s; color:#94a3b8;
+    }
+    .footer-social-btn:hover { background:rgba(34,197,94,.15); border-color:rgba(34,197,94,.3); color:#22c55e; }
+    .footer-col-title { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#94a3b8; margin-bottom:1rem; }
+    .footer-links-list { list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .footer-links-list a { font-size:.85rem; color:#64748b; text-decoration:none; transition:color .2s; }
+    .footer-links-list a:hover { color:#22c55e; }
+    .footer-nl-input-wrap { display:flex; gap:.5rem; margin-top:.5rem; }
+    .footer-nl-input {
+        flex:1; padding:.6rem .85rem; border-radius:8px;
+        border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05);
+        color:#f1f5f9; font-size:.85rem; outline:none;
+    }
+    .footer-nl-input:focus { border-color:#22c55e; }
+    .footer-nl-btn {
+        padding:.6rem 1rem; background:#107c41; color:#fff; border:none;
+        border-radius:8px; cursor:pointer; font-size:.85rem; font-weight:600;
+        transition:background .2s;
+    }
+    .footer-nl-btn:hover { background:#22c55e; }
+    .footer-bottom {
+        border-top:1px solid rgba(255,255,255,.06);
+        padding:1.25rem 1.5rem;
+        max-width:1400px; margin:0 auto;
+        display:flex; justify-content:space-between; align-items:center;
+        font-size:.8rem; color:#334155;
+    }
+    @media(max-width:560px){ .footer-bottom { flex-direction:column; gap:.5rem; text-align:center; } }
+    .footer-bottom a { color:#334155; text-decoration:none; }
+    .footer-bottom a:hover { color:#22c55e; }
+
+    /* Dark mode nav */
+    body.dark-mode .eco-nav { background:rgba(10,15,18,0.9); border-bottom-color:rgba(34,197,94,.1); }
+    body.dark-mode .eco-nav.scrolled { background:rgba(13,20,24,0.98); }
+    body.dark-mode .nav-logo-text { color:#f1f5f9; }
+    body.dark-mode .nav-links a { color:#94a3b8; }
+    body.dark-mode .nav-links a:hover, body.dark-mode .nav-links a.active { color:#22c55e; background:rgba(34,197,94,.08); }
+    body.dark-mode .nav-icon-btn { border-color:rgba(255,255,255,.1); color:#94a3b8; }
+    body.dark-mode .dropdown-panel { background:#111a1e; border-color:#1e2d33; }
+    body.dark-mode .dropdown-panel a { color:#94a3b8; }
+    body.dark-mode .mobile-nav-overlay { background:rgba(10,15,18,0.99); }
+    body.dark-mode .mobile-nav-overlay a { color:#f1f5f9; border-bottom-color:#1e2d33; }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+<!-- ── NAVBAR ────────────────────────────────────────────── -->
+<nav class="eco-nav" id="eco-nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <div class="nav-logo-icon">🌿</div>
+            <div class="nav-logo-text">Eco<span>Protect</span></div>
+        </a>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="/"  {% if request.path=='/' %}class="active"{% endif %}>Home</a></li>
+            <li><a href="/about" {% if request.path=='/about' %}class="active"{% endif %}>About</a></li>
+
+            <li class="nav-dropdown">
+                <a href="/problems" {% if request.path in ['/problems','/climate','/biodiversity'] %}class="active"{% endif %}>
+                    Issues <span class="dropdown-chevron">▼</span>
+                </a>
+                <div class="dropdown-panel">
+                    <a href="/problems"><span class="dd-icon">🌫️</span> All Problems</a>
+                    <a href="/problems#air"><span class="dd-icon">💨</span> Air Pollution</a>
+                    <a href="/problems#water"><span class="dd-icon">💧</span> Water Pollution</a>
+                    <a href="/problems#plastic"><span class="dd-icon">🧴</span> Plastic Crisis</a>
+                    <a href="/climate"><span class="dd-icon">🌡️</span> Climate Change</a>
+                    <a href="/biodiversity"><span class="dd-icon">🦋</span> Biodiversity</a>
+                </div>
+            </li>
+
+            <li class="nav-dropdown">
+                <a href="/solutions" {% if request.path in ['/solutions','/forests','/water-conservation','/waste-management','/renewable-energy','/lifestyle'] %}class="active"{% endif %}>
+                    Solutions <span class="dropdown-chevron">▼</span>
+                </a>
+                <div class="dropdown-panel">
+                    <a href="/solutions"><span class="dd-icon">✅</span> All Solutions</a>
+                    <a href="/forests"><span class="dd-icon">🌲</span> Forests</a>
+                    <a href="/water-conservation"><span class="dd-icon">💧</span> Water Conservation</a>
+                    <a href="/waste-management"><span class="dd-icon">♻️</span> Waste Management</a>
+                    <a href="/renewable-energy"><span class="dd-icon">⚡</span> Renewable Energy</a>
+                    <a href="/lifestyle"><span class="dd-icon">🌿</span> Sustainable Living</a>
+                </div>
+            </li>
+
+            <li><a href="/calculator" {% if request.path=='/calculator' %}class="active"{% endif %}>Calculator</a></li>
+            <li><a href="/dashboard" {% if request.path=='/dashboard' %}class="active"{% endif %} style="color:#059669;font-weight:700;">📊 Dashboard</a></li>
+            <li><a href="/events" {% if request.path=='/events' %}class="active"{% endif %}>Events</a></li>
+            <li><a href="/news" {% if request.path=='/news' %}class="active"{% endif %}>News</a></li>
+            <li><a href="/globe" {% if request.path=='/globe' %}class="active"{% endif %} style="display:flex;align-items:center;gap:.3rem;color:#38bdf8;" title="Interactive 3D Environmental Hazard Globe">🌐 EcoGlobe</a></li>
+            <li><a href="/pledge" {% if request.path=='/pledge' %}class="active"{% endif %}>Pledge</a></li>
+            <li><a href="/contact" {% if request.path=='/contact' %}class="active"{% endif %}>Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            {% if current_user %}
+                <div class="nav-dropdown" style="margin-right:.25rem;">
+                    <a href="/dashboard" class="nav-user-pill">
+                        <span>{{ current_user.avatar or '🌱' }}</span>
+                        <span>{{ current_user.username }}</span>
+                        <span style="font-size:.6rem;">▼</span>
+                    </a>
+                    <div class="dropdown-panel" style="right:0;left:auto;min-width:180px;">
+                        <a href="/dashboard"><span class="dd-icon">📊</span> Dashboard</a>
+                        <a href="/calculator"><span class="dd-icon">🧮</span> Calculator</a>
+                        <a href="/pledge"><span class="dd-icon">📜</span> My Pledges</a>
+                        <a href="/terms"><span class="dd-icon">⚖️</span> Terms & Rules</a>
+                        <hr style="border:none;border-top:1px solid #e2e8f0;margin:.4rem 0;"/>
+                        <a href="/logout" style="color:#ef4444;"><span class="dd-icon">🚪</span> Sign Out</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="nav-dropdown" style="margin-right:.25rem;">
+                    <a href="/login" class="nav-auth-link" title="Sign in as Participant, Event Organiser, or Administrator">
+                        <span>Sign In ▾</span>
+                    </a>
+                    <div class="dropdown-panel" style="right:0;left:auto;min-width:215px;">
+                        <a href="/login?role=participant"><span class="dd-icon">🌿</span> Participant Login</a>
+                        <a href="/login?role=organizer"><span class="dd-icon">📅</span> Organiser Login</a>
+                        <a href="/login?role=admin"><span class="dd-icon">🛡️</span> Admin Login</a>
+                        <hr style="border:none;border-top:1px solid #e2e8f0;margin:.4rem 0;"/>
+                        <a href="/signup"><span class="dd-icon">✨</span> Create Account</a>
+                    </div>
+                </div>
+            {% endif %}
+            <button class="nav-icon-btn" id="theme-toggle-btn" title="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+            <button class="nav-icon-btn hamburger" id="hamburger-btn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<!-- ── MOBILE NAV ── -->
+<div class="mobile-nav-overlay" id="mobile-nav">
+    <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+    <a href="/"       onclick="closeMobileNav()">🏠 Home</a>
+    <a href="/dashboard" onclick="closeMobileNav()" style="color:#059669;font-weight:800;">📊 Environmental Dashboard</a>
+    {% if current_user %}
+        <a href="/logout" onclick="closeMobileNav()" style="color:#ef4444;">🚪 Sign Out ({{ current_user.username }} · {{ (current_user.role or 'user')|capitalize }})</a>
+    {% else %}
+        <a href="/login?role=participant" onclick="closeMobileNav()" style="color:#107c41;font-weight:700;">🌿 Participant Sign In</a>
+        <a href="/login?role=organizer" onclick="closeMobileNav()" style="color:#0284c7;font-weight:700;">📅 Event Organiser Sign In</a>
+        <a href="/login?role=admin" onclick="closeMobileNav()" style="color:#ea580c;font-weight:700;">🛡️ Administrator Sign In</a>
+    {% endif %}
+    <a href="/about"  onclick="closeMobileNav()">🌍 About Environment</a>
+    <a href="/problems" onclick="closeMobileNav()">⚠️ Environmental Problems</a>
+    <a href="/climate" onclick="closeMobileNav()">🌡️ Climate Change</a>
+    <a href="/biodiversity" onclick="closeMobileNav()">🦋 Biodiversity</a>
+    <a href="/solutions" onclick="closeMobileNav()">✅ Solutions Overview</a>
+    <a href="/forests" onclick="closeMobileNav()">🌲 Forest Conservation</a>
+    <a href="/water-conservation" onclick="closeMobileNav()">💧 Water Conservation</a>
+    <a href="/waste-management" onclick="closeMobileNav()">♻️ Waste Management</a>
+    <a href="/renewable-energy" onclick="closeMobileNav()">⚡ Renewable Energy</a>
+    <a href="/lifestyle" onclick="closeMobileNav()">🌿 Sustainable Living</a>
+    <a href="/calculator" onclick="closeMobileNav()">🧮 Eco Calculator</a>
+    <a href="/events" onclick="closeMobileNav()">📅 Events</a>
+    <a href="/news"   onclick="closeMobileNav()">📰 News</a>
+    <a href="/globe"  onclick="closeMobileNav()" style="color:#38bdf8;font-weight:800;">🌐 EcoGlobe 3D — Live Hazard Map</a>
+    <a href="/pledge" onclick="closeMobileNav()">🌍 Sign Pledge</a>
+    <a href="/contact" onclick="closeMobileNav()">📬 Contact</a>
+    <a href="/terms"  onclick="closeMobileNav()" style="color:#22c55e;">⚖️ Terms and Conditions</a>
+</div>
+
+<!-- ── HERO SLOT ── -->
+{% block hero %}{% endblock %}
+
+<!-- ── MAIN CONTENT SLOT ── -->
+<main>{% block content %}{% endblock %}</main>
+
+<!-- ── FOOTER ── -->
+<footer class="eco-footer">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand-name">Eco<span>Protect</span></div>
+            <p class="footer-desc">A comprehensive environmental control and understanding platform built with C++17, Python Flask, SQLite, and modern web standards — designed to inspire action through science-backed awareness.</p>
+            <div class="footer-social">
+                <a class="footer-social-btn" href="#" title="Twitter">𝕏</a>
+                <a class="footer-social-btn" href="#" title="Instagram">📷</a>
+                <a class="footer-social-btn" href="#" title="YouTube">▶️</a>
+                <a class="footer-social-btn" href="#" title="LinkedIn">in</a>
+            </div>
+        </div>
+        <div>
+            <p class="footer-col-title">Explore</p>
+            <ul class="footer-links-list">
+                <li><a href="/dashboard">Environmental Dashboard</a></li>
+                <li><a href="/about">About Environment</a></li>
+                <li><a href="/problems">Environmental Problems</a></li>
+                <li><a href="/climate">Climate Change</a></li>
+                <li><a href="/biodiversity">Biodiversity & Wildlife</a></li>
+                <li><a href="/solutions">Conservation Solutions</a></li>
+                <li><a href="/terms">Terms & Conditions</a></li>
+            </ul>
+        </div>
+        <div>
+            <p class="footer-col-title">Act Now</p>
+            <ul class="footer-links-list">
+                <li><a href="/dashboard">My Eco Dashboard</a></li>
+                <li><a href="/calculator">Carbon Calculator</a></li>
+                <li><a href="/pledge">Sign the Pledge</a></li>
+                <li><a href="/events">Join Events</a></li>
+                <li><a href="/news">Latest News</a></li>
+                <li><a href="/globe" style="color:#38bdf8;">🌐 EcoGlobe 3D</a></li>
+                <li><a href="/login">Account Login / Register</a></li>
+                <li><a href="/admin">Admin Panel</a></li>
+            </ul>
+        </div>
+        <div>
+            <p class="footer-col-title">Monthly Digest</p>
+            <p style="font-size:.85rem;color:#64748b;margin-bottom:.35rem">Environmental news, tips, and campaigns delivered monthly.</p>
+            <div class="footer-nl-input-wrap">
+                <input type="email" class="footer-nl-input" placeholder="your@email.com" id="footer-nl-email"/>
+                <button class="footer-nl-btn" onclick="footerSubscribe()">→</button>
+            </div>
+            <p style="font-size:.78rem;color:#334155;margin-top:1.5rem">📊 Sources: IPCC · NOAA · UN FAO · WHO<br>IEA · IUCN · WWF · UNEP · Nature</p>
+        </div>
+    </div>
+    <!-- AT THE END OF THE SCROLL: Terms and Conditions Disclosure -->
+    <div class="footer-bottom" style="max-width:1400px;margin:0 auto">
+        <p>© 2026 EcoProtect Environmental Platform. Built for the planet 🌍</p>
+        <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;">
+            <a href="/terms" style="color:#22c55e;font-weight:700;">⚖️ Terms and Conditions</a>
+            <a href="/terms#privacy">Privacy Policy</a>
+            <a href="/terms#remember-me">Cookies & Sessions</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/admin">Admin</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Toast container -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- Scroll to top -->
+<button id="scroll-top-btn" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(16,124,65,.4);display:none;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<!-- Scripts -->
+<script src="/static/js/api.js"></script>
+<script src="/static/js/main.js"></script>
+<script>
+// Nav scroll effect
+const nav = document.getElementById('eco-nav');
+window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 60);
+    const sb = document.getElementById('scroll-top-btn');
+    if (sb) sb.style.display = window.scrollY > 400 ? 'flex' : 'none';
+}, { passive: true });
+
+// Mobile nav
+document.getElementById('hamburger-btn')?.addEventListener('click', () => {
+    document.getElementById('mobile-nav')?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+});
+document.getElementById('mobile-nav-close')?.addEventListener('click', closeMobileNav);
+function closeMobileNav() {
+    document.getElementById('mobile-nav')?.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// Footer newsletter
+async function footerSubscribe() {
+    const email = document.getElementById('footer-nl-email')?.value.trim();
+    if (!email) return;
+    const r = await API.subscribeNewsletter(email);
+    showToast(r.message || 'Subscribed!', r.status === 'success' ? 'success' : 'info');
+}
+
+// Theme toggle
+const themeBtn = document.getElementById('theme-toggle-btn');
+const themeIcon = document.getElementById('theme-icon');
+function applyTheme(dark) {
+    document.body.classList.toggle('dark-mode', dark);
+    if (themeIcon) themeIcon.textContent = dark ? '☀️' : '🌙';
+    localStorage.setItem('ecoprotect_theme', dark ? 'dark' : 'light');
+}
+const savedTheme = localStorage.getItem('ecoprotect_theme');
+applyTheme(savedTheme === 'dark');
+themeBtn?.addEventListener('click', () => applyTheme(!document.body.classList.contains('dark-mode')));
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,412 @@
+{% extends "base.html" %}
+{% block title %}Environmental News & Research – EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#0f172a,#1e293b,#0b2d14);min-height:300px;display:flex;align-items:center;position:relative;overflow:hidden;">
+  <div class="hero-particles" aria-hidden="true">
+    <span class="particle" style="--x:20%;--y:35%;--s:.5;--d:7s"></span>
+    <span class="particle" style="--x:70%;--y:20%;--s:.6;--d:9s"></span>
+    <span class="particle" style="--x:45%;--y:65%;--s:.4;--d:6s"></span>
+  </div>
+  <div class="container hero-inner" style="position:relative;z-index:2;padding:3rem 1.5rem;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="/" class="breadcrumb-link">Home</a></li>
+        <li aria-hidden="true" class="breadcrumb-sep">›</li>
+        <li class="breadcrumb-current" aria-current="page">News &amp; Research</li>
+      </ol>
+    </nav>
+    <div style="font-size:3.5rem;margin-bottom:.75rem;filter:drop-shadow(0 0 18px #60a5fa66);" aria-hidden="true">📰</div>
+    <h1 style="color:#fff;font-size:clamp(1.75rem,4vw,2.8rem);font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;max-width:720px;">
+      Environmental News &amp; Research
+    </h1>
+    <p style="color:#94a3b8;font-size:1.05rem;max-width:580px;margin-top:.75rem;line-height:1.7;">
+      Curated science and journalism from the world's most authoritative environmental institutions — updated weekly by our editorial team.
+    </p>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<!-- ─── SEARCH & FILTER ────────────────────────────────────────────── -->
+<section style="background:var(--bg-surface-alt);border-bottom:1px solid var(--border-color);padding:1.5rem 0;">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;">
+        <input type="search" id="news-search" placeholder="🔍 Search articles by title, topic or author…"
+          style="width:100%;padding:.625rem 1rem;border:1px solid var(--border-color);border-radius:999px;font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);box-sizing:border-box;"
+          aria-label="Search news articles">
+      </div>
+      <div id="news-category-filters" role="group" aria-label="Article category filters" style="display:flex;gap:.5rem;flex-wrap:wrap;">
+        <button class="news-filter active" data-cat="all" style="padding:.4rem 1rem;border-radius:999px;border:none;cursor:pointer;font-size:.82rem;font-weight:700;background:var(--primary);color:#fff;transition:all .2s;">All</button>
+        <button class="news-filter" data-cat="climate" style="padding:.4rem 1rem;border-radius:999px;border:1px solid var(--border-color);cursor:pointer;font-size:.82rem;font-weight:600;background:var(--bg-surface);color:var(--text-secondary);transition:all .2s;">🌡️ Climate</button>
+        <button class="news-filter" data-cat="biodiversity" style="padding:.4rem 1rem;border-radius:999px;border:1px solid var(--border-color);cursor:pointer;font-size:.82rem;font-weight:600;background:var(--bg-surface);color:var(--text-secondary);transition:all .2s;">🦋 Biodiversity</button>
+        <button class="news-filter" data-cat="oceans" style="padding:.4rem 1rem;border-radius:999px;border:1px solid var(--border-color);cursor:pointer;font-size:.82rem;font-weight:600;background:var(--bg-surface);color:var(--text-secondary);transition:all .2s;">🌊 Oceans</button>
+        <button class="news-filter" data-cat="energy" style="padding:.4rem 1rem;border-radius:999px;border:1px solid var(--border-color);cursor:pointer;font-size:.82rem;font-weight:600;background:var(--bg-surface);color:var(--text-secondary);transition:all .2s;">⚡ Energy</button>
+        <button class="news-filter" data-cat="forests" style="padding:.4rem 1rem;border-radius:999px;border:1px solid var(--border-color);cursor:pointer;font-size:.82rem;font-weight:600;background:var(--bg-surface);color:var(--text-secondary);transition:all .2s;">🌲 Forests</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED ARTICLE ──────────────────────────────────────────── -->
+<section style="padding:2.5rem 0 1.5rem;">
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;">
+      <span style="background:var(--primary);color:#fff;font-size:.72rem;font-weight:800;padding:.25rem .75rem;border-radius:999px;text-transform:uppercase;letter-spacing:.06em;">⭐ Featured Story</span>
+    </div>
+    <div id="featured-article-wrap">
+      <!-- Injected by JS; fallback below shown until API responds -->
+      <div id="featured-loading" style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:2.5rem;text-align:center;color:var(--text-muted);">
+        <div style="font-size:2rem;margin-bottom:.5rem;">⏳</div>
+        <p>Loading featured article…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ARTICLES GRID ─────────────────────────────────────────────── -->
+<section class="section" style="padding:1rem 0 3rem;">
+  <div class="container">
+    <h2 style="font-size:1.3rem;font-weight:800;color:var(--text-primary);margin-bottom:1.5rem;font-family:'Plus Jakarta Sans',sans-serif;">Latest Articles</h2>
+    <div id="news-loading" style="text-align:center;padding:2rem;color:var(--text-muted);">
+      <div style="font-size:2rem;margin-bottom:.5rem;">⏳</div>
+      <p>Loading articles…</p>
+    </div>
+    <div id="news-articles-grid"
+      style="display:none;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;"
+      role="list" aria-label="News articles">
+    </div>
+    <div id="news-empty" style="display:none;text-align:center;padding:2.5rem;color:var(--text-muted);">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🔍</div>
+      <p>No articles match your search. Try different keywords or clear the filter.</p>
+    </div>
+    <div id="news-error" style="display:none;padding:1.5rem;background:#fef2f2;border-radius:var(--radius-md);color:#991b1b;text-align:center;">
+      <p>⚠️ Could not load articles. Please try again later.</p>
+    </div>
+    <div id="news-load-more-wrap" style="text-align:center;margin-top:2rem;display:none;">
+      <button id="news-load-more" style="padding:.75rem 2rem;background:transparent;border:2px solid var(--primary);color:var(--primary);border-radius:var(--radius-md);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s;">
+        Load More Articles
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUSTED SOURCES ──────────────────────────────────────────── -->
+<section class="section" style="background:var(--bg-surface-alt);padding:3rem 0;">
+  <div class="container">
+    <div class="section-header" style="text-align:center;margin-bottom:2.5rem;">
+      <span class="section-tag">Credibility</span>
+      <h2 class="section-title">Trusted Scientific Sources</h2>
+      <p class="section-sub">All articles and data on EcoProtect are sourced from peer-reviewed research and globally recognised institutions.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
+      <!-- IPCC -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🌍</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">IPCC</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">Intergovernmental Panel on Climate Change — the UN's definitive climate science authority. Source for AR6 emission factors and warming projections.</p>
+        </div>
+      </div>
+      <!-- NOAA -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🌊</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">NOAA</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">US National Oceanic and Atmospheric Administration — ocean temperatures, CO₂ monitoring (Mauna Loa), Arctic sea-ice extent and hurricane data.</p>
+        </div>
+      </div>
+      <!-- WWF -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🐼</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">WWF</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">World Wide Fund for Nature — Living Planet Report (biennial biodiversity index), species conservation status and habitat protection data.</p>
+        </div>
+      </div>
+      <!-- IUCN -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🦁</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">IUCN</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">International Union for Conservation of Nature — Red List of threatened species (42,000+ assessed), ecosystem vulnerability ratings and biodiversity metrics.</p>
+        </div>
+      </div>
+      <!-- UNEP -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🇺🇳</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">UNEP</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">UN Environment Programme — Emissions Gap Report, Adaptation Gap Report, Global Resources Outlook and plastics pollution assessment data.</p>
+        </div>
+      </div>
+      <!-- Nature Journal -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🔬</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">Nature Journal</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">World's most-cited peer-reviewed scientific journal — primary research on tipping points, permafrost thaw, coral bleaching and deforestation dynamics.</p>
+        </div>
+      </div>
+      <!-- WHO -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">🏥</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">WHO</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">World Health Organisation — air quality guidelines, health impacts of climate change (250,000 extra deaths/yr by 2030), water safety benchmarks.</p>
+        </div>
+      </div>
+      <!-- IEA -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+        <div style="font-size:1.75rem;flex-shrink:0;">⚡</div>
+        <div>
+          <h3 style="font-size:.9rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">IEA</h3>
+          <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0;">International Energy Agency — World Energy Outlook, per-country CO₂ emission inventories, renewable capacity statistics and net-zero pathway modelling.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SUBMIT AN ARTICLE ─────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0;">
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;">
+      <div class="section-header" style="text-align:center;margin-bottom:2rem;">
+        <span class="section-tag">Community</span>
+        <h2 class="section-title">Submit a Research Link</h2>
+        <p class="section-sub">Found an important piece of environmental journalism or research? Share it with our community — articles are reviewed by our admin team before publication.</p>
+      </div>
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:2rem;">
+        <form id="article-submit-form" novalidate>
+          <div style="margin-bottom:1rem;">
+            <label for="art-title" style="display:block;font-size:.875rem;font-weight:600;color:var(--text-secondary);margin-bottom:.4rem;">Article / Study Title <span style="color:#ef4444;" aria-hidden="true">*</span></label>
+            <input type="text" id="art-title" name="title" required
+              style="width:100%;padding:.625rem .875rem;border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);box-sizing:border-box;"
+              placeholder="e.g. Global Forest Watch 2024 Annual Report">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label for="art-summary" style="display:block;font-size:.875rem;font-weight:600;color:var(--text-secondary);margin-bottom:.4rem;">Brief Summary <span style="color:#ef4444;" aria-hidden="true">*</span></label>
+            <textarea id="art-summary" name="summary" required rows="3"
+              style="width:100%;padding:.625rem .875rem;border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);resize:vertical;box-sizing:border-box;"
+              placeholder="2–3 sentences summarising the key findings…"></textarea>
+          </div>
+          <div style="margin-bottom:1.5rem;">
+            <label for="art-link" style="display:block;font-size:.875rem;font-weight:600;color:var(--text-secondary);margin-bottom:.4rem;">Source URL <span style="color:#ef4444;" aria-hidden="true">*</span></label>
+            <input type="url" id="art-link" name="link" required
+              style="width:100%;padding:.625rem .875rem;border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);box-sizing:border-box;"
+              placeholder="https://www.nature.com/articles/…">
+          </div>
+          <div id="art-feedback" style="display:none;margin-bottom:1rem;padding:.75rem;border-radius:var(--radius-sm);font-size:.875rem;"></div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <button type="submit"
+              style="padding:.75rem 1.75rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-md);font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s;">
+              📩 Submit for Review
+            </button>
+            <p style="font-size:.8rem;color:var(--text-muted);margin:0;">Admin approval required before publication. Usually within 24–48 hours.</p>
+          </div>
+        </form>
+      </div>
+      <p style="text-align:center;margin-top:1.25rem;font-size:.875rem;color:var(--text-secondary);">
+        Are you an admin? <a href="/admin" style="color:var(--primary);font-weight:600;">Go to Admin Panel →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─────────────────────────────────────────────────────────── -->
+<section style="background:linear-gradient(135deg,#0f172a,#1e293b);padding:3rem 0;">
+  <div class="container" style="text-align:center;">
+    <h2 style="color:#fff;font-size:1.75rem;font-weight:800;margin-bottom:.75rem;font-family:'Plus Jakarta Sans',sans-serif;">
+      Stay Informed, Stay Engaged
+    </h2>
+    <p style="color:#94a3b8;max-width:520px;margin:0 auto 2rem;">
+      Knowledge is the first step. Turn what you've learned into action — join an event near you or sign the pledge today.
+    </p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/events" style="background:#16a34a;color:#fff;padding:.875rem 2rem;border-radius:var(--radius-md);font-weight:800;text-decoration:none;">📅 Browse Events</a>
+      <a href="/admin" style="background:transparent;border:2px solid #60a5fa;color:#60a5fa;padding:.875rem 2rem;border-radius:var(--radius-md);font-weight:700;text-decoration:none;">🔐 Admin Panel</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  'use strict';
+
+  let allArticles = [];
+  let activeCategory = 'all';
+  let currentPage = 0;
+  const PAGE_SIZE = 9;
+
+  const grid = document.getElementById('news-articles-grid');
+  const loadingEl = document.getElementById('news-loading');
+  const emptyEl = document.getElementById('news-empty');
+  const errorEl = document.getElementById('news-error');
+  const loadMoreWrap = document.getElementById('news-load-more-wrap');
+  const loadMoreBtn = document.getElementById('news-load-more');
+  const searchInput = document.getElementById('news-search');
+
+  const categoryColors = {
+    climate: {bg:'#fef3c7',color:'#b45309'},
+    biodiversity: {bg:'#f0fdf4',color:'#16a34a'},
+    oceans: {bg:'#eff6ff',color:'#1d4ed8'},
+    energy: {bg:'#fdf4ff',color:'#7c3aed'},
+    forests: {bg:'#ecfdf5',color:'#065f46'},
+    default: {bg:'#f1f5f9',color:'#475569'}
+  };
+  const categoryIcons = {climate:'🌡️',biodiversity:'🦋',oceans:'🌊',energy:'⚡',forests:'🌲'};
+
+  function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function renderFeatured(art) {
+    const c = categoryColors[art.category] || categoryColors.default;
+    const icon = categoryIcons[art.category] || '📰';
+    const wrap = document.getElementById('featured-article-wrap');
+    const dateStr = art.date ? new Date(art.date).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '';
+    wrap.innerHTML = `
+      <article style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;display:grid;grid-template-columns:1fr 1fr;min-height:280px;">
+        <div style="background:linear-gradient(135deg,#0f172a,#1e293b,#0b2d14);padding:2.5rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:3rem;margin-bottom:1rem;">${icon}</div>
+          <span style="background:rgba(255,255,255,.15);color:#e2e8f0;font-size:.75rem;font-weight:700;padding:.2rem .7rem;border-radius:999px;display:inline-block;margin-bottom:1rem;width:max-content;">${escHtml(art.category||'Article')}</span>
+          <h2 style="color:#fff;font-size:1.4rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.4;margin:0 0 1rem;">${escHtml(art.title)}</h2>
+          <p style="color:#94a3b8;font-size:.875rem;margin:0;">${dateStr ? 'Published ' + dateStr : ''} ${art.source ? '· ' + escHtml(art.source) : ''}</p>
+        </div>
+        <div style="padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <p style="font-size:.95rem;color:var(--text-secondary);line-height:1.75;margin:0 0 1.5rem;">${escHtml(art.summary || art.content || '')}</p>
+          ${art.url ? `<a href="${escHtml(art.url)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--primary);color:#fff;padding:.65rem 1.5rem;border-radius:var(--radius-md);font-weight:700;font-size:.9rem;text-decoration:none;width:max-content;">Read Full Article ↗</a>` : ''}
+        </div>
+      </article>`;
+    document.getElementById('featured-loading').style.display = 'none';
+  }
+
+  function renderCard(art) {
+    const c = categoryColors[art.category] || categoryColors.default;
+    const icon = categoryIcons[art.category] || '📰';
+    const dateStr = art.date ? new Date(art.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
+    return `
+      <article role="listitem" style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s;cursor:default;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
+        <div style="padding:1.25rem 1.25rem .75rem;flex:1;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
+            <span style="background:${c.bg};color:${c.color};font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:999px;">${icon} ${escHtml(art.category||'Article')}</span>
+            <span style="font-size:.75rem;color:var(--text-muted);">${dateStr}</span>
+          </div>
+          <h3 style="font-size:.95rem;font-weight:800;color:var(--text-primary);margin:0 0 .6rem;line-height:1.4;font-family:'Plus Jakarta Sans',sans-serif;">${escHtml(art.title)}</h3>
+          <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${escHtml(art.summary||art.content||'')}</p>
+        </div>
+        <div style="padding:.75rem 1.25rem 1rem;border-top:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:.8rem;color:var(--text-muted);">${art.source ? '📚 ' + escHtml(art.source) : ''}</span>
+          ${art.url ? `<a href="${escHtml(art.url)}" target="_blank" rel="noopener noreferrer" style="font-size:.82rem;color:var(--primary);font-weight:700;text-decoration:none;">Read →</a>` : ''}
+        </div>
+      </article>`;
+  }
+
+  function getFiltered() {
+    const q = (searchInput.value||'').toLowerCase();
+    return allArticles.filter(a => {
+      const matchCat = activeCategory === 'all' || a.category === activeCategory;
+      const matchQ = !q || (a.title||'').toLowerCase().includes(q) || (a.summary||'').toLowerCase().includes(q) || (a.source||'').toLowerCase().includes(q);
+      return matchCat && matchQ;
+    });
+  }
+
+  function renderPage(reset) {
+    const filtered = getFiltered();
+    if (reset) { currentPage = 0; grid.innerHTML = ''; }
+    const slice = filtered.slice(currentPage * PAGE_SIZE, (currentPage+1) * PAGE_SIZE);
+    if (filtered.length === 0) {
+      grid.style.display = 'none';
+      emptyEl.style.display = 'block';
+      loadMoreWrap.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    grid.style.display = 'grid';
+    grid.insertAdjacentHTML('beforeend', slice.map(renderCard).join(''));
+    const shown = (currentPage+1) * PAGE_SIZE;
+    loadMoreWrap.style.display = shown < filtered.length ? 'block' : 'none';
+  }
+
+  // Category filters
+  document.querySelectorAll('.news-filter').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.news-filter').forEach(b => {
+        b.style.background = 'var(--bg-surface)'; b.style.color = 'var(--text-secondary)'; b.style.borderColor = 'var(--border-color)'; b.classList.remove('active');
+      });
+      this.style.background = 'var(--primary)'; this.style.color = '#fff'; this.style.borderColor = 'var(--primary)'; this.classList.add('active');
+      activeCategory = this.dataset.cat;
+      renderPage(true);
+    });
+  });
+
+  searchInput.addEventListener('input', () => renderPage(true));
+  loadMoreBtn.addEventListener('click', () => { currentPage++; renderPage(false); });
+
+  // Load articles
+  fetch('/api/articles')
+    .then(r => r.json())
+    .then(data => {
+      const articles = data.articles || data || [];
+      loadingEl.style.display = 'none';
+      document.getElementById('featured-loading').style.display = 'none';
+      allArticles = articles.length ? articles : getSampleArticles();
+      if (allArticles.length > 0) renderFeatured(allArticles[0]);
+      allArticles = allArticles.slice(1); // rest go to grid
+      renderPage(true);
+    })
+    .catch(() => {
+      loadingEl.style.display = 'none';
+      document.getElementById('featured-loading').style.display = 'none';
+      allArticles = getSampleArticles();
+      renderFeatured(allArticles[0]);
+      allArticles = allArticles.slice(1);
+      renderPage(true);
+    });
+
+  function getSampleArticles() {
+    return [
+      {id:1,title:'IPCC AR6 Report: 1.5°C Warming Threshold Could Be Breached by 2035',category:'climate',summary:'The Intergovernmental Panel on Climate Change\'s Sixth Assessment Report warns that the critical 1.5°C global warming threshold could be crossed as early as 2035 under high-emission scenarios, with irreversible consequences for ecosystems, food security and sea-level rise.',source:'IPCC',date:'2024-03-18',url:'https://www.ipcc.ch/report/ar6/',featured:true},
+      {id:2,title:'WWF Living Planet Report 2024: Wildlife Populations Down 73% Since 1970',category:'biodiversity',summary:'WWF\'s biennial Living Planet Index shows a catastrophic 73% average decline in monitored vertebrate populations over 50 years, driven primarily by habitat destruction, overexploitation, invasive species, disease and climate change.',source:'WWF',date:'2024-10-10',url:'https://www.worldwildlife.org/'},
+      {id:3,title:'NOAA: 2024 Confirmed Hottest Year Ever Recorded — Third Consecutive Record',category:'climate',summary:'NOAA\'s Global Surface Temperature analysis confirms 2024 as the hottest year in 175 years of records, surpassing 2023 by 0.13°C. The global mean surface temperature was 1.29°C above the pre-industrial baseline.',source:'NOAA',date:'2025-01-10',url:'https://www.noaa.gov/'},
+      {id:4,title:'IEA: Renewable Energy Surpasses Coal in Global Electricity Generation',category:'energy',summary:'For the first time in history, renewable energy sources (solar, wind, hydro, geothermal) generated more electricity globally than coal in 2024, according to the IEA World Energy Outlook. Solar alone added a record 450 GW of new capacity.',source:'IEA',date:'2024-11-05',url:'https://www.iea.org/'},
+      {id:5,title:'Amazon Deforestation Drops 50% Under Brazil\'s New Forest Protection Laws',category:'forests',summary:'Brazil\'s new Amazon protection legislation, backed by satellite monitoring, has reduced primary forest loss by 50% year-on-year. However, scientists warn the remaining deforestation rate still exceeds safe planetary boundaries for the Amazon biome.',source:'INPE / Nature',date:'2024-08-22',url:'https://www.nature.com/'},
+      {id:6,title:'WHO Air Quality Guidelines: 99% of World\'s Population Breathes Unsafe Air',category:'climate',summary:'Updated WHO Global Air Quality database reveals that 99% of the global population is exposed to air with PM2.5 concentrations exceeding WHO safe limits, contributing to 7 million premature deaths annually from ambient and household pollution.',source:'WHO',date:'2024-06-15',url:'https://www.who.int/'},
+      {id:7,title:'Great Barrier Reef Suffers Worst Bleaching Event in Recorded History (2024)',category:'oceans',summary:'Australian scientists report that the 2024 mass bleaching event affected 73% of the Great Barrier Reef, the highest proportion ever recorded. Marine heatwaves driven by El Niño and long-term ocean warming are the primary cause.',source:'AIMS / GBRMPA',date:'2024-04-02',url:'https://www.aims.gov.au/'},
+      {id:8,title:'UNEP Emissions Gap Report 2024: World Still Heading for 3°C Warming',category:'climate',summary:'UNEP\'s annual Emissions Gap Report finds current Nationally Determined Contributions (NDCs) under the Paris Agreement put the world on track for 2.6–3.1°C of warming, far exceeding the 1.5°C safe limit.',source:'UNEP',date:'2024-10-24',url:'https://www.unep.org/'},
+      {id:9,title:'Global Plastic Treaty: 175 Nations Agree on Framework to End Plastic Pollution',category:'oceans',summary:'An historic international agreement to end plastic pollution was reached at UNEA-5, with 175 member states agreeing to a legally binding framework targeting single-use plastics, microplastic limits and extended producer responsibility.',source:'UNEP',date:'2024-11-20',url:'https://www.unep.org/'},
+      {id:10,title:'India\'s Renewable Energy Capacity Crosses 200 GW — Leads Emerging Markets',category:'energy',summary:'India crossed the 200 GW milestone in installed renewable energy capacity in 2024, making it the third-largest solar market globally. The country is on track to meet its 500 GW non-fossil target by 2030 per COP26 commitments.',source:'IEA / MNRE',date:'2024-09-30',url:'https://www.iea.org/'}
+    ];
+  }
+
+  // Article submit form
+  document.getElementById('article-submit-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fb = document.getElementById('art-feedback');
+    const payload = {
+      title: document.getElementById('art-title').value.trim(),
+      summary: document.getElementById('art-summary').value.trim(),
+      link: document.getElementById('art-link').value.trim()
+    };
+    if (!payload.title || !payload.summary || !payload.link) {
+      fb.textContent = 'Please fill in all fields.';
+      fb.style.display = 'block'; fb.style.background = '#fef2f2'; fb.style.color = '#991b1b'; fb.style.border = '1px solid #fecaca';
+      return;
+    }
+    const btn = this.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = '⏳ Submitting…';
+    fetch('/api/submit-article', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(r=>r.json())
+      .then(d=>{
+        if(d.success){fb.textContent='✅ Submitted! Our admin team will review it within 24–48 hours.';fb.style.background='#f0fdf4';fb.style.color='#16a34a';fb.style.border='1px solid #bbf7d0';}
+        else{fb.textContent=d.error||'Submission failed.';fb.style.background='#fef2f2';fb.style.color='#991b1b';fb.style.border='1px solid #fecaca';}
+        fb.style.display='block'; btn.disabled=false; btn.textContent='📩 Submit for Review';
+      })
+      .catch(()=>{fb.textContent='⚠️ Network error. Please try again.';fb.style.display='block';fb.style.background='#fef2f2';fb.style.color='#991b1b';fb.style.border='1px solid #fecaca';btn.disabled=false;btn.textContent='📩 Submit for Review';});
+  });
+})();
+</script>
+{% endblock %}

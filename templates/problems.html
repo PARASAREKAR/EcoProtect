@@ -1,0 +1,524 @@
+{% extends "base.html" %}
+{% block title %}Environmental Problems – EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#1a0a0a 0%,#3b0f0f 45%,#5c1a00 100%);padding:100px 0 72px;position:relative;overflow:hidden;">
+  <!-- Decorative orbs -->
+  <div aria-hidden="true" style="position:absolute;top:-80px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,.18) 0%,transparent 70%);pointer-events:none;"></div>
+  <div aria-hidden="true" style="position:absolute;bottom:-60px;left:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(251,146,60,.12) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom:28px;">
+      <ol style="display:inline-flex;align-items:center;gap:8px;list-style:none;padding:8px 20px;background:rgba(255,255,255,.08);border-radius:40px;backdrop-filter:blur(6px);">
+        <li><a href="/" style="color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">🏠 Home</a></li>
+        <li aria-hidden="true" style="color:rgba(255,255,255,.35);font-size:.85rem;">›</li>
+        <li style="color:#fca5a5;font-size:.85rem;font-weight:600;">Problems</li>
+      </ol>
+    </nav>
+
+    <div style="font-size:5rem;line-height:1;margin-bottom:24px;filter:drop-shadow(0 4px 24px rgba(220,38,38,.5));">🌫️</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:#fff;margin:0 0 20px;line-height:1.15;text-shadow:0 2px 20px rgba(0,0,0,.4);">
+      Environmental Problems<br><span style="color:#fca5a5;">Threatening Earth</span>
+    </h1>
+    <p style="font-size:1.15rem;color:rgba(255,255,255,.8);max-width:680px;margin:0 auto 36px;line-height:1.7;">
+      From invisible particles choking city air to plastic shards found in human placentas — five major pollution crises are pushing Earth's life-support systems toward collapse. Understanding the scale is the first step toward action.
+    </p>
+
+    <!-- Quick-jump pills -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+      {% set jumps = [('air','🌬️ Air'),('water','💧 Water'),('soil','🌱 Soil'),('noise','🔊 Noise'),('plastic','🧴 Plastic')] %}
+      {% for anchor, label in jumps %}
+      <a href="#{{anchor}}" style="padding:9px 20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:40px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;backdrop-filter:blur(4px);transition:all .2s;" onmouseover="this.style.background='rgba(220,38,38,.4)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">{{label}}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- ═══════════════════════════════════════════════
+     OVERVIEW STATS BAR
+═══════════════════════════════════════════════ -->
+<section style="background:#0f172a;padding:48px 0;">
+  <div class="container">
+    <p style="text-align:center;color:rgba(255,255,255,.5);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px;">Global Pollution at a Glance — 2024 Data</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;border-radius:var(--radius-md);overflow:hidden;">
+      {% set stats = [
+        ('7 Million','deaths per year from air pollution','WHO 2024','#dc2626','💨'),
+        ('2.2 Billion','people lack safe drinking water','UN 2023','#0284c7','💧'),
+        ('33%','of global soils are degraded','FAO 2023','#854d0e','🌾'),
+        ('14M Tonnes','of plastic enters oceans annually','UNEP 2023','#4338ca','🌊'),
+        ('1.1 Billion','at risk from harmful noise levels','WHO 2022','#7c3aed','🔊')
+      ] %}
+      {% for val, desc, src, color, icon in stats %}
+      <div style="background:#1e293b;padding:32px 24px;text-align:center;border-top:3px solid {{color}};">
+        <div style="font-size:1.8rem;margin-bottom:8px;">{{icon}}</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.75rem;font-weight:800;color:{{color}};line-height:1;">{{val}}</div>
+        <div style="color:rgba(255,255,255,.75);font-size:.82rem;margin:8px 0 6px;line-height:1.4;">{{desc}}</div>
+        <div style="color:rgba(255,255,255,.35);font-size:.72rem;letter-spacing:.06em;">Source: {{src}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     AIR POLLUTION
+═══════════════════════════════════════════════ -->
+<section id="air" style="padding:96px 0;background:var(--bg-page);">
+  <div class="container">
+    <p class="section-eyebrow" style="color:#dc2626;">💨 Air Pollution</p>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;color:var(--text-primary);margin:0 0 16px;">The Invisible Killer in Every Breath</h2>
+    <p style="color:var(--text-secondary);max-width:700px;font-size:1.05rem;line-height:1.8;margin-bottom:56px;">
+      Outdoor and indoor air pollution combined constitute the world's single largest environmental health risk. Every day, 99% of the global population breathes air that exceeds WHO safety guidelines — a silent, borderless emergency.
+    </p>
+
+    <!-- PM2.5 Comparison Banner -->
+    <div style="background:linear-gradient(135deg,#fef2f2,#fff1f0);border:1px solid #fecaca;border-radius:var(--radius-lg);padding:36px 40px;margin-bottom:48px;display:flex;flex-wrap:wrap;gap:40px;align-items:center;">
+      <div style="flex:1;min-width:240px;">
+        <p style="font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#dc2626;margin-bottom:8px;font-weight:700;">WHO PM2.5 Safe Limit</p>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:3.2rem;font-weight:900;color:#16a34a;">5 <span style="font-size:1.4rem;font-weight:600;">µg/m³</span></div>
+        <p style="color:#4b5563;font-size:.9rem;margin-top:4px;">Annual mean guideline (revised 2021)</p>
+      </div>
+      <div style="width:2px;background:#fecaca;height:80px;"></div>
+      <div style="flex:1;min-width:240px;">
+        <p style="font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#dc2626;margin-bottom:8px;font-weight:700;">Global Average Exposure</p>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:3.2rem;font-weight:900;color:#dc2626;">42 <span style="font-size:1.4rem;font-weight:600;">µg/m³</span></div>
+        <p style="color:#4b5563;font-size:.9rem;margin-top:4px;"><strong>8.4× above</strong> the safe threshold</p>
+      </div>
+      <div style="flex:2;min-width:280px;">
+        <p style="font-size:.83rem;color:#6b7280;margin-bottom:12px;font-weight:600;">Major Source Contributions</p>
+        {% set sources = [('Transportation',25,'#dc2626'),('Industry',20,'#f97316'),('Agriculture',17,'#ca8a04'),('Household Burning',12,'#7c3aed'),('Other',26,'#94a3b8')] %}
+        {% for src, pct, color in sources %}
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:4px;"><span style="color:#374151;">{{src}}</span><span style="color:{{color}};font-weight:700;">{{pct}}%</span></div>
+          <div style="height:8px;background:#fee2e2;border-radius:4px;"><div style="width:{{pct}}%;height:8px;background:{{color}};border-radius:4px;transition:width .6s;"></div></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 6 Major Pollutants Grid -->
+    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:28px;color:var(--text-primary);">Six Key Air Pollutants</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:48px;">
+      {% set pollutants = [
+        ('PM2.5 / PM10','Particulate Matter','Tiny particles (<2.5µm) penetrate deep into lungs and bloodstream, causing cardiovascular and respiratory disease. Formed from combustion, dust, and chemical reactions.','#dc2626','💧','WHO: 7M deaths/yr linked to PM'),
+        ('NOₓ','Nitrogen Oxides','Produced by vehicle engines and power plants at high temperatures. Forms smog and acid rain; irritates lung airways and worsens asthma.','#f97316','🏭','Present in 90% of urban areas above WHO limits'),
+        ('SO₂','Sulfur Dioxide','Released by coal burning and metal smelting. Triggers asthma attacks, forms acid rain that damages forests and aquatic ecosystems.','#ca8a04','⚡','EEA: SO₂ fell 94% in EU since 1990 — proof action works'),
+        ('VOCs','Volatile Organic Compounds','Emitted from paints, solvents, fuels and vegetation. React with NOₓ to form ground-level ozone and secondary PM2.5.','#7c3aed','🎨','IARC classifies benzene (a VOC) as Group 1 carcinogen'),
+        ('O₃','Ground-Level Ozone','Not directly emitted — forms when VOCs and NOₓ react in sunlight. Damages crop yields by $11–18B/yr in the US alone.','#0284c7','☀️','IPCC: ozone may cut crop yields 5–26% by 2100'),
+        ('CO','Carbon Monoxide','Colourless, odourless gas from incomplete combustion. Binds to haemoglobin, starving tissues of oxygen. 50,000 ER visits/yr in the US.','#475569','🔥','WHO: 3–4B people exposed to household CO from open fires')
+      ] %}
+      {% for symbol, name, desc, color, icon, stat in pollutants %}
+      <div style="background:var(--bg-surface);border-radius:var(--radius-md);padding:28px;border:1px solid var(--border-color);border-top:4px solid {{color}};box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='none';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:{{color}}18;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">{{icon}}</div>
+          <div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:{{color}};">{{symbol}}</div>
+            <div style="font-size:.82rem;color:var(--text-muted);">{{name}}</div>
+          </div>
+        </div>
+        <p style="color:var(--text-secondary);font-size:.88rem;line-height:1.7;margin-bottom:14px;">{{desc}}</p>
+        <div style="background:{{color}}10;border-left:3px solid {{color}};border-radius:0 6px 6px 0;padding:8px 12px;font-size:.78rem;color:{{color}};font-weight:600;">📊 {{stat}}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Health Effects + Solutions -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:#fef2f2;border-radius:var(--radius-md);padding:32px;border:1px solid #fecaca;">
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#991b1b;margin-bottom:18px;">⚠️ Health Effects</h4>
+        {% for effect in ['Cardiovascular disease — 4.2M deaths/yr (WHO)','Lung cancer — 29% of cases linked to outdoor air','Chronic Obstructive Pulmonary Disease (COPD)','Stroke — air pollution raises risk by 35%','Premature birth & low birth-weight','Cognitive decline & Alzheimer\'s risk (emerging research)'] %}
+        <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start;">
+          <span style="color:#dc2626;font-size:1.1rem;flex-shrink:0;">✕</span>
+          <span style="color:#7f1d1d;font-size:.88rem;line-height:1.6;">{{effect}}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div style="background:#f0fdf4;border-radius:var(--radius-md);padding:32px;border:1px solid #bbf7d0;">
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#14532d;margin-bottom:18px;">✅ Proven Solutions</h4>
+        {% for sol in ['Electrify transport — EVs eliminate tailpipe PM and NOₓ','Switch to renewable energy — eliminates coal/gas SO₂','Clean cooking stoves — cuts household CO & PM2.5 by 90%','Green building codes — mandatory HEPA filtration in cities','Industrial scrubbers & catalytic converters','Expand urban green corridors & tree canopy cover'] %}
+        <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start;">
+          <span style="color:#16a34a;font-size:1.1rem;flex-shrink:0;">✓</span>
+          <span style="color:#14532d;font-size:.88rem;line-height:1.6;">{{sol}}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     WATER POLLUTION
+═══════════════════════════════════════════════ -->
+<section id="water" style="padding:96px 0;background:var(--bg-surface-alt);">
+  <div class="container">
+    <p class="section-eyebrow" style="color:#0284c7;">💧 Water Pollution</p>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;color:var(--text-primary);margin:0 0 16px;">Poisoning the Planet's Lifeblood</h2>
+    <p style="color:var(--text-secondary);max-width:700px;font-size:1.05rem;line-height:1.8;margin-bottom:52px;">Rivers, lakes, groundwater and oceans are absorbing industrial waste, agricultural runoff and untreated sewage at rates that outpace nature's capacity to recover. Over 80% of the world's wastewater flows untreated back into the environment (UNESCO).</p>
+
+    <!-- Source breakdown -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:var(--radius-md);overflow:hidden;margin-bottom:48px;box-shadow:var(--shadow-md);">
+      {% set wsrc = [('Agricultural Runoff','44%','Fertilisers, pesticides, animal waste – largest single source of water body impairment in most nations.','#ca8a04','🌾'),('Industrial Discharge','38%','Heavy metals, solvents and thermal pollution from factories – often entering waterways untreated in developing nations.','#64748b','🏭'),('Untreated Sewage','18%','Human waste carries pathogens causing cholera, typhoid and dysentery — killing 485,000 from diarrhoea/yr (WHO).','#7c3aed','🚿')] %}
+      {% for name, pct, desc, color, icon in wsrc %}
+      <div style="background:var(--bg-surface);padding:32px 28px;border-top:4px solid {{color}};">
+        <div style="font-size:2rem;margin-bottom:8px;">{{icon}}</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.2rem;font-weight:800;color:{{color}};margin-bottom:6px;">{{pct}}</div>
+        <div style="font-weight:700;color:var(--text-primary);margin-bottom:10px;font-size:.95rem;">{{name}}</div>
+        <p style="color:var(--text-secondary);font-size:.85rem;line-height:1.6;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Data Table -->
+    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:20px;">Key Water Pollution Statistics</h3>
+    <div style="overflow-x:auto;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:48px;">
+      <table style="width:100%;border-collapse:collapse;background:var(--bg-surface);">
+        <thead>
+          <tr style="background:#0284c7;color:#fff;">
+            <th style="padding:14px 20px;text-align:left;font-size:.85rem;font-weight:700;">Issue</th>
+            <th style="padding:14px 20px;text-align:left;font-size:.85rem;font-weight:700;">Scale</th>
+            <th style="padding:14px 20px;text-align:left;font-size:.85rem;font-weight:700;">Region Most Affected</th>
+            <th style="padding:14px 20px;text-align:left;font-size:.85rem;font-weight:700;">Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set wrows = [
+            ('Oceanic Dead Zones','700+ hypoxic zones globally; Gulf of Mexico dead zone ~15,000 km²','Coastal river deltas worldwide','NOAA / Diaz & Rosenberg, 2023'),
+            ('Arsenic Contamination','140 million people in 50+ countries drink arsenic-laced water','Bangladesh, West Bengal, Southeast Asia','WHO 2022'),
+            ('Pharmaceutical Pollution','631 rivers across 104 countries contain toxic drug levels','Global — highest in Asian & African rivers','Environment International, 2022'),
+            ('Microplastics','Detected in 83% of global tap water samples; 5g plastic/person/week','Global — from Arctic melt to deep ocean trenches','IUCN / Orb Media 2023'),
+            ('Nitrate Pollution','Half of EU groundwater bodies exceed 50mg/L nitrate limit','EU, USA Corn Belt, China','EEA 2023'),
+            ('Cholera Outbreaks','2.9M cases & 95,000 deaths/yr linked to contaminated water','Sub-Saharan Africa, Haiti, Yemen','WHO 2024'),
+            ('Ocean Acidification','pH dropped from 8.2 to 8.1 since industrial era — 30% more acidic','Global oceans — coral triangle most threatened','IPCC 2023'),
+            ('PFAS "Forever Chemicals"','Detected in blood of 97% of Americans; contaminate 45% of US tap water','North America, Europe','USGS / EWG 2023')
+          ] %}
+          {% for issue, scale, region, src in wrows %}
+          <tr style="border-bottom:1px solid var(--border-color);" onmouseover="this.style.background='#f0f9ff'" onmouseout="this.style.background='transparent'">
+            <td style="padding:14px 20px;font-weight:700;color:#0369a1;font-size:.88rem;">{{issue}}</td>
+            <td style="padding:14px 20px;color:var(--text-primary);font-size:.85rem;max-width:300px;">{{scale}}</td>
+            <td style="padding:14px 20px;color:var(--text-secondary);font-size:.85rem;">{{region}}</td>
+            <td style="padding:14px 20px;color:var(--text-muted);font-size:.78rem;font-style:italic;">{{src}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Solutions -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+      {% set wsols = [('Wetland Buffers','Natural filtration strips along rivers and coasts absorb up to 50% of nutrient runoff before it reaches water bodies.','🌿'),('Advanced Wastewater Treatment','Membrane bioreactors and UV disinfection can remove 99.9% of pathogens, drugs and micro-contaminants.','🔬'),('River Restoration','Re-meandering straightened rivers and restoring floodplains dramatically cuts erosion and sediment loading.','🏞️'),('EPR for Chemicals','Extended Producer Responsibility legislation forces manufacturers to fund clean-up of chemical waste streams.','⚖️')] %}
+      {% for title, desc, icon in wsols %}
+      <div style="background:linear-gradient(135deg,#eff6ff,#f0f9ff);border-radius:var(--radius-md);padding:28px;border:1px solid #bfdbfe;">
+        <div style="font-size:2rem;margin-bottom:12px;">{{icon}}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#1e40af;margin-bottom:10px;">{{title}}</h4>
+        <p style="color:#1e3a5f;font-size:.88rem;line-height:1.7;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SOIL POLLUTION
+═══════════════════════════════════════════════ -->
+<section id="soil" style="padding:96px 0;background:var(--bg-page);">
+  <div class="container">
+    <p class="section-eyebrow" style="color:#92400e;">🌱 Soil Pollution</p>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;color:var(--text-primary);margin:0 0 16px;">The Ground Beneath Our Feet Is Dying</h2>
+    <p style="color:var(--text-secondary);max-width:700px;font-size:1.05rem;line-height:1.8;margin-bottom:48px;">
+      Healthy soil is a non-renewable resource on human timescales — it takes <strong>1,000 years to form just 1 cm of topsoil</strong>. Yet we are losing it to erosion, compaction and chemical toxicity at catastrophic speed. According to the FAO, 33% of the world's soils are already moderately to highly degraded.
+    </p>
+
+    <!-- Big number cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:52px;">
+      {% set soilstats = [('33%','of global soils degraded (FAO 2023)','#92400e'),('24B','tonnes of fertile soil lost per year','#b45309'),('1,000 yrs','to form 1cm of topsoil','#78350f'),('811M','people chronically hungry — tied to soil degradation','#a16207'),('$44B','annual cost of soil erosion in USA alone','#92400e')] %}
+      {% for val, lbl, color in soilstats %}
+      <div style="background:var(--bg-surface);border-radius:var(--radius-md);padding:24px 20px;text-align:center;border:1px solid var(--border-color);border-top:4px solid {{color}};">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.9rem;font-weight:800;color:{{color}};line-height:1.1;">{{val}}</div>
+        <div style="color:var(--text-secondary);font-size:.8rem;margin-top:8px;line-height:1.4;">{{lbl}}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <!-- Causes -->
+      <div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:24px;">Root Causes of Soil Degradation</h3>
+        {% set causes = [
+          ('Synthetic Fertilizers & Pesticides','Over-application acidifies soil, kills beneficial microbes, and leaches nitrates into groundwater. Glyphosate detected in 80%+ of US soils.','#f97316'),
+          ('Heavy Metal Contamination','Lead, cadmium and mercury from mining, smelting and e-waste persist for centuries, entering the food chain via crops.','#64748b'),
+          ('Monoculture Farming','Single-crop systems deplete specific nutrients, increase erosion risk, and collapse the mycorrhizal networks that underpin soil health.','#ca8a04'),
+          ('Deforestation','Tree roots bind soil; without them, topsoil erodes 100× faster. Up to 75% of deforested land suffers severe erosion within 5 years.','#dc2626'),
+          ('Mining & Industrial Waste','Acid mine drainage and tailings contaminate vast areas. The Ok Tedi mine in PNG released 2,000 tonnes of tailings per day for decades.','#7c3aed'),
+          ('Urbanisation & Sealing','Concrete covers 75,000 km² of US land — sealed soil cannot filter water, absorb carbon, or support life.','#475569')
+        ] %}
+        {% for title, desc, color in causes %}
+        <div style="border-left:3px solid {{color}};padding-left:18px;margin-bottom:22px;">
+          <div style="font-weight:700;color:var(--text-primary);margin-bottom:6px;font-size:.92rem;">{{title}}</div>
+          <div style="color:var(--text-secondary);font-size:.85rem;line-height:1.6;">{{desc}}</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Solutions -->
+      <div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:24px;">Pathways to Soil Restoration</h3>
+        {% set ssols = [
+          ('🌀','Regenerative Agriculture','Cover crops, no-till farming and crop rotation can rebuild 1.85 gigatonnes of soil carbon per year (Rodale Institute).'),
+          ('🧫','Bioremediation','Bacteria, fungi and hyperaccumulator plants (e.g. Thlaspi) can detoxify heavy metal-contaminated land without excavation.'),
+          ('🌿','Organic Farming Transition','Organic soils have 26% more carbon and host 50% more earthworm biomass — key indicators of soil vitality.'),
+          ('🧑‍🌾','Compost & Biochar Application','Biochar sequesters carbon for 100–1000 years and improves water retention by up to 40% in sandy soils.'),
+          ('🌳','Agroforestry','Integrating trees into farmland reduces erosion by up to 75% and creates diverse mycorrhizal networks.'),
+          ('🏛️','Strict Mining Regulation','Mandatory rehabilitation bonds, lined tailings storage and phytoremediation requirements can dramatically cut contamination.')
+        ] %}
+        {% for icon, title, desc in ssols %}
+        <div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:14px;border:1px solid #fef08a;display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:1.5rem;flex-shrink:0;">{{icon}}</div>
+          <div>
+            <div style="font-weight:700;color:#78350f;margin-bottom:4px;font-size:.9rem;">{{title}}</div>
+            <div style="color:#92400e;font-size:.83rem;line-height:1.6;">{{desc}}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     NOISE POLLUTION
+═══════════════════════════════════════════════ -->
+<section id="noise" style="padding:96px 0;background:var(--bg-surface-alt);">
+  <div class="container">
+    <p class="section-eyebrow" style="color:#7c3aed;">🔊 Noise Pollution</p>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;color:var(--text-primary);margin:0 0 16px;">The Underestimated Pollutant</h2>
+    <p style="color:var(--text-secondary);max-width:700px;font-size:1.05rem;line-height:1.8;margin-bottom:52px;">The WHO identifies noise as the second-greatest environmental cause of ill health in Western Europe. Chronic noise exposure triggers stress hormones, disrupts sleep and raises cardiovascular disease risk — even at levels we consciously ignore.</p>
+
+    <!-- WHO Limits vs Reality -->
+    <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-md);margin-bottom:48px;">
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:28px;color:var(--text-primary);">WHO Noise Limits vs. Typical Urban Levels (dB)</h3>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="background:#f8f0ff;border-radius:8px;">
+              <th style="padding:12px 16px;text-align:left;color:#7c3aed;font-size:.85rem;font-weight:700;border-bottom:2px solid #e9d5ff;">Source / Environment</th>
+              <th style="padding:12px 16px;text-align:center;color:#16a34a;font-size:.85rem;font-weight:700;border-bottom:2px solid #e9d5ff;">WHO Safe Limit</th>
+              <th style="padding:12px 16px;text-align:center;color:#dc2626;font-size:.85rem;font-weight:700;border-bottom:2px solid #e9d5ff;">Typical City Level</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.85rem;font-weight:700;border-bottom:2px solid #e9d5ff;color:var(--text-secondary);">Key Health Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set nrows = [
+              ('Residential night-time','40 dB','55–65 dB','Sleep disturbance, cardiovascular risk'),
+              ('School / Hospital zones','35 dB','60–70 dB','Cognitive impairment in children'),
+              ('Busy urban road traffic','53 dB','70–85 dB','25% increased hypertension risk'),
+              ('Construction sites','70 dB','85–110 dB','Hearing damage above 8h exposure'),
+              ('Airport flight paths','45 dB (night)','65–75 dB','Myocardial infarction +10% (EHJ 2023)'),
+              ('Nightlife / concerts','100 dB (max)','105–120 dB','Permanent hearing loss in <15 min')
+            ] %}
+            {% for env, who, city, effect in nrows %}
+            <tr style="border-bottom:1px solid var(--border-color);" onmouseover="this.style.background='#faf5ff'" onmouseout="this.style.background='transparent'">
+              <td style="padding:12px 16px;font-size:.88rem;color:var(--text-primary);font-weight:500;">{{env}}</td>
+              <td style="padding:12px 16px;text-align:center;font-size:.9rem;font-weight:700;color:#16a34a;">{{who}}</td>
+              <td style="padding:12px 16px;text-align:center;font-size:.9rem;font-weight:700;color:#dc2626;">{{city}}</td>
+              <td style="padding:12px 16px;font-size:.83rem;color:var(--text-secondary);">{{effect}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Wildlife Effects + Solutions -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:linear-gradient(135deg,#fdf4ff,#fae8ff);border-radius:var(--radius-md);padding:32px;border:1px solid #e9d5ff;">
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#6b21a8;margin-bottom:18px;">🐋 Wildlife Impacts</h4>
+        {% for item in [
+          'Whale communication disruption — Navy sonar causes mass strandings; shipping noise drowns whale song over 1,600km ranges.',
+          'Bird frequency shift — Urban birds sing at higher pitches to cut through low-frequency traffic roar, altering mate selection.',
+          'Fish behaviour — Anthropogenic noise disrupts larvae settlement; reef fish avoid noisy reefs even when food is abundant.',
+          'Amphibian decline — Road noise near wetlands reduces frog calling success by up to 90% in some species.',
+          'Bat echolocation — Noise masks prey detection, forcing bats to forage more dangerously in open areas.',
+          'Migration disruption — Ship noise correlates with reduced zooplankton distribution in shipping lane corridors.'
+        ] %}
+        <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start;">
+          <span style="color:#9333ea;flex-shrink:0;">•</span>
+          <span style="color:#4c1d95;font-size:.87rem;line-height:1.6;">{{item}}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:var(--radius-md);padding:32px;border:1px solid #ddd6fe;">
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#4c1d95;margin-bottom:18px;">🛡️ Noise Reduction Strategies</h4>
+        {% for icon, title, desc in [
+          ('🌲','Urban Tree Belts','Dense rows of trees and shrubs can absorb 6–10 dB; mandatory green buffers along motorways reduce residential exposure significantly.'),
+          ('🗺️','Noise Mapping','EU Environmental Noise Directive requires cities >100,000 people to publish noise maps and action plans every 5 years.'),
+          ('🚫','Quiet Zones','Designated low-noise urban areas and nighttime flight curfews have cut average sleep disturbance by 20–30% in trial cities.'),
+          ('🏗️','Acoustic Engineering','Low-noise asphalt, sound barriers, electric vehicles and building insulation packages can halve residential exposure at source.')
+        ] %}
+        <div style="background:rgba(255,255,255,.6);border-radius:var(--radius-sm);padding:16px;margin-bottom:12px;border:1px solid #ede9fe;">
+          <div style="font-weight:700;color:#5b21b6;font-size:.9rem;margin-bottom:4px;">{{icon}} {{title}}</div>
+          <div style="color:#4c1d95;font-size:.83rem;line-height:1.6;">{{desc}}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PLASTIC POLLUTION
+═══════════════════════════════════════════════ -->
+<section id="plastic" style="padding:96px 0;background:var(--bg-page);">
+  <div class="container">
+    <p class="section-eyebrow" style="color:#4338ca;">🧴 Plastic Pollution</p>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;color:var(--text-primary);margin:0 0 16px;">A Material That Outlasts Civilisations</h2>
+    <p style="color:var(--text-secondary);max-width:700px;font-size:1.05rem;line-height:1.8;margin-bottom:52px;">Since 1950, humanity has produced over 9 billion tonnes of plastic. Just 9% has been recycled, 12% incinerated, and 79% has accumulated in landfill or the natural environment — where it persists for up to 500 years.</p>
+
+    <!-- Timeline -->
+    <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-md);margin-bottom:52px;">
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:32px;">The Plastic Age: A Timeline of Crisis</h3>
+      <div style="position:relative;padding-left:28px;">
+        <div style="position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,#4338ca,#ec4899);border-radius:2px;"></div>
+        {% set timeline = [
+          ('1950s','~1.5M tonnes/yr produced. Synthetic polymers hailed as revolutionary. Zero end-of-life infrastructure built.','#4338ca'),
+          ('1970s','First ocean plastic surveys. Laysan albatross chicks on Midway found with plastic-filled stomachs.','#6366f1'),
+          ('1988','Discovery of the Great Pacific Garbage Patch — later found to be 1.6 million km².','#8b5cf6'),
+          ('2000s','Annual production crosses 200M tonnes. Microplastic term coined. BPA links to endocrine disruption emerge.','#a855f7'),
+          ('2016','Ellen MacArthur Foundation: oceans will contain more plastic than fish by weight by 2050.','#c026d3'),
+          ('2022','Microplastics found in human blood (Amsterdam UMC), lung tissue, and placentas for the first time.','#db2777'),
+          ('2024','14 million tonnes enter oceans annually. UN Global Plastics Treaty negotiations reach critical phase.','#ec4899')
+        ] %}
+        {% for year, event, color in timeline %}
+        <div style="display:flex;gap:20px;margin-bottom:28px;align-items:flex-start;">
+          <div style="width:80px;flex-shrink:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:{{color}};font-size:1rem;padding-top:2px;">{{year}}</div>
+          <div style="background:{{color}}10;border-radius:var(--radius-sm);padding:14px 18px;flex:1;border-left:3px solid {{color}};">
+            <p style="color:var(--text-primary);font-size:.88rem;line-height:1.6;margin:0;">{{event}}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Microplastics in Humans + 5 Gyres -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+      <div style="background:linear-gradient(135deg,#fff0fb,#fce7f3);border-radius:var(--radius-md);padding:32px;border:1px solid #fbcfe8;">
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#9d174d;margin-bottom:18px;">🔬 Microplastics in the Human Body (2022–2024)</h4>
+        {% for item in [
+          'Human blood: 77% of tested donors had measurable microplastics (Amsterdam UMC, 2022)',
+          'Lung tissue: MP fibres found in 11/13 surgical lung samples — even in the deepest lobes (Hull Royal Infirmary, 2022)',
+          'Placentas: 100% of placentas tested contained micro- and nanoplastics (Environment International, 2023)',
+          'Heart tissue: MPs detected in heart muscle and pericardium of cardiac surgery patients (JACC, 2023)',
+          'Carotid artery plaque: MP presence linked to 4.5× higher risk of heart attack or stroke (NEJM, 2024)',
+          'Testicles: 23 human testes and 47 dog testes all contained microplastics — fertility implications unclear (Toxicological Sciences, 2024)'
+        ] %}
+        <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start;">
+          <span style="color:#ec4899;flex-shrink:0;">🔴</span>
+          <span style="color:#831843;font-size:.84rem;line-height:1.6;">{{item}}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div style="background:linear-gradient(135deg,#eef2ff,#e0e7ff);border-radius:var(--radius-md);padding:32px;border:1px solid #c7d2fe;">
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#3730a3;margin-bottom:18px;">🌊 The 5 Ocean Gyres</h4>
+        {% set gyres = [
+          ('North Pacific Gyre','1.6M km² — the largest accumulation zone. Contains 80,000 tonnes of plastic.'),
+          ('South Pacific Gyre','Spans waters off South America & Polynesia; growing at ~3% per year.'),
+          ('North Atlantic Gyre','Dense with microplastics from European and North American coastlines.'),
+          ('South Atlantic Gyre','Growing threat to South American fisheries and marine mammals.'),
+          ('Indian Ocean Gyre','Rapidly expanding; second highest concentration of polypropylene fragments.')
+        ] %}
+        {% for name, desc in gyres %}
+        <div style="background:rgba(255,255,255,.6);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px;border:1px solid #c7d2fe;">
+          <div style="font-weight:700;color:#3730a3;font-size:.88rem;margin-bottom:4px;">🌐 {{name}}</div>
+          <div style="color:#4338ca;font-size:.82rem;line-height:1.5;">{{desc}}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Plastic Solutions -->
+    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:24px;">Systemic Solutions to Plastic Pollution</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+      {% set psols = [
+        ('Extended Producer Responsibility','🏭','Laws requiring manufacturers to fund collection and recycling of their products. EPR schemes in the EU have lifted plastic recovery rates by 25–40%.','#4338ca'),
+        ('Biopolymers & Compostables','🌱','PHA, PLA and starch-based plastics can replace 30–50% of single-use plastics with materials that biodegrade in months, not centuries.','#16a34a'),
+        ('Deposit-Return Schemes','🔄','Countries with DRS (Germany, Norway) achieve 90–98% return rates on beverage containers vs ~30% without. Scalable globally.','#0284c7'),
+        ('UN Global Plastics Treaty','🌍','A legally binding instrument under negotiation since 2022, targeting a 80% reduction in plastic pollution by 2040 across the full lifecycle.','#7c3aed')
+      ] %}
+      {% for title, icon, desc, color in psols %}
+      <div style="background:var(--bg-surface);border-radius:var(--radius-md);padding:28px;border:1px solid var(--border-color);border-top:4px solid {{color}};box-shadow:var(--shadow-sm);">
+        <div style="font-size:2rem;margin-bottom:12px;">{{icon}}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:{{color}};margin-bottom:10px;font-size:.95rem;">{{title}}</h4>
+        <p style="color:var(--text-secondary);font-size:.87rem;line-height:1.7;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     WHAT YOU CAN DO
+═══════════════════════════════════════════════ -->
+<section style="padding:96px 0;background:var(--bg-surface-alt);">
+  <div class="container">
+    <p class="section-eyebrow">🙋 Personal Action</p>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;color:var(--text-primary);margin:0 0 14px;">What You Can Do Today</h2>
+    <p style="color:var(--text-secondary);max-width:620px;font-size:1rem;line-height:1.8;margin-bottom:48px;">Individual choices, multiplied by millions, reshape markets and policy. Here are six high-impact changes you can make right now.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+      {% set actions = [
+        ('🚶','Ditch Single-Use Plastic','Carry a reusable bottle, bag and cutlery. Refusing single-use items removes demand at the source. Saves ~150 plastic items per person per year.','#4338ca'),
+        ('🌬️','Improve Indoor Air Quality','Use HEPA air purifiers, switch to natural cleaning products and open windows. Indoor air can be 2–5× more polluted than outdoor air (EPA).','#dc2626'),
+        ('🚲','Choose Low-Emission Transport','Walk, cycle or use public transit. A single car-free year saves 2.4 tonnes of CO₂ and eliminates personal NOₓ and PM tailpipe contribution.','#16a34a'),
+        ('🥦','Shift to a Plant-Rich Diet','Meat and dairy cause 80% of agricultural water pollution. Halving your meat intake cuts your food-related water pollution footprint by ~30%.','#0284c7'),
+        ('🌿','Compost Organic Waste','Composting food and garden waste returns nutrients to soil, cutting methane from landfill and reducing demand for synthetic fertilisers.','#ca8a04'),
+        ('📣','Engage Politically','Contact your elected representative about clean air laws, plastic bans and soil protection. Policy change is the highest-leverage action available.','#7c3aed')
+      ] %}
+      {% for icon, title, desc, color in actions %}
+      <div style="background:var(--bg-surface);border-radius:var(--radius-md);padding:28px;border:1px solid var(--border-color);box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='none';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="width:52px;height:52px;border-radius:14px;background:{{color}}15;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:16px;">{{icon}}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">{{title}}</h4>
+        <p style="color:var(--text-secondary);font-size:.87rem;line-height:1.7;">{{desc}}</p>
+        <div style="margin-top:14px;height:3px;background:{{color}}30;border-radius:2px;"><div style="height:3px;width:60%;background:{{color}};border-radius:2px;"></div></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA
+═══════════════════════════════════════════════ -->
+<section style="padding:80px 0;background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#1a0a0a 100%);">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;color:#fff;margin-bottom:16px;">The Problems Are Clear. The Solutions Exist.</h2>
+    <p style="color:rgba(255,255,255,.75);max-width:580px;margin:0 auto 44px;font-size:1rem;line-height:1.8;">Explore the cascading effects of pollution on climate and biodiversity, then discover what science-backed solutions look like at scale.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+      <a href="/climate" style="padding:14px 30px;background:#dc2626;color:#fff;border-radius:40px;text-decoration:none;font-weight:700;font-size:.95rem;box-shadow:0 4px 20px rgba(220,38,38,.4);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">🌡️ Climate Change</a>
+      <a href="/biodiversity" style="padding:14px 30px;background:#16a34a;color:#fff;border-radius:40px;text-decoration:none;font-weight:700;font-size:.95rem;box-shadow:0 4px 20px rgba(22,163,74,.4);transition:transform .2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">🦋 Biodiversity Loss</a>
+      <a href="/solutions" style="padding:14px 30px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:40px;text-decoration:none;font-weight:700;font-size:.95rem;backdrop-filter:blur(6px);transition:transform .2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">💡 Explore Solutions →</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Smooth fade-in for stat cards on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[style*="border-top:4px"]').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+{% endblock %}

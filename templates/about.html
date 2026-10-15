@@ -1,0 +1,485 @@
+{% extends "base.html" %}
+{% block title %}About – Understanding Our Natural World – EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#050f14,#0a1f2e,#0b2d14);padding:100px 0 80px;position:relative;overflow:hidden;">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;">
+    <div style="position:absolute;top:20%;left:10%;width:320px;height:320px;background:radial-gradient(circle,rgba(2,132,199,0.14) 0%,transparent 70%);border-radius:50%;"></div>
+    <div style="position:absolute;bottom:10%;right:8%;width:260px;height:260px;background:radial-gradient(circle,rgba(16,124,65,0.15) 0%,transparent 70%);border-radius:50%;"></div>
+    <div style="position:absolute;top:50%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(16,124,65,0.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+  </div>
+  <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1;text-align:center;">
+    <nav aria-label="Breadcrumb" style="margin-bottom:28px;">
+      <ol style="display:flex;align-items:center;justify-content:center;gap:8px;list-style:none;padding:0;margin:0;flex-wrap:wrap;">
+        <li><a href="/" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.88rem;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Home</a></li>
+        <li aria-hidden="true" style="color:rgba(255,255,255,0.35);font-size:0.88rem;">›</li>
+        <li style="color:#6ee7b7;font-size:0.88rem;font-weight:600;">About the Environment</li>
+      </ol>
+    </nav>
+    <div style="font-size:clamp(3rem,8vw,5.5rem);margin-bottom:20px;line-height:1;filter:drop-shadow(0 4px 24px rgba(2,132,199,0.5));" role="img" aria-label="Earth globe">🌍</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:800;color:#fff;line-height:1.12;margin:0 0 20px;letter-spacing:-0.02em;">
+      Understanding Our<br><span style="color:#6ee7b7;">Natural World</span>
+    </h1>
+    <p style="font-size:clamp(1rem,2.5vw,1.22rem);color:rgba(255,255,255,0.8);max-width:700px;margin:0 auto 36px;line-height:1.7;">
+      The environment is not a backdrop to human life — it <em>is</em> life itself. Every breath, meal, and drop of water we enjoy exists because of a complex, interconnected natural system that took billions of years to form. Understanding it is the first step to protecting it.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="#spheres" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#107c41,#16a34a);color:#fff;text-decoration:none;padding:14px 28px;border-radius:50px;font-weight:700;font-size:0.97rem;box-shadow:0 4px 20px rgba(16,124,65,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">🔬 Explore Earth's Systems</a>
+      <a href="/problems" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:#fff;text-decoration:none;padding:14px 28px;border-radius:50px;font-weight:600;font-size:0.97rem;border:1.5px solid rgba(255,255,255,0.25);transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">⚠ Environmental Problems</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<main>
+
+  <!-- ═══════════════════════════════════════════════
+       1. WHAT IS THE ENVIRONMENT — FOUR SPHERES
+  ═══════════════════════════════════════════════ -->
+  <section id="spheres" style="background:var(--bg-page,#f8fafc);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:60px;">
+        <span style="display:inline-block;background:#dcfce7;color:#107c41;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Fundamentals</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">What Is the Environment?</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:720px;margin:0 auto;font-size:1.05rem;line-height:1.8;">The <strong>environment</strong> encompasses all living (biotic) and non-living (abiotic) things that interact as a system on Earth. Scientists organise it into four interconnected spheres, each playing a vital and unique role in sustaining all life.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px;">
+        <!-- Biosphere -->
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.08);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:linear-gradient(135deg,#065f46,#107c41);padding:32px 28px;text-align:center;">
+            <div style="font-size:3.2rem;margin-bottom:12px;">🌿</div>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;margin:0 0 6px;">Biosphere</h3>
+            <p style="color:rgba(255,255,255,0.75);font-size:0.875rem;margin:0;">The zone of life</p>
+          </div>
+          <div style="padding:24px 28px;">
+            <p style="color:var(--text-secondary,#475569);line-height:1.7;font-size:0.92rem;margin:0 0 16px;">The biosphere encompasses all living organisms on Earth and the environments they inhabit — from the deepest ocean trenches to 10 km altitude in the atmosphere. It represents the thin, fragile shell of life on our planet.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#ecfdf5;border-radius:8px;padding:10px 14px;"><span style="color:#107c41;font-weight:700;font-size:0.85rem;">🌍 Extent:</span><span style="color:#065f46;font-size:0.85rem;">From −11km (ocean floor) to +10km altitude</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#ecfdf5;border-radius:8px;padding:10px 14px;"><span style="color:#107c41;font-weight:700;font-size:0.85rem;">🦠 Contains:</span><span style="color:#065f46;font-size:0.85rem;">~8.7 million estimated eukaryotic species</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#ecfdf5;border-radius:8px;padding:10px 14px;"><span style="color:#107c41;font-weight:700;font-size:0.85rem;">⚠ Threat:</span><span style="color:#065f46;font-size:0.85rem;">Only 3% of Earth's land remains ecologically intact</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Hydrosphere -->
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.08);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:linear-gradient(135deg,#075985,#0284c7);padding:32px 28px;text-align:center;">
+            <div style="font-size:3.2rem;margin-bottom:12px;">🌊</div>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;margin:0 0 6px;">Hydrosphere</h3>
+            <p style="color:rgba(255,255,255,0.75);font-size:0.875rem;margin:0;">All of Earth's water</p>
+          </div>
+          <div style="padding:24px 28px;">
+            <p style="color:var(--text-secondary,#475569);line-height:1.7;font-size:0.92rem;margin:0 0 16px;">The hydrosphere includes all water on, above, and below Earth's surface — oceans, rivers, lakes, groundwater, glaciers, and water vapour. Water covers 71% of Earth's surface and is the primary medium for all biochemical reactions of life.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#eff6ff;border-radius:8px;padding:10px 14px;"><span style="color:#0284c7;font-weight:700;font-size:0.85rem;">💧 Volume:</span><span style="color:#075985;font-size:0.85rem;">1.386 billion km³ of water on Earth</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#eff6ff;border-radius:8px;padding:10px 14px;"><span style="color:#0284c7;font-weight:700;font-size:0.85rem;">🧊 Fresh:</span><span style="color:#075985;font-size:0.85rem;">Only 2.5% freshwater; 69% locked in ice</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#eff6ff;border-radius:8px;padding:10px 14px;"><span style="color:#0284c7;font-weight:700;font-size:0.85rem;">⚠ Crisis:</span><span style="color:#075985;font-size:0.85rem;">40% of world faces water stress by 2030 — UN</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Lithosphere -->
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.08);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:linear-gradient(135deg,#78350f,#d97706);padding:32px 28px;text-align:center;">
+            <div style="font-size:3.2rem;margin-bottom:12px;">🏔️</div>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;margin:0 0 6px;">Lithosphere</h3>
+            <p style="color:rgba(255,255,255,0.75);font-size:0.875rem;margin:0;">Earth's rocky shell</p>
+          </div>
+          <div style="padding:24px 28px;">
+            <p style="color:var(--text-secondary,#475569);line-height:1.7;font-size:0.92rem;margin:0 0 16px;">The lithosphere is the solid, rocky outer shell of Earth — encompassing the crust and upper mantle. It provides the mineral nutrients that form soils, the foundation for terrestrial ecosystems, and the geological cycles that regulate climate over millions of years.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff7ed;border-radius:8px;padding:10px 14px;"><span style="color:#d97706;font-weight:700;font-size:0.85rem;">🌱 Soil:</span><span style="color:#92400e;font-size:0.85rem;">95% of all food is produced from soil — FAO</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#fff7ed;border-radius:8px;padding:10px 14px;"><span style="color:#d97706;font-weight:700;font-size:0.85rem;">⏱️ Rates:</span><span style="color:#92400e;font-size:0.85rem;">1cm of topsoil takes 1,000 years to form</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#fff7ed;border-radius:8px;padding:10px 14px;"><span style="color:#d97706;font-weight:700;font-size:0.85rem;">⚠ Loss:</span><span style="color:#92400e;font-size:0.85rem;">24 billion tonnes of fertile soil lost annually — UN</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Atmosphere -->
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.08);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:linear-gradient(135deg,#4c1d95,#8b5cf6);padding:32px 28px;text-align:center;">
+            <div style="font-size:3.2rem;margin-bottom:12px;">🌤️</div>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;margin:0 0 6px;">Atmosphere</h3>
+            <p style="color:rgba(255,255,255,0.75);font-size:0.875rem;margin:0;">Earth's protective blanket</p>
+          </div>
+          <div style="padding:24px 28px;">
+            <p style="color:var(--text-secondary,#475569);line-height:1.7;font-size:0.92rem;margin:0 0 16px;">The atmosphere is the 480km-deep layer of gases surrounding Earth. It regulates temperature, shields against UV radiation via the ozone layer, drives weather and climate, and provides the oxygen that every animal needs to breathe.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#f5f3ff;border-radius:8px;padding:10px 14px;"><span style="color:#8b5cf6;font-weight:700;font-size:0.85rem;">🌬️ Mix:</span><span style="color:#4c1d95;font-size:0.85rem;">78% nitrogen, 21% oxygen, 1% other gases</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#f5f3ff;border-radius:8px;padding:10px 14px;"><span style="color:#8b5cf6;font-weight:700;font-size:0.85rem;">🌡️ CO₂:</span><span style="color:#4c1d95;font-size:0.85rem;">422 ppm CO₂ in 2024 — highest in 800,000 years</span></div>
+              <div style="display:flex;align-items:center;gap:10px;background:#f5f3ff;border-radius:8px;padding:10px 14px;"><span style="color:#8b5cf6;font-weight:700;font-size:0.85rem;">⚠ Change:</span><span style="color:#4c1d95;font-size:0.85rem;">+1.2°C average warming above pre-industrial — IPCC</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       2. EARTH'S KEY CYCLES
+  ═══════════════════════════════════════════════ -->
+  <section style="background:#fff;padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:60px;">
+        <span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Planetary Systems</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Earth's Four Key Biogeochemical Cycles</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:660px;margin:0 auto;font-size:1.05rem;line-height:1.7;">These cycles continuously recycle the essential elements of life — carbon, water, nitrogen and oxygen — through living organisms, soils, oceans and the atmosphere.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+        <!-- Carbon Cycle -->
+        <div style="background:var(--bg-page,#f8fafc);border-radius:18px;padding:30px 26px;border:1px solid var(--border-color,#e2e8f0);">
+          <div style="background:linear-gradient(135deg,#107c41,#16a34a);width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;">🔄</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text-primary,#0f172a);margin:0 0 12px;">The Carbon Cycle</h3>
+          <p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0 0 18px;">Regulates Earth's temperature by cycling carbon through the atmosphere, oceans, land & living things.</p>
+          <ol style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:8px;">
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#107c41;">Photosynthesis:</strong> Plants absorb CO₂ from air, store as organic matter</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#107c41;">Respiration:</strong> Animals & decomposers release CO₂ back to atmosphere</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#107c41;">Ocean Exchange:</strong> Seas absorb ~25% of anthropogenic CO₂</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#107c41;">Human Disruption:</strong> Burning fossil fuels adds 37B tonnes/year — IEA</li>
+          </ol>
+        </div>
+        <!-- Water Cycle -->
+        <div style="background:var(--bg-page,#f8fafc);border-radius:18px;padding:30px 26px;border:1px solid var(--border-color,#e2e8f0);">
+          <div style="background:linear-gradient(135deg,#0284c7,#0ea5e9);width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;">💧</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text-primary,#0f172a);margin:0 0 12px;">The Water Cycle</h3>
+          <p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0 0 18px;">Continuously moves water through evaporation, condensation, precipitation and runoff — purifying and distributing freshwater across the globe.</p>
+          <ol style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:8px;">
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0284c7;">Evaporation:</strong> Solar energy converts surface water to vapour</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0284c7;">Transpiration:</strong> Forests release up to 95% of water absorbed</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0284c7;">Condensation:</strong> Vapour cools to form clouds and rain</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0284c7;">Infiltration:</strong> Water soaks into soil, recharging groundwater</li>
+          </ol>
+        </div>
+        <!-- Nitrogen Cycle -->
+        <div style="background:var(--bg-page,#f8fafc);border-radius:18px;padding:30px 26px;border:1px solid var(--border-color,#e2e8f0);">
+          <div style="background:linear-gradient(135deg,#a16207,#eab308);width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;">🌾</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text-primary,#0f172a);margin:0 0 12px;">The Nitrogen Cycle</h3>
+          <p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0 0 18px;">Cycles nitrogen — essential for proteins and DNA — through the atmosphere, soil, water and living organisms. Heavily disrupted by synthetic fertilisers.</p>
+          <ol style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:8px;">
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#a16207;">Fixation:</strong> Bacteria convert atmospheric N₂ into ammonia</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#a16207;">Nitrification:</strong> Bacteria convert ammonia to nitrates in soil</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#a16207;">Uptake:</strong> Plants absorb nitrates for growth and protein</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#a16207;">Denitrification:</strong> Returns nitrogen gas to atmosphere</li>
+          </ol>
+        </div>
+        <!-- Oxygen Cycle -->
+        <div style="background:var(--bg-page,#f8fafc);border-radius:18px;padding:30px 26px;border:1px solid var(--border-color,#e2e8f0);">
+          <div style="background:linear-gradient(135deg,#0e7490,#06b6d4);width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;">🫧</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text-primary,#0f172a);margin:0 0 12px;">The Oxygen Cycle</h3>
+          <p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0 0 18px;">Maintains Earth's 21% atmospheric oxygen — a remarkable stability maintained by photosynthetic life for 2.5 billion years and sustained by both land plants and marine phytoplankton.</p>
+          <ol style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:8px;">
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0e7490;">Production:</strong> Photosynthesis releases O₂ as a byproduct</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0e7490;">Ocean Source:</strong> Phytoplankton produce ~50% of Earth's oxygen</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0e7490;">Consumption:</strong> Respiration & decomposition consume oxygen</li>
+            <li style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.5;"><strong style="color:#0e7490;">Ozone Shield:</strong> O₃ layer blocks 97% of UV-B radiation</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       3. ECOSYSTEM TYPES / BIOMES
+  ═══════════════════════════════════════════════ -->
+  <section style="background:var(--bg-page,#f8fafc);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:60px;">
+        <span style="display:inline-block;background:#dcfce7;color:#107c41;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Biomes</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Earth's Six Major Ecosystem Types</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:640px;margin:0 auto;font-size:1.05rem;line-height:1.7;">Each biome is a major ecological community defined by its climate, vegetation, and wildlife — each one irreplaceable and under unique pressures.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;">
+        <!-- Tropical Rainforest -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="background:linear-gradient(135deg,#064e3b,#059669);padding:22px 24px;display:flex;align-items:center;gap:14px;">
+            <span style="font-size:2.2rem;">🌴</span>
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:1rem;margin:0 0 4px;">Tropical Rainforest</h3>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Amazon · Congo · Borneo</span>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:#ecfdf5;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#065f46;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">17M km²</div><div style="color:#6b7280;font-size:0.75rem;">Total area</div></div>
+              <div style="background:#ecfdf5;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#065f46;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">50%+</div><div style="color:#6b7280;font-size:0.75rem;">of all species</div></div>
+            </div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0 0 12px;"><strong>Key species:</strong> Jaguar, Harpy Eagle, 2.5M insect species, Amazon River Dolphin</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b91c1c;"><strong>Threats:</strong> Deforestation for soy/cattle, road-building, mining concessions</div>
+          </div>
+        </div>
+        <!-- Ocean / Marine -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="background:linear-gradient(135deg,#1e3a5f,#1d4ed8);padding:22px 24px;display:flex;align-items:center;gap:14px;">
+            <span style="font-size:2.2rem;">🌊</span>
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:1rem;margin:0 0 4px;">Ocean & Marine</h3>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Pacific · Atlantic · Indian · Arctic</span>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:#eff6ff;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#1d4ed8;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">361M km²</div><div style="color:#6b7280;font-size:0.75rem;">Total area</div></div>
+              <div style="background:#eff6ff;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#1d4ed8;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">250,000+</div><div style="color:#6b7280;font-size:0.75rem;">marine species</div></div>
+            </div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0 0 12px;"><strong>Key species:</strong> Blue Whale, Great White Shark, Giant Squid, Sea Turtles</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b91c1c;"><strong>Threats:</strong> Overfishing, plastic pollution, ocean acidification, warming seas</div>
+          </div>
+        </div>
+        <!-- Grassland / Savanna -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="background:linear-gradient(135deg,#78350f,#d97706);padding:22px 24px;display:flex;align-items:center;gap:14px;">
+            <span style="font-size:2.2rem;">🦒</span>
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:1rem;margin:0 0 4px;">Grassland & Savanna</h3>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Serengeti · Pampas · Great Plains</span>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:#fff7ed;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#c2410c;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">52M km²</div><div style="color:#6b7280;font-size:0.75rem;">Total area</div></div>
+              <div style="background:#fff7ed;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#c2410c;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">40%</div><div style="color:#6b7280;font-size:0.75rem;">of Earth's land</div></div>
+            </div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0 0 12px;"><strong>Key species:</strong> African Lion, Wildebeest, Bison, Prairie Dog, Secretary Bird</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b91c1c;"><strong>Threats:</strong> Agricultural conversion, invasive grasses, overgrazing, drought</div>
+          </div>
+        </div>
+        <!-- Tundra / Arctic -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="background:linear-gradient(135deg,#1e3a5f,#64748b);padding:22px 24px;display:flex;align-items:center;gap:14px;">
+            <span style="font-size:2.2rem;">🐻‍❄️</span>
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:1rem;margin:0 0 4px;">Tundra & Arctic</h3>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Siberia · Alaska · Canadian Arctic</span>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:#f1f5f9;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#475569;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">11M km²</div><div style="color:#6b7280;font-size:0.75rem;">Tundra area</div></div>
+              <div style="background:#f1f5f9;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#475569;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">1.7T tonnes</div><div style="color:#6b7280;font-size:0.75rem;">Carbon in permafrost</div></div>
+            </div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0 0 12px;"><strong>Key species:</strong> Polar Bear, Arctic Fox, Snowy Owl, Caribou, Musk Ox</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b91c1c;"><strong>Threats:</strong> Warming 3× faster than global average; permafrost thaw releasing methane</div>
+          </div>
+        </div>
+        <!-- Desert -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="background:linear-gradient(135deg,#92400e,#f59e0b);padding:22px 24px;display:flex;align-items:center;gap:14px;">
+            <span style="font-size:2.2rem;">🌵</span>
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:1rem;margin:0 0 4px;">Desert</h3>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Sahara · Arabian · Gobi · Atacama</span>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:#fef9c3;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#a16207;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">50M km²</div><div style="color:#6b7280;font-size:0.75rem;">Total area</div></div>
+              <div style="background:#fef9c3;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#a16207;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">&lt;250mm</div><div style="color:#6b7280;font-size:0.75rem;">Annual rainfall</div></div>
+            </div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0 0 12px;"><strong>Key species:</strong> Fennec Fox, Addax, Desert Tortoise, Sidewinder Rattlesnake</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b91c1c;"><strong>Threats:</strong> Desertification expanding 1.5M km²/year; groundwater depletion</div>
+          </div>
+        </div>
+        <!-- Temperate Forest -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="background:linear-gradient(135deg,#166534,#4ade80);padding:22px 24px;display:flex;align-items:center;gap:14px;">
+            <span style="font-size:2.2rem;">🍂</span>
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:1rem;margin:0 0 4px;">Temperate Forest</h3>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.8rem;">Europe · Eastern USA · East Asia</span>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:#f0fdf4;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#166534;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">7M km²</div><div style="color:#6b7280;font-size:0.75rem;">Total area</div></div>
+              <div style="background:#f0fdf4;border-radius:8px;padding:10px;text-align:center;"><div style="font-weight:800;color:#166534;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif;">50% lost</div><div style="color:#6b7280;font-size:0.75rem;">over last 500 years</div></div>
+            </div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0 0 12px;"><strong>Key species:</strong> European Brown Bear, Red Squirrel, White-tailed Deer, Wild Boar</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:10px 14px;font-size:0.82rem;color:#b91c1c;"><strong>Threats:</strong> Urbanisation, fragmentation, invasive species, drought stress</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       4. ECOSYSTEM SERVICES — ECONOMIC VALUE
+  ═══════════════════════════════════════════════ -->
+  <section style="background:linear-gradient(135deg,#0a1f2e,#0b2d14);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:60px;">
+        <span style="display:inline-block;background:rgba(16,124,65,0.3);color:#6ee7b7;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;border:1px solid rgba(110,231,183,0.3);margin-bottom:16px;">Economic Reality</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:#fff;margin:0 0 16px;">Nature's Economy: $125 Trillion Per Year</h2>
+        <p style="color:rgba(255,255,255,0.7);max-width:680px;margin:0 auto;font-size:1.05rem;line-height:1.7;">Costanza et al. (2014) estimated the annual economic value of global ecosystem services — the services nature provides humanity for free. This dwarfs the entire global GDP. We don't pay for it, but we cannot live without it.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-bottom:40px;">
+        <!-- Provisioning -->
+        <div style="background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:32px 26px;text-align:center;">
+          <div style="font-size:2.5rem;margin-bottom:14px;">🌾</div>
+          <div style="font-size:2.6rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;margin-bottom:8px;">$29T</div>
+          <div style="color:#fff;font-weight:700;font-size:1rem;margin-bottom:10px;">Provisioning Services</div>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.6;margin:0;">Food, fresh water, timber, fibre, medicinal plants, genetic resources — the direct material goods nature supplies.</p>
+        </div>
+        <!-- Regulating -->
+        <div style="background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:32px 26px;text-align:center;">
+          <div style="font-size:2.5rem;margin-bottom:14px;">🌡️</div>
+          <div style="font-size:2.6rem;font-weight:900;color:#93c5fd;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;margin-bottom:8px;">$37T</div>
+          <div style="color:#fff;font-weight:700;font-size:1rem;margin-bottom:10px;">Regulating Services</div>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.6;margin:0;">Climate regulation, flood control, disease suppression, water purification, air quality, pollination — nature's invisible infrastructure.</p>
+        </div>
+        <!-- Cultural -->
+        <div style="background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:32px 26px;text-align:center;">
+          <div style="font-size:2.5rem;margin-bottom:14px;">🎨</div>
+          <div style="font-size:2.6rem;font-weight:900;color:#fcd34d;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;margin-bottom:8px;">$10T</div>
+          <div style="color:#fff;font-weight:700;font-size:1rem;margin-bottom:10px;">Cultural Services</div>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.6;margin:0;">Recreation, spiritual value, ecotourism, aesthetic beauty, educational value — the non-material benefits that enrich human life.</p>
+        </div>
+        <!-- Supporting -->
+        <div style="background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:32px 26px;text-align:center;">
+          <div style="font-size:2.5rem;margin-bottom:14px;">🔬</div>
+          <div style="font-size:2.6rem;font-weight:900;color:#f9a8d4;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;margin-bottom:8px;">$21T</div>
+          <div style="color:#fff;font-weight:700;font-size:1rem;margin-bottom:10px;">Supporting Services</div>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.6;margin:0;">Nutrient cycling, soil formation, primary production, oxygen production — the foundational processes that underpin all other services.</p>
+        </div>
+      </div>
+      <div style="background:rgba(110,231,183,0.1);border:1px solid rgba(110,231,183,0.3);border-radius:14px;padding:24px 32px;text-align:center;">
+        <div style="color:#6ee7b7;font-size:2rem;font-weight:900;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:8px;">Total: ~$125 Trillion Per Year</div>
+        <p style="color:rgba(255,255,255,0.7);margin:0;font-size:0.95rem;">Source: Costanza et al., "Changes in the global value of ecosystem services", Global Environmental Change, 2014. This is 1.7× global GDP.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       5. HUMAN IMPACT TIMELINE
+  ═══════════════════════════════════════════════ -->
+  <section style="background:#fff;padding:90px 0;">
+    <div class="container" style="max-width:900px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:60px;">
+        <span style="display:inline-block;background:#fee2e2;color:#dc2626;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Timeline</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Humanity's Environmental Impact Through Time</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:620px;margin:0 auto;font-size:1.05rem;line-height:1.7;">From early hunter-gatherers to the industrial age, human impact on the environment has accelerated dramatically — especially since 1950.</p>
+      </div>
+      <div style="position:relative;padding-left:40px;">
+        <div style="position:absolute;left:18px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#dcfce7,#fef9c3,#fed7aa,#fecaca);border-radius:1px;"></div>
+        <!-- Timeline items -->
+        <div style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-31px;top:4px;width:18px;height:18px;border-radius:50%;background:#107c41;border:3px solid #fff;box-shadow:0 0 0 3px #dcfce7;"></div>
+          <div style="background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px 24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="background:#dcfce7;color:#065f46;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:50px;">~300,000 BCE</span><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0;">Early Homo sapiens & Controlled Fire</h3></div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0;">Early humans used fire to clear vegetation and hunt. Megafauna extinctions began as humans spread across continents — woolly mammoths, giant sloths, and sabre-toothed cats disappeared within millennia of human arrival.</p>
+          </div>
+        </div>
+        <div style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-31px;top:4px;width:18px;height:18px;border-radius:50%;background:#16a34a;border:3px solid #fff;box-shadow:0 0 0 3px #dcfce7;"></div>
+          <div style="background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px 24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="background:#dcfce7;color:#065f46;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:50px;">~10,000 BCE</span><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0;">Agricultural Revolution</h3></div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0;">Farming began in the Fertile Crescent, followed by China, India, and the Americas. Forest clearing for cropland began in earnest. Soil erosion, irrigation-driven salinisation, and overgrazing were humanity's first large-scale environmental impacts.</p>
+          </div>
+        </div>
+        <div style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-31px;top:4px;width:18px;height:18px;border-radius:50%;background:#eab308;border:3px solid #fff;box-shadow:0 0 0 3px #fef9c3;"></div>
+          <div style="background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px 24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="background:#fef9c3;color:#78350f;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:50px;">1750 CE</span><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0;">Industrial Revolution</h3></div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0;">Coal-powered industrialisation began in Britain. Atmospheric CO₂ started rising above 280 ppm for the first time in 800,000 years. River pollution, urban smog, and industrial deforestation transformed landscapes across Europe and North America.</p>
+          </div>
+        </div>
+        <div style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-31px;top:4px;width:18px;height:18px;border-radius:50%;background:#f97316;border:3px solid #fff;box-shadow:0 0 0 3px #fed7aa;"></div>
+          <div style="background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px 24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="background:#fed7aa;color:#c2410c;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:50px;">1950 CE</span><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0;">The Great Acceleration</h3></div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0;">Population tripled. Plastic production, synthetic fertiliser use, air travel, and consumer economies exploded simultaneously. Scientists now call this the "Great Acceleration" — virtually every indicator of human activity began its steepest upward curve.</p>
+          </div>
+        </div>
+        <div style="position:relative;margin-bottom:36px;">
+          <div style="position:absolute;left:-31px;top:4px;width:18px;height:18px;border-radius:50%;background:#ef4444;border:3px solid #fff;box-shadow:0 0 0 3px #fecaca;"></div>
+          <div style="background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px 24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="background:#fecaca;color:#b91c1c;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:50px;">1970–2000</span><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0;">Environmental Awakening</h3></div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0;">The first Earth Day (1970), Clean Air and Water Acts, Montreal Protocol (1987) healing the ozone layer, Rio Earth Summit (1992), Kyoto Protocol (1997). Science and public awareness converged — but emissions continued to rise.</p>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <div style="position:absolute;left:-31px;top:4px;width:18px;height:18px;border-radius:50%;background:#dc2626;border:3px solid #fff;box-shadow:0 0 0 3px #fecaca;"></div>
+          <div style="background:linear-gradient(135deg,#fef2f2,#fff);border:1px solid #fecaca;border-radius:14px;padding:20px 24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="background:#fecaca;color:#b91c1c;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:50px;">2024 ⚠ Now</span><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0;">Planetary Emergency — and Critical Choice</h3></div>
+            <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;margin:0;">CO₂ at 422 ppm — the highest in 3 million years. 2023 was the hottest year on record. Yet renewable energy is now the cheapest in history, electric vehicles are mainstream, and international climate agreements are in force. The next decade is the decisive window. <strong>The choice is ours.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       6. WHY IT MATTERS
+  ═══════════════════════════════════════════════ -->
+  <section style="background:var(--bg-page,#f8fafc);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span style="display:inline-block;background:#dcfce7;color:#107c41;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">The Stakes</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Why the Environment Matters — To All of Us</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:640px;margin:0 auto;font-size:1.05rem;line-height:1.7;">Environmental health is not a luxury concern. It underpins every dimension of human wellbeing — from the food on our plates to the stability of our economies and the health of our minds.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+        <div style="background:#fff;border-radius:18px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div style="background:#dcfce7;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;">❤️</div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0;">Human Health</h3></div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.9rem;line-height:1.7;margin:0;">WHO attributes <strong>24% of all deaths</strong> to environmental factors — air pollution, contaminated water, toxic chemicals, and climate-driven disease spread. Clean air alone could save 7 million lives per year. A healthy environment is public health infrastructure.</p>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div style="background:#dbeafe;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;">💰</div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0;">Economic Stability</h3></div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.9rem;line-height:1.7;margin:0;">The World Economic Forum rates biodiversity loss and climate change among the top 5 global economic risks. Nature provides $125 trillion/year in services — collapse of even a fraction of this would dwarf all economic crises in history. Green economies outperform fossil-dependent ones.</p>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div style="background:#fef9c3;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;">🌾</div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0;">Food Security</h3></div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.9rem;line-height:1.7;margin:0;">Stable food production depends on healthy soils, reliable rainfall, functional pollinators, and stable temperatures. Climate change already threatens crop yields in 20+ countries. With 10 billion people to feed by 2050, protecting natural systems is inseparable from feeding the world.</p>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div style="background:#f5f3ff;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;">🧘</div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0;">Mental Health</h3></div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.9rem;line-height:1.7;margin:0;">Over <strong>100+ studies</strong> link time in nature to reduced stress, anxiety, and depression. "Blue-green prescribing" is now used in the UK NHS. Eco-anxiety affects 68% of adults in developed countries as environmental news worsens — itself a mental health emergency requiring action.</p>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div style="background:#fff7ed;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;">🎭</div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0;">Cultural Identity</h3></div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.9rem;line-height:1.7;margin:0;">For 6,000+ Indigenous communities, nature is not just an economic resource but the foundation of spiritual life, language, and cultural identity. As ecosystems disappear, languages, traditions, and ways of knowing vanish with them — irreplaceable losses to human civilisation.</p>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div style="background:#fdf4ff;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;">⚖️</div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0;">Intergenerational Justice</h3></div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.9rem;line-height:1.7;margin:0;">The decisions made in the next 10 years will determine the planet that billions of future generations inherit. A child born today will live through consequences of today's choices — it is a profound ethical obligation to protect the natural systems that make human life possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       7. CTA SECTION
+  ═══════════════════════════════════════════════ -->
+  <section style="background:linear-gradient(160deg,#050f14,#0a1f2e,#0b2d14);padding:90px 0;">
+    <div class="container" style="max-width:900px;margin:0 auto;padding:0 24px;text-align:center;">
+      <div style="font-size:3rem;margin-bottom:20px;">🌿</div>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin:0 0 16px;">Understanding Is Just the Beginning</h2>
+      <p style="color:rgba(255,255,255,0.75);font-size:1.1rem;line-height:1.7;margin:0 auto 44px;max-width:620px;">Now that you understand the natural world and what's at stake, take the next step — explore the environmental problems we face, discover the solutions available, and join millions making a difference.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="/problems" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;text-decoration:none;padding:16px 30px;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 4px 24px rgba(220,38,38,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">⚠ Environmental Problems</a>
+        <a href="/solutions" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#107c41,#16a34a);color:#fff;text-decoration:none;padding:16px 30px;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 4px 24px rgba(16,124,65,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">✅ Explore Solutions</a>
+        <a href="/pledge" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:#fff;text-decoration:none;padding:16px 30px;border-radius:50px;font-weight:700;font-size:1rem;border:1.5px solid rgba(255,255,255,0.3);transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">🤝 Take the Pledge</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Animate timeline items on scroll
+  const timelineItems = document.querySelectorAll('[style*="position:relative;margin-bottom"]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateX(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  timelineItems.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+{% endblock %}

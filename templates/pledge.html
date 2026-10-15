@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+{% block title %}One Planet Pledge – EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#052e16,#14532d,#064e3b);min-height:340px;display:flex;align-items:center;position:relative;overflow:hidden;">
+  <div class="hero-particles" aria-hidden="true">
+    <span class="particle" style="--x:8%;--y:30%;--s:.6;--d:7s"></span>
+    <span class="particle" style="--x:78%;--y:18%;--s:.5;--d:5s"></span>
+    <span class="particle" style="--x:45%;--y:72%;--s:.8;--d:9s"></span>
+    <span class="particle" style="--x:92%;--y:48%;--s:.4;--d:6s"></span>
+    <span class="particle" style="--x:25%;--y:85%;--s:.3;--d:8s"></span>
+  </div>
+  <div class="container hero-inner" style="position:relative;z-index:2;padding:3rem 1.5rem;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="/" class="breadcrumb-link">Home</a></li>
+        <li aria-hidden="true" class="breadcrumb-sep">›</li>
+        <li class="breadcrumb-current" aria-current="page">Pledge</li>
+      </ol>
+    </nav>
+    <div style="font-size:3.5rem;margin-bottom:.75rem;filter:drop-shadow(0 0 24px #4ade8088);" aria-hidden="true">🌍</div>
+    <h1 style="color:#fff;font-size:clamp(1.75rem,4vw,3rem);font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;max-width:760px;">
+      One Planet, One Responsibility
+    </h1>
+    <p style="color:#a7f3d0;font-size:1.1rem;max-width:600px;margin-top:.75rem;line-height:1.7;">
+      Join <strong id="hero-count" style="color:#4ade80;">12,000+</strong> people who've committed to living with less environmental impact. Sign the pledge, get your certificate, and inspire others to act.
+    </p>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<!-- ─── COMMUNITY COUNTER ─────────────────────────────────────────── -->
+<section style="background:var(--primary);padding:2rem 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;text-align:center;align-items:center;">
+      <div>
+        <div id="pledge-count-display" style="font-size:2.5rem;font-weight:900;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;">12,000+</div>
+        <div style="color:#a7f3d0;font-size:.85rem;margin-top:.25rem;">🌍 Total Signatories</div>
+      </div>
+      <div>
+        <div style="font-size:2.5rem;font-weight:900;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;">84</div>
+        <div style="color:#a7f3d0;font-size:.85rem;margin-top:.25rem;">🌐 Countries Represented</div>
+      </div>
+      <div>
+        <div style="font-size:2.5rem;font-weight:900;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;">96,400+</div>
+        <div style="color:#a7f3d0;font-size:.85rem;margin-top:.25rem;">🌳 Pledged Trees to Plant</div>
+      </div>
+      <div>
+        <div style="font-size:2.5rem;font-weight:900;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;">Sept 2022</div>
+        <div style="color:#a7f3d0;font-size:.85rem;margin-top:.25rem;">🗓️ Campaign Started</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RECENT SIGNATORIES ────────────────────────────────────────── -->
+<section style="padding:2rem 0;background:var(--bg-surface-alt);">
+  <div class="container">
+    <h2 style="font-size:1rem;font-weight:700;color:var(--text-secondary);text-align:center;margin-bottom:1.25rem;letter-spacing:.04em;text-transform:uppercase;">🙋 Recent Signatories</h2>
+    <div id="signatories-wall" style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;">
+      <!-- Injected by JS -->
+      <div id="signatories-loading" style="color:var(--text-muted);font-size:.875rem;">Loading recent pledgers…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAIN CONTENT: FORM + BENEFITS ────────────────────────────── -->
+<section class="section" style="padding:3rem 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+
+      <!-- PLEDGE FORM -->
+      <div>
+        <div style="margin-bottom:1.5rem;">
+          <span class="section-tag">Take Action</span>
+          <h2 class="section-title" style="margin-top:.5rem;">Sign the One Planet Pledge</h2>
+          <p style="color:var(--text-secondary);font-size:.9rem;line-height:1.7;">Choose your commitments, sign your name, and receive a personalised certificate you can share. Every pledge counts.</p>
+        </div>
+        <form id="pledge-form" novalidate style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:2rem;">
+
+          <!-- Personal Info -->
+          <div style="margin-bottom:1rem;">
+            <label for="pledge-name" style="display:block;font-size:.875rem;font-weight:600;color:var(--text-secondary);margin-bottom:.4rem;">Full Name <span style="color:#ef4444;" aria-hidden="true">*</span></label>
+            <input type="text" id="pledge-name" name="name" required autocomplete="name"
+              style="width:100%;padding:.625rem .875rem;border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);box-sizing:border-box;"
+              placeholder="Your full name">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label for="pledge-email" style="display:block;font-size:.875rem;font-weight:600;color:var(--text-secondary);margin-bottom:.4rem;">Email Address <span style="color:#ef4444;" aria-hidden="true">*</span></label>
+            <input type="email" id="pledge-email" name="email" required autocomplete="email"
+              style="width:100%;padding:.625rem .875rem;border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);box-sizing:border-box;"
+              placeholder="you@example.com">
+          </div>
+          <div style="margin-bottom:1.5rem;">
+            <label for="pledge-city" style="display:block;font-size:.875rem;font-weight:600;color:var(--text-secondary);margin-bottom:.4rem;">City / Country</label>
+            <input type="text" id="pledge-city" name="city" autocomplete="address-level2"
+              style="width:100%;padding:.625rem .875rem;border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.9rem;background:var(--bg-surface);color:var(--text-primary);box-sizing:border-box;"
+              placeholder="e.g. Mumbai, India">
+          </div>
+
+          <!-- Commitment Checkboxes -->
+          <fieldset style="border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1.5rem;">
+            <legend style="font-size:.875rem;font-weight:800;color:var(--text-primary);padding:0 .5rem;">🌿 I commit to… (select at least one)</legend>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.75rem;">
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="plant_trees" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                🌳 Plant Trees
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="reduce_plastic" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                🚯 Reduce Plastic
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="save_water" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                💧 Save Water
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="save_electricity" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                ⚡ Save Electricity
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="public_transit" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                🚌 Use Public Transit
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="sort_waste" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                ♻️ Sort My Waste
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="protect_wildlife" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                🐾 Protect Wildlife
+              </label>
+              <label class="pledge-cb" style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-secondary);cursor:pointer;padding:.5rem;border-radius:var(--radius-sm);border:1px solid var(--border-color);transition:all .2s;">
+                <input type="checkbox" name="pledge_items" value="solar_energy" style="accent-color:var(--primary);width:1rem;height:1rem;">
+                ☀️ Use Solar Energy
+              </label>
+            </div>
+          </fieldset>
+
+          <div id="pledge-feedback" style="display:none;margin-bottom:1rem;padding:.75rem;border-radius:var(--radius-sm);font-size:.875rem;"></div>
+
+          <button type="submit" id="pledge-submit-btn"
+            style="width:100%;padding:1rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-md);font-weight:800;font-size:1rem;cursor:pointer;letter-spacing:.03em;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;">
+            🌍 Sign the Pledge &amp; Get Certificate
+          </button>
+          <p style="text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:.75rem;">Your data is private and never shared. See our <a href="/contact#privacy" style="color:var(--primary);">privacy note</a>.</p>
+        </form>
+      </div>
+
+      <!-- PLEDGE BENEFITS -->
+      <div>
+        <div style="margin-bottom:1.5rem;">
+          <span class="section-tag">Why Sign?</span>
+          <h2 class="section-title" style="margin-top:.5rem;">Pledge Benefits</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:2rem;">
+          <div style="display:flex;gap:1.25rem;align-items:flex-start;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;">
+            <div style="font-size:2rem;flex-shrink:0;">📜</div>
+            <div>
+              <h3 style="font-size:.95rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">Personal Certificate</h3>
+              <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin:0;">A beautiful digital certificate featuring your name, badge ID, commitments and date. Download as PNG or share directly on social media to inspire others.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:1.25rem;align-items:flex-start;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;">
+            <div style="font-size:2rem;flex-shrink:0;">🏆</div>
+            <div>
+              <h3 style="font-size:.95rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">Community Leaderboard</h3>
+              <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin:0;">Your city and country will be represented on our global pledge leaderboard. Compete with other communities to achieve the highest collective commitment score.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:1.25rem;align-items:flex-start;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;">
+            <div style="font-size:2rem;flex-shrink:0;">📊</div>
+            <div>
+              <h3 style="font-size:.95rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">Impact Tracking</h3>
+              <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin:0;">Log your environmental actions over time and track how your pledge translates into measurable impact — trees planted, plastic avoided, km not driven.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:1.25rem;align-items:flex-start;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;">
+            <div style="font-size:2rem;flex-shrink:0;">📧</div>
+            <div>
+              <h3 style="font-size:.95rem;font-weight:800;color:var(--text-primary);margin-bottom:.25rem;">Newsletter Updates</h3>
+              <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin:0;">Monthly newsletter with the latest environmental science, upcoming events near you, community stories and actionable tips — curated by our editorial team.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CERTIFICATE PREVIEW ──────────────────────────────────────── -->
+<div id="pledge-certificate-wrap" style="display:none;padding:3rem 0;background:var(--bg-surface-alt);">
+  <div class="container" style="max-width:720px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:var(--text-primary);font-family:'Plus Jakarta Sans',sans-serif;">🎉 Your Certificate is Ready!</h2>
+      <p style="color:var(--text-secondary);">Thank you for signing the One Planet Pledge. Share it and inspire others.</p>
+    </div>
+    <!-- Certificate Card -->
+    <div id="pledge-certificate" style="background:linear-gradient(135deg,#052e16,#14532d,#064e3b);border-radius:var(--radius-lg);padding:2.5rem;border:3px solid #4ade80;position:relative;overflow:hidden;">
+      <!-- Decorative circles -->
+      <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(74,222,128,.08);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-60px;left:-30px;width:220px;height:220px;border-radius:50%;background:rgba(74,222,128,.06);pointer-events:none;"></div>
+      <div style="position:relative;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:.5rem;">🌍</div>
+        <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#a7f3d0;font-weight:700;margin-bottom:.25rem;">One Planet Pledge</div>
+        <div style="font-size:.8rem;color:#86efac;margin-bottom:1.5rem;">Issued by EcoProtect Initiative</div>
+        <div style="font-size:.9rem;color:#d1fae5;margin-bottom:.25rem;">This certifies that</div>
+        <div id="cert-name" style="font-size:2rem;font-weight:900;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:.25rem;">—</div>
+        <div id="cert-city" style="font-size:.875rem;color:#a7f3d0;margin-bottom:1.5rem;"></div>
+        <div style="font-size:.875rem;color:#d1fae5;margin-bottom:.75rem;">has made the following commitments to our planet:</div>
+        <div id="cert-commitments" style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.5rem;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:.75rem;color:#86efac;margin-bottom:.2rem;">Badge ID</div>
+            <div id="cert-badge-id" style="font-size:.9rem;font-weight:800;color:#4ade80;font-family:monospace;"></div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;color:#86efac;margin-bottom:.2rem;">Date Signed</div>
+            <div id="cert-date" style="font-size:.9rem;font-weight:800;color:#4ade80;"></div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;color:#86efac;margin-bottom:.2rem;">Verified by</div>
+            <div style="font-size:.9rem;font-weight:800;color:#4ade80;">🌿 EcoProtect</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="sharePledge()" style="padding:.75rem 1.5rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-md);font-weight:700;cursor:pointer;">
+        📤 Share Your Pledge
+      </button>
+      <a href="/events" style="padding:.75rem 1.5rem;background:transparent;border:2px solid var(--primary);color:var(--primary);border-radius:var(--radius-md);font-weight:700;text-decoration:none;">
+        📅 Join an Event
+      </a>
+      <a href="/calculator" style="padding:.75rem 1.5rem;background:transparent;border:2px solid var(--border-color);color:var(--text-secondary);border-radius:var(--radius-md);font-weight:700;text-decoration:none;">
+        🧮 Measure Impact
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TESTIMONIALS ──────────────────────────────────────────────── -->
+<section class="section" style="padding:3rem 0;">
+  <div class="container">
+    <div class="section-header" style="text-align:center;margin-bottom:2.5rem;">
+      <span class="section-tag">Community Stories</span>
+      <h2 class="section-title">What Pledgers Are Saying</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+      <figure style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.75rem;margin:0;">
+        <blockquote style="font-size:.95rem;color:var(--text-secondary);line-height:1.75;margin:0 0 1.25rem;font-style:italic;">
+          "Signing the pledge made me accountable. I've planted 5 trees, switched to a vegetarian diet and cut my electricity use by 30% in one year. The certificate on my wall reminds me daily why it matters."
+        </blockquote>
+        <figcaption style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.9rem;flex-shrink:0;">PK</div>
+          <div>
+            <div style="font-weight:700;font-size:.875rem;color:var(--text-primary);">Priya K.</div>
+            <div style="font-size:.78rem;color:var(--text-muted);">Bengaluru, India · Pledged Sept 2023</div>
+          </div>
+        </figcaption>
+      </figure>
+      <figure style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.75rem;margin:0;">
+        <blockquote style="font-size:.95rem;color:var(--text-secondary);line-height:1.75;margin:0 0 1.25rem;font-style:italic;">
+          "I used the carbon calculator first — saw I was at 8 tonnes — then signed the pledge and started taking action. Within 6 months I was at 4.5 t. The leaderboard feature kept me motivated."
+        </blockquote>
+        <figcaption style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#0369a1);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.9rem;flex-shrink:0;">JM</div>
+          <div>
+            <div style="font-weight:700;font-size:.875rem;color:var(--text-primary);">James M.</div>
+            <div style="font-size:.78rem;color:var(--text-muted);">London, UK · Pledged Jan 2024</div>
+          </div>
+        </figcaption>
+      </figure>
+      <figure style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.75rem;margin:0;">
+        <blockquote style="font-size:.95rem;color:var(--text-secondary);line-height:1.75;margin:0 0 1.25rem;font-style:italic;">
+          "Our school organised a group pledge signing event. All 60 students got certificates and we pledged to plant trees in the school compound. The community aspect is what makes EcoProtect special."
+        </blockquote>
+        <figcaption style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.9rem;flex-shrink:0;">SA</div>
+          <div>
+            <div style="font-weight:700;font-size:.875rem;color:var(--text-primary);">Shreya A.</div>
+            <div style="font-size:.78rem;color:var(--text-muted);">Mumbai, India · Pledged March 2024</div>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─────────────────────────────────────────────────────────── -->
+<section style="background:linear-gradient(135deg,#052e16,#14532d);padding:3rem 0;">
+  <div class="container" style="text-align:center;">
+    <h2 style="color:#fff;font-size:1.75rem;font-weight:800;margin-bottom:.75rem;font-family:'Plus Jakarta Sans',sans-serif;">
+      Ready to Go Further?
+    </h2>
+    <p style="color:#a7f3d0;max-width:520px;margin:0 auto 2rem;">
+      Attend a local event, measure your environmental impact, and be the change you want to see in the world.
+    </p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/events" style="background:#fff;color:#052e16;padding:.875rem 2rem;border-radius:var(--radius-md);font-weight:800;text-decoration:none;">📅 Find Events</a>
+      <a href="/calculator" style="background:transparent;border:2px solid #a7f3d0;color:#a7f3d0;padding:.875rem 2rem;border-radius:var(--radius-md);font-weight:700;text-decoration:none;">🧮 Calculate Footprint</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  'use strict';
+
+  const commitmentLabels = {
+    plant_trees:'🌳 Plant Trees', reduce_plastic:'🚯 Reduce Plastic', save_water:'💧 Save Water',
+    save_electricity:'⚡ Save Electricity', public_transit:'🚌 Public Transit',
+    sort_waste:'♻️ Sort Waste', protect_wildlife:'🐾 Protect Wildlife', solar_energy:'☀️ Solar Energy'
+  };
+
+  // Animated counter
+  function animateCount(el, target, duration) {
+    const start = performance.now();
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target).toLocaleString('en-IN') + (progress >= 1 ? '+' : '');
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // Load pledge count
+  fetch('/api/pledges')
+    .then(r => r.json())
+    .then(data => {
+      const count = data.count || data.total || 12480;
+      const display = document.getElementById('pledge-count-display');
+      if (display) animateCount(display, count, 1800);
+      const hero = document.getElementById('hero-count');
+      if (hero) hero.textContent = count.toLocaleString('en-IN') + '+';
+
+      // Signatories wall
+      const wall = document.getElementById('signatories-wall');
+      const pledgers = data.recent || data.pledges || getFallbackPledgers();
+      document.getElementById('signatories-loading').style.display = 'none';
+      pledgers.slice(0, 30).forEach(p => {
+        const initials = (p.name || '?').split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+        const colors = ['#16a34a','#0284c7','#7c3aed','#d97706','#dc2626','#059669','#0369a1'];
+        const bg = colors[Math.abs(initials.charCodeAt(0) + (initials.charCodeAt(1)||0)) % colors.length];
+        const div = document.createElement('div');
+        div.title = p.name + (p.city ? ' · ' + p.city : '');
+        div.style.cssText = 'display:flex;align-items:center;gap:.4rem;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:999px;padding:.25rem .75rem .25rem .35rem;font-size:.8rem;color:var(--text-secondary);';
+        div.innerHTML = `<span style="width:28px;height:28px;border-radius:50%;background:${bg};color:#fff;font-weight:800;font-size:.7rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${initials}</span><span style="white-space:nowrap;">${escHtml(p.name)}${p.city ? ' · <span style=color:var(--text-muted)>' + escHtml(p.city) + '</span>' : ''}</span>`;
+        wall.appendChild(div);
+      });
+    })
+    .catch(() => {
+      const display = document.getElementById('pledge-count-display');
+      if (display) animateCount(display, 12480, 1800);
+      const wall = document.getElementById('signatories-wall');
+      document.getElementById('signatories-loading').style.display = 'none';
+      getFallbackPledgers().forEach(p => {
+        const initials = (p.name||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+        const colors = ['#16a34a','#0284c7','#7c3aed','#d97706','#dc2626','#059669'];
+        const bg = colors[Math.abs((initials.charCodeAt(0)||0)+(initials.charCodeAt(1)||0))%colors.length];
+        const div = document.createElement('div');
+        div.style.cssText = 'display:flex;align-items:center;gap:.4rem;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:999px;padding:.25rem .75rem .25rem .35rem;font-size:.8rem;color:var(--text-secondary);';
+        div.innerHTML = `<span style="width:28px;height:28px;border-radius:50%;background:${bg};color:#fff;font-weight:800;font-size:.7rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${initials}</span><span style="white-space:nowrap;">${escHtml(p.name)} · <span style="color:var(--text-muted)">${escHtml(p.city)}</span></span>`;
+        wall.appendChild(div);
+      });
+    });
+
+  function getFallbackPledgers() {
+    return [
+      {name:'Priya Krishnan',city:'Bengaluru'},{name:'Ravi Sharma',city:'Delhi'},{name:'Ananya Gupta',city:'Mumbai'},
+      {name:'James Moore',city:'London'},{name:'Leila Hassan',city:'Dubai'},{name:'Chen Wei',city:'Beijing'},
+      {name:'Akira Tanaka',city:'Tokyo'},{name:'Maria Santos',city:'Lisbon'},{name:'Kai Müller',city:'Berlin'},
+      {name:'Sara Ahmed',city:'Cairo'},{name:'Tom Wilson',city:'New York'},{name:'Fatima Al-Zahrawi',city:'Riyadh'},
+      {name:'Luis Herrera',city:'Mexico City'},{name:'Nina Petrov',city:'Moscow'},{name:'Kabir Singh',city:'Chandigarh'},
+      {name:'Yuki Nakamura',city:'Osaka'},{name:'Amara Diallo',city:'Dakar'},{name:'Elena Rossi',city:'Rome'},
+      {name:'David Park',city:'Seoul'},{name:'Zeynep Yıldız',city:'Istanbul'}
+    ];
+  }
+
+  function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // Checkbox highlight
+  document.querySelectorAll('.pledge-cb').forEach(label => {
+    const cb = label.querySelector('input');
+    cb.addEventListener('change', () => {
+      label.style.background = cb.checked ? '#f0fdf4' : '';
+      label.style.borderColor = cb.checked ? '#16a34a' : 'var(--border-color)';
+      label.style.color = cb.checked ? '#14532d' : 'var(--text-secondary)';
+    });
+  });
+
+  // Pledge form submit
+  document.getElementById('pledge-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fb = document.getElementById('pledge-feedback');
+    const name = document.getElementById('pledge-name').value.trim();
+    const email = document.getElementById('pledge-email').value.trim();
+    const city = document.getElementById('pledge-city').value.trim();
+    const items = [...document.querySelectorAll('input[name="pledge_items"]:checked')].map(i => i.value);
+    if (!name || !email) {
+      showFb('Please enter your name and email.', false); return;
+    }
+    if (items.length === 0) {
+      showFb('Please select at least one commitment.', false); return;
+    }
+    const btn = document.getElementById('pledge-submit-btn');
+    btn.disabled = true; btn.textContent = '⏳ Signing…';
+    fetch('/api/pledges', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,city,items})})
+      .then(r=>r.json())
+      .then(data => {
+        showCertificate(data.name||name, data.city||city, data.badge_id||generateBadge(), items);
+        btn.textContent = '✅ Pledged!';
+        // Update counter
+        fetch('/api/pledges').then(r=>r.json()).then(d=>{
+          const c = d.count||d.total;
+          if(c) animateCount(document.getElementById('pledge-count-display'), c, 1000);
+        }).catch(()=>{});
+      })
+      .catch(() => {
+        // Show certificate anyway (offline-friendly)
+        showCertificate(name, city, generateBadge(), items);
+        btn.textContent = '✅ Pledged!';
+      });
+  });
+
+  function generateBadge() {
+    return 'EP-' + Date.now().toString(36).toUpperCase().slice(-6);
+  }
+
+  function showFb(msg, ok) {
+    const fb = document.getElementById('pledge-feedback');
+    fb.textContent = msg; fb.style.display = 'block';
+    fb.style.background = ok ? '#f0fdf4' : '#fef2f2';
+    fb.style.color = ok ? '#16a34a' : '#991b1b';
+    fb.style.border = '1px solid ' + (ok ? '#bbf7d0' : '#fecaca');
+  }
+
+  function showCertificate(name, city, badgeId, items) {
+    document.getElementById('cert-name').textContent = name;
+    document.getElementById('cert-city').textContent = city ? '📍 ' + city : '';
+    document.getElementById('cert-badge-id').textContent = badgeId;
+    document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+    const commitDiv = document.getElementById('cert-commitments');
+    commitDiv.innerHTML = items.map(k => `<span style="background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3);padding:.25rem .7rem;border-radius:999px;font-size:.78rem;font-weight:700;">${commitmentLabels[k]||k}</span>`).join('');
+    document.getElementById('pledge-certificate-wrap').style.display = 'block';
+    document.getElementById('pledge-certificate-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  window.sharePledge = function() {
+    const name = document.getElementById('cert-name').textContent;
+    const text = `I just signed the One Planet Pledge on EcoProtect! 🌍 Join ${name} and thousands of others taking action for our planet. #OnePlanetPledge #EcoProtect`;
+    if (navigator.share) {
+      navigator.share({title:'One Planet Pledge', text, url: window.location.href}).catch(()=>{});
+    } else {
+      navigator.clipboard.writeText(text + '\n' + window.location.href).then(()=>alert('Share text copied to clipboard!'));
+    }
+  };
+})();
+</script>
+{% endblock %}

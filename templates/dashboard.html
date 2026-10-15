@@ -1,0 +1,1078 @@
+{% extends "base.html" %}
+
+{% block title %}Environmental Control & Action Dashboard | EcoProtect{% endblock %}
+
+{% block extra_head %}
+<style>
+/* ── DASHBOARD STYLES ── */
+.dashboard-page {
+    padding: 2.5rem 0 5rem;
+    background: var(--bg-primary, #f8fafc);
+    min-height: calc(100vh - var(--nav-h));
+}
+
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* User Greeting Hero Banner */
+.dash-hero-banner {
+    background: linear-gradient(135deg, #092615 0%, #0d3d23 50%, #051c10 100%);
+    border-radius: 20px;
+    padding: 2.5rem 3rem;
+    color: #ffffff;
+    box-shadow: 0 16px 40px rgba(9,38,21,0.18);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(34,197,94,0.2);
+}
+.dash-hero-banner::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(34,197,94,0.18) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.dash-hero-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+}
+@media (max-width: 900px) {
+    .dash-hero-inner { flex-direction: column; align-items: flex-start; }
+}
+
+.dash-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.dash-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: rgba(34,197,94,0.25);
+    border: 2px solid rgba(34,197,94,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+.dash-user-details h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: .3rem;
+    color: #ffffff;
+}
+.dash-user-meta {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+    font-size: .88rem;
+    color: #cbd5e1;
+}
+.dash-rank-badge {
+    padding: .25rem .75rem;
+    background: rgba(34,197,94,0.2);
+    border: 1px solid rgba(34,197,94,0.35);
+    border-radius: 99px;
+    color: #86efac;
+    font-weight: 700;
+    font-size: .8rem;
+}
+
+.dash-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+}
+.dash-btn-primary {
+    padding: .75rem 1.4rem;
+    background: linear-gradient(135deg, #107c41, #22c55e);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: .9rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    box-shadow: 0 4px 14px rgba(16,124,65,0.3);
+    transition: all .2s;
+}
+.dash-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16,124,65,0.4);
+}
+.dash-btn-secondary {
+    padding: .75rem 1.25rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ffffff;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: .9rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transition: all .2s;
+}
+.dash-btn-secondary:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+/* 4-Card Global Indicators Row */
+.global-indicators-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+@media (max-width: 1024px) { .global-indicators-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .global-indicators-grid { grid-template-columns: 1fr; } }
+
+.indicator-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    transition: transform .2s ease, box-shadow .2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.indicator-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+}
+.ind-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+.ind-icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+.ind-val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+    margin-bottom: .25rem;
+}
+.ind-title {
+    font-size: .84rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: .5rem;
+}
+.ind-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    padding: .2rem .55rem;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+/* Two-column Main Dashboard Area */
+.dash-main-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 2rem;
+}
+@media (max-width: 1024px) {
+    .dash-main-grid { grid-template-columns: 1fr; }
+}
+
+/* Control Simulator Widget */
+.dash-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    margin-bottom: 2rem;
+}
+.dash-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+.dash-card-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+/* Climate Mitigation Interactive Sliders */
+.sim-controls-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+.sim-control-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.2rem;
+}
+.sim-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .75rem;
+    font-weight: 600;
+    font-size: .88rem;
+    color: #334155;
+}
+.sim-val-display {
+    font-weight: 800;
+    color: #107c41;
+    font-size: .95rem;
+}
+.sim-slider {
+    width: 100%;
+    accent-color: #107c41;
+    cursor: pointer;
+}
+
+.sim-output-box {
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    border: 1.5px solid rgba(34,197,94,0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    text-align: center;
+}
+.sim-metric h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #107c41;
+    margin-bottom: .2rem;
+}
+.sim-metric span {
+    font-size: .8rem;
+    color: #166534;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+/* Daily Action Checklist */
+.checklist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .9rem 1.1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: .75rem;
+    transition: all .2s ease;
+}
+.checklist-item:hover {
+    border-color: #107c41;
+    background: #ffffff;
+}
+.check-left {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    cursor: pointer;
+}
+.check-left input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: #107c41;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.check-title {
+    font-size: .9rem;
+    font-weight: 600;
+    color: #334155;
+}
+.check-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    padding: .2rem .5rem;
+    border-radius: 6px;
+    background: rgba(16,124,65,0.1);
+    color: #107c41;
+}
+
+/* Log custom action modal form */
+.log-action-input-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 100px;
+    gap: .75rem;
+    margin-top: 1.25rem;
+}
+@media (max-width: 600px) { .log-action-input-row { grid-template-columns: 1fr; } }
+.log-action-input {
+    padding: .7rem .9rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: .88rem;
+    outline: none;
+}
+.log-action-input:focus { border-color: #107c41; }
+.log-action-btn {
+    padding: .7rem 1.2rem;
+    background: #107c41;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+}
+.log-action-btn:hover { background: #22c55e; }
+
+/* Activity stream */
+.activity-feed-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+}
+.activity-feed-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: .85rem 1rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    font-size: .86rem;
+}
+.activity-feed-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+.activity-feed-content {
+    flex: 1;
+}
+.activity-feed-title {
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: .2rem;
+}
+.activity-feed-time {
+    font-size: .75rem;
+    color: #94a3b8;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .dashboard-page { background: #060b0e; }
+body.dark-mode .indicator-card,
+body.dark-mode .dash-card {
+    background: #0f171d;
+    border-color: #1e2d33;
+}
+body.dark-mode .ind-val,
+body.dark-mode .dash-card-title,
+body.dark-mode .check-title,
+body.dark-mode .activity-feed-title {
+    color: #f8fafc;
+}
+body.dark-mode .sim-control-item,
+body.dark-mode .checklist-item,
+body.dark-mode .activity-feed-item {
+    background: #141f26;
+    border-color: #243542;
+}
+body.dark-mode .sim-output-box {
+    background: #0d261a;
+    border-color: rgba(34,197,94,0.3);
+}
+body.dark-mode .dash-card-header { border-bottom-color: #1e2d33; }
+body.dark-mode .log-action-input {
+    background: #141f26;
+    border-color: #243542;
+    color: #f8fafc;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+    <div class="dashboard-container">
+        
+        <!-- ── HERO PROFILE BANNER ── -->
+        <div class="dash-hero-banner">
+            <div class="dash-hero-inner">
+                <div class="dash-user-profile">
+                    <div class="dash-avatar">
+                        {{ current_user.avatar if current_user else '🌱' }}
+                    </div>
+                    <div class="dash-user-details">
+                        <h1>
+                            {% if current_user %}
+                                Welcome back, {{ current_user.full_name }}!
+                            {% else %}
+                                Environmental Control Dashboard
+                            {% endif %}
+                        </h1>
+                        <div class="dash-user-meta">
+                            <span class="dash-rank-badge" id="eco-level-tag">
+                                {% if current_user.role == 'admin' %}
+                                    🛡️ Administrator · Platform Oversight
+                                {% elif current_user.role == 'organizer' %}
+                                    📅 Event Organiser · Certified Host
+                                {% else %}
+                                    🌿 Participant · Climate Guardian Level 2
+                                {% endif %}
+                            </span>
+                            <span>📍 {{ current_user.city if current_user and current_user.city else 'Global Citizen' }}</span>
+                            <span>🎯 Focus: {{ current_user.focus_area if current_user else 'Holistic Conservation' }}</span>
+                            <span style="background:rgba(255,255,255,0.12);padding:.2rem .6rem;border-radius:6px;font-size:.78rem;">
+                                Role: <strong>{{ (current_user.role or 'participant')|capitalize }}</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-hero-actions">
+                    {% if current_user.role == 'admin' %}
+                        <a href="/admin" class="dash-btn-primary" style="background:linear-gradient(135deg, #ea580c, #f97316);">
+                            <span>🛡️ Admin Console</span>
+                        </a>
+                    {% elif current_user.role == 'organizer' %}
+                        <a href="/events" class="dash-btn-primary" style="background:linear-gradient(135deg, #0284c7, #38bdf8);">
+                            <span>📅 Manage Events</span>
+                        </a>
+                    {% endif %}
+                    <a href="/globe" class="dash-btn-primary" title="Launch the real-time 3D Earth Hazard Map">
+                        <span>🌐 EcoGlobe 3D</span>
+                    </a>
+                    <a href="/calculator" class="dash-btn-secondary" title="Run Carbon & Water Calculations">
+                        <span>🧮 Calculator</span>
+                    </a>
+                    <a href="/pledge" class="dash-btn-secondary" title="Sign or View Climate Pledge">
+                        <span>📜 Pledge</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 4 GLOBAL ENVIRONMENTAL CONTROL INDICATORS ── -->
+        <div class="global-indicators-grid">
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <div class="ind-icon-wrap" style="background:rgba(239,68,68,0.1);color:#ef4444;">🌡️</div>
+                    <span class="ind-badge" style="background:#fef2f2;color:#dc2626;">+2.4 ppm/yr</span>
+                </div>
+                <div>
+                    <div class="ind-val">422.5 <span style="font-size:1rem;color:#94a3b8;">ppm</span></div>
+                    <div class="ind-title">Atmospheric CO₂ Concentration</div>
+                    <div style="font-size:.75rem;color:#94a3b8;">Source: NOAA Mauna Loa Baseline</div>
+                </div>
+            </div>
+
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <div class="ind-icon-wrap" style="background:rgba(34,197,94,0.1);color:#107c41;">⚡</div>
+                    <span class="ind-badge" style="background:#f0fdf4;color:#166534;">Historic Record</span>
+                </div>
+                <div>
+                    <div class="ind-val">30.2%</div>
+                    <div class="ind-title">Global Renewable Electricity Share</div>
+                    <div style="font-size:.75rem;color:#94a3b8;">Source: International Energy Agency</div>
+                </div>
+            </div>
+
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <div class="ind-icon-wrap" style="background:rgba(16,185,129,0.1);color:#059669;">🌲</div>
+                    <span class="ind-badge" style="background:#ecfdf5;color:#047857;">4.06B Hectares</span>
+                </div>
+                <div>
+                    <div class="ind-val">31.2%</div>
+                    <div class="ind-title">Global Forest Land Coverage</div>
+                    <div style="font-size:.75rem;color:#94a3b8;">Source: UN FAO Global Assessment</div>
+                </div>
+            </div>
+
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <div class="ind-icon-wrap" style="background:rgba(56,189,248,0.1);color:#0284c7;">💧</div>
+                    <span class="ind-badge" style="background:#f0f9ff;color:#0369a1;">Critical Focus</span>
+                </div>
+                <div>
+                    <div class="ind-val">2.2B <span style="font-size:1rem;color:#94a3b8;">people</span></div>
+                    <div class="ind-title">Facing Clean Water Insecurity</div>
+                    <div style="font-size:.75rem;color:#94a3b8;">Source: WHO / UNICEF Joint Report</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ROLE SPECIFIC COMMAND DECKS ── -->
+        {% if current_user.role == 'admin' %}
+        <div class="dash-card" style="border-left: 5px solid #ea580c; margin-bottom: 2rem; background: linear-gradient(to right, rgba(234,88,12,0.03), transparent);">
+            <div class="dash-card-header" style="flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <div class="dash-card-title" style="color: #c2410c;">
+                        <span>🛡️</span> Administrator Operations & Telemetry Center
+                    </div>
+                    <p style="font-size: .84rem; color: #64748b; margin-top: .2rem;">
+                        System health: <strong>Operational (100%)</strong> · SQLite DB: <code>ecoplanet.db</code> · Real-Time Hazard Services: <strong>Active</strong>
+                    </p>
+                </div>
+                <div style="display: flex; gap: .5rem; align-items: center;">
+                    <a href="/admin" class="dash-btn-primary" style="padding: .5rem 1rem; font-size: .82rem; background: linear-gradient(135deg, #ea580c, #f97316);">
+                        Launch Full Admin Console →
+                    </a>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 1rem; text-align: center;">
+                    <span style="font-size: .75rem; color: #9a3412; font-weight: 700; text-transform: uppercase;">Platform Citizens</span>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: .2rem 0;">12,485+</div>
+                    <span style="font-size: .72rem; color: #16a34a; font-weight: 600;">+24 this week</span>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 1rem; text-align: center;">
+                    <span style="font-size: .75rem; color: #9a3412; font-weight: 700; text-transform: uppercase;">Tracked Hazards</span>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: .2rem 0;">30 Incidents</div>
+                    <span style="font-size: .72rem; color: #0284c7; font-weight: 600;">Chernobyl to 2024</span>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 1rem; text-align: center;">
+                    <span style="font-size: .75rem; color: #9a3412; font-weight: 700; text-transform: uppercase;">Community Pledges</span>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: .2rem 0;">12,480+</div>
+                    <span style="font-size: .72rem; color: #16a34a; font-weight: 600;">Active in 48 Countries</span>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #fed7aa; border-radius: 12px; padding: 1rem; text-align: center;">
+                    <span style="font-size: .75rem; color: #9a3412; font-weight: 700; text-transform: uppercase;">Session Security</span>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: .2rem 0;">30-Day Tokens</div>
+                    <span style="font-size: .72rem; color: #16a34a; font-weight: 600;">Encrypted & Remembered</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if current_user.role in ['organizer', 'admin'] %}
+        <div class="dash-card" style="border-left: 5px solid #0284c7; margin-bottom: 2rem; background: linear-gradient(to right, rgba(2,132,199,0.03), transparent);">
+            <div class="dash-card-header" style="flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <div class="dash-card-title" style="color: #0369a1;">
+                        <span>📅</span> Event Organiser Command Deck
+                    </div>
+                    <p style="font-size: .84rem; color: #64748b; margin-top: .2rem;">
+                        Manage environmental workshops, climate strikes, and restoration rallies. Track attendee quotas and live RSVPs.
+                    </p>
+                </div>
+                <div style="display: flex; gap: .5rem; align-items: center;">
+                    <a href="/events" class="dash-btn-primary" style="padding: .5rem 1rem; font-size: .82rem; background: linear-gradient(135deg, #0284c7, #38bdf8);">
+                        <span>➕ Create / View All Events</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: #ffffff; border: 1px solid #bae6fd; border-radius: 12px; padding: 1.1rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.5rem;">
+                        <strong style="color:#0f172a; font-size:.95rem;">🌊 Clean Ocean Initiative 2024</strong>
+                        <span style="background:#e0f2fe; color:#0369a1; font-size:.72rem; font-weight:700; padding:.2rem .5rem; border-radius:4px;">San Francisco</span>
+                    </div>
+                    <p style="font-size:.8rem; color:#64748b; margin-bottom:.8rem;">Ocean Beach coastal cleanup, microplastic sifting, and marine ecology workshop.</p>
+                    <div style="display:flex; justify-content:space-between; font-size:.75rem; color:#64748b; margin-bottom:.3rem;">
+                        <span>Confirmed: <strong>45 registered</strong></span>
+                        <span>Capacity: <strong>100</strong></span>
+                    </div>
+                    <div style="height:6px; background:#f1f5f9; border-radius:99px; overflow:hidden;">
+                        <div style="width:45%; height:100%; background:#0284c7;"></div>
+                    </div>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid #bae6fd; border-radius: 12px; padding: 1.1rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.5rem;">
+                        <strong style="color:#0f172a; font-size:.95rem;">🌲 Urban Reforestation Hackathon</strong>
+                        <span style="background:#e0f2fe; color:#0369a1; font-size:.72rem; font-weight:700; padding:.2rem .5rem; border-radius:4px;">Seattle, WA</span>
+                    </div>
+                    <p style="font-size:.8rem; color:#64748b; margin-bottom:.8rem;">Planting 500 native saplings with GIS micro-tagging and soil microbiome testing.</p>
+                    <div style="display:flex; justify-content:space-between; font-size:.75rem; color:#64748b; margin-bottom:.3rem;">
+                        <span>Confirmed: <strong>32 registered</strong></span>
+                        <span>Capacity: <strong>75</strong></span>
+                    </div>
+                    <div style="height:6px; background:#f1f5f9; border-radius:99px; overflow:hidden;">
+                        <div style="width:42%; height:100%; background:#107c41;"></div>
+                    </div>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid #bae6fd; border-radius: 12px; padding: 1.1rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.5rem;">
+                        <strong style="color:#0f172a; font-size:.95rem;">⚡ Community Solar Cooperative</strong>
+                        <span style="background:#e0f2fe; color:#0369a1; font-size:.72rem; font-weight:700; padding:.2rem .5rem; border-radius:4px;">Denver, CO</span>
+                    </div>
+                    <p style="font-size:.8rem; color:#64748b; margin-bottom:.8rem;">Neighborhood solar rooftop aggregation workshop and bulk panel group-buy.</p>
+                    <div style="display:flex; justify-content:space-between; font-size:.75rem; color:#64748b; margin-bottom:.3rem;">
+                        <span>Confirmed: <strong>60 registered</strong></span>
+                        <span>Capacity: <strong>120</strong></span>
+                    </div>
+                    <div style="height:6px; background:#f1f5f9; border-radius:99px; overflow:hidden;">
+                        <div style="width:50%; height:100%; background:#f59e0b;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if current_user.role == 'participant' %}
+        <div class="dash-card" style="border-left: 5px solid #107c41; margin-bottom: 2rem; background: linear-gradient(to right, rgba(16,124,65,0.03), transparent);">
+            <div class="dash-card-header" style="flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <div class="dash-card-title" style="color: #107c41;">
+                        <span>🌿</span> Participant Eco-Passport & Climate Guardian Badges
+                    </div>
+                    <p style="font-size: .84rem; color: #64748b; margin-top: .2rem;">
+                        Welcome to your personal citizen science hub. Take pledges, log zero-carbon days, and track collective impact.
+                    </p>
+                </div>
+                <div style="display: flex; gap: .5rem; align-items: center;">
+                    <a href="/pledge" class="dash-btn-primary" style="padding: .5rem 1rem; font-size: .82rem; background: linear-gradient(135deg, #107c41, #22c55e);">
+                        <span>📜 Sign Climate Pledge</span>
+                    </a>
+                </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem;">
+                <div style="display:flex; align-items:center; gap:.5rem; background:#ffffff; border:1px solid #bbf7d0; padding:.5rem .85rem; border-radius:10px;">
+                    <span style="font-size:1.3rem;">🌱</span>
+                    <div>
+                        <strong style="font-size:.8rem; color:#166534; display:block;">Early Adopter</strong>
+                        <span style="font-size:.7rem; color:#64748b;">Member of EcoProtect</span>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:.5rem; background:#ffffff; border:1px solid #bbf7d0; padding:.5rem .85rem; border-radius:10px;">
+                    <span style="font-size:1.3rem;">💧</span>
+                    <div>
+                        <strong style="font-size:.8rem; color:#166534; display:block;">Water Steward</strong>
+                        <span style="font-size:.7rem; color:#64748b;">Conserved 140+ L/day</span>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:.5rem; background:#ffffff; border:1px solid #bbf7d0; padding:.5rem .85rem; border-radius:10px;">
+                    <span style="font-size:1.3rem;">🚲</span>
+                    <div>
+                        <strong style="font-size:.8rem; color:#166534; display:block;">Clean Commuter</strong>
+                        <span style="font-size:.7rem; color:#64748b;">Transit / Active travel</span>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:.5rem; background:#ffffff; border:1px solid #bbf7d0; padding:.5rem .85rem; border-radius:10px;">
+                    <span style="font-size:1.3rem;">🌲</span>
+                    <div>
+                        <strong style="font-size:.8rem; color:#166534; display:block;">Forest Ally</strong>
+                        <span style="font-size:.7rem; color:#64748b;">Supported Tree Canopy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ── MAIN TWO COLUMN DASHBOARD ── -->
+        <div class="dash-main-grid">
+            
+            <!-- Left Column: Personal Footprint & Interactive Climate Mitigation Simulator -->
+            <div>
+                <!-- Footprint Summary Card -->
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-title">
+                            <span>📊</span> Personal Environmental Baseline
+                        </div>
+                        <a href="/calculator" style="font-size:.82rem;font-weight:700;color:#107c41;text-decoration:none;">
+                            Update Metrics →
+                        </a>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;">
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.1rem;text-align:center;">
+                            <span style="font-size:.75rem;color:#64748b;font-weight:700;text-transform:uppercase;">Carbon Output</span>
+                            <div style="font-size:1.6rem;font-weight:800;color:#0f172a;margin:.25rem 0;" id="user-carbon-val">
+                                4.2 <span style="font-size:.85rem;color:#64748b;">t/yr</span>
+                            </div>
+                            <span style="font-size:.72rem;color:#059669;font-weight:600;">Paris Target: 2.0t</span>
+                        </div>
+
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.1rem;text-align:center;">
+                            <span style="font-size:.75rem;color:#64748b;font-weight:700;text-transform:uppercase;">Water Consumption</span>
+                            <div style="font-size:1.6rem;font-weight:800;color:#0f172a;margin:.25rem 0;" id="user-water-val">
+                                145 <span style="font-size:.85rem;color:#64748b;">L/day</span>
+                            </div>
+                            <span style="font-size:.72rem;color:#0284c7;font-weight:600;">Benchmark: 140 L</span>
+                        </div>
+
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:1.1rem;text-align:center;">
+                            <span style="font-size:.75rem;color:#64748b;font-weight:700;text-transform:uppercase;">Offset Needed</span>
+                            <div style="font-size:1.6rem;font-weight:800;color:#107c41;margin:.25rem 0;" id="user-trees-val">
+                                193 <span style="font-size:.85rem;color:#64748b;">trees</span>
+                            </div>
+                            <span style="font-size:.72rem;color:#64748b;font-weight:600;">21.77 kg/tree/yr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Climate Control & Mitigation Scenario Simulator -->
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-title">
+                            <span>🎛️</span> Interactive Climate Control Simulator
+                        </div>
+                        <span style="font-size:.8rem;color:#64748b;">Instant Mitigation Projections</span>
+                    </div>
+
+                    <p style="font-size:.88rem;color:#64748b;margin-bottom:1.5rem;line-height:1.6;">
+                        Adjust your weekly lifestyle levers below to simulate your personalized annual emissions reduction and tree planting equivalence in real-time.
+                    </p>
+
+                    <div class="sim-controls-grid">
+                        <!-- Lever 1 -->
+                        <div class="sim-control-item">
+                            <div class="sim-label-row">
+                                <span>🚲 Shift Commutes to Transit or Cycling</span>
+                                <span class="sim-val-display" id="disp-car">30% reduction</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="30" class="sim-slider" id="slider-car" oninput="runSimulate()"/>
+                        </div>
+
+                        <!-- Lever 2 -->
+                        <div class="sim-control-item">
+                            <div class="sim-label-row">
+                                <span>⚡ Rooftop Solar / Clean Power Purchase</span>
+                                <span class="sim-val-display" id="disp-solar">50% renewable</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" class="sim-slider" id="slider-solar" oninput="runSimulate()"/>
+                        </div>
+
+                        <!-- Lever 3 -->
+                        <div class="sim-control-item">
+                            <div class="sim-label-row">
+                                <span>🥗 Plant-Rich Dietary Days</span>
+                                <span class="sim-val-display" id="disp-diet">3 days / week</span>
+                            </div>
+                            <input type="range" min="0" max="7" value="3" class="sim-slider" id="slider-diet" oninput="runSimulate()"/>
+                        </div>
+
+                        <!-- Lever 4 -->
+                        <div class="sim-control-item">
+                            <div class="sim-label-row">
+                                <span>♻️ Composting & Circular Recycling Rate</span>
+                                <span class="sim-val-display" id="disp-waste">60% diversion</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="60" class="sim-slider" id="slider-waste" oninput="runSimulate()"/>
+                        </div>
+                    </div>
+
+                    <!-- Output Box -->
+                    <div class="sim-output-box">
+                        <div class="sim-metric">
+                            <h3 id="sim-co2-saved">1,812</h3>
+                            <span>kg CO₂ Saved Annually</span>
+                        </div>
+                        <div class="sim-metric">
+                            <h3 id="sim-trees-equiv">83</h3>
+                            <span>Mature Trees Equivalent 🌲</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Daily Green Checklist, Action Logger, and Activity Stream -->
+            <div>
+                <!-- Daily Actions Checklist -->
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-title">
+                            <span>✅</span> Daily Action Habit Tracker
+                        </div>
+                        <span class="dash-rank-badge" id="daily-streak-badge">🔥 Streak: 7 Days</span>
+                    </div>
+
+                    <div id="checklist-container">
+                        <div class="checklist-item">
+                            <label class="check-left">
+                                <input type="checkbox" onchange="toggleDailyAction(this, 'Turned off idle appliance power', 0.8)"/>
+                                <span class="check-title">Eliminated vampire standby power</span>
+                            </label>
+                            <span class="check-badge">+0.8 kg</span>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-left">
+                                <input type="checkbox" onchange="toggleDailyAction(this, 'Took low-carbon public transit', 2.5)"/>
+                                <span class="check-title">Commuted via transit / cycling</span>
+                            </label>
+                            <span class="check-badge">+2.5 kg</span>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-left">
+                                <input type="checkbox" onchange="toggleDailyAction(this, 'Ate plant-rich vegetarian meals', 3.2)"/>
+                                <span class="check-title">Zero-meat plant-based day</span>
+                            </label>
+                            <span class="check-badge">+3.2 kg</span>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-left">
+                                <input type="checkbox" onchange="toggleDailyAction(this, 'Shower kept under 5 minutes', 1.0)"/>
+                                <span class="check-title">5-minute water-saver shower</span>
+                            </label>
+                            <span class="check-badge">+35 Liters</span>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-left">
+                                <input type="checkbox" onchange="toggleDailyAction(this, 'Zero single-use plastic packaging', 0.6)"/>
+                                <span class="check-title">Zero single-use plastics today</span>
+                            </label>
+                            <span class="check-badge">+0.6 kg</span>
+                        </div>
+                    </div>
+
+                    <!-- Custom Action Logger -->
+                    <form onsubmit="handleCustomAction(event)">
+                        <div class="log-action-input-row">
+                            <input type="text" id="custom-action-title" class="log-action-input" placeholder="e.g. Planted 2 native balcony shrubs" required/>
+                            <input type="number" step="0.1" id="custom-action-metric" class="log-action-input" placeholder="CO₂ kg (e.g. 5)" value="2.5"/>
+                            <button type="submit" class="log-action-btn">+ Log</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Recent Activity Stream -->
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <div class="dash-card-title">
+                            <span>📋</span> Your Environmental Activity
+                        </div>
+                    </div>
+
+                    <ul class="activity-feed-list" id="activity-feed-list">
+                        <li class="activity-feed-item">
+                            <span class="activity-feed-icon">🌍</span>
+                            <div class="activity-feed-content">
+                                <div class="activity-feed-title">Joined EcoProtect Climate Network</div>
+                                <div class="activity-feed-time">Platform Community Active</div>
+                            </div>
+                        </li>
+                        <li class="activity-feed-item">
+                            <span class="activity-feed-icon">📜</span>
+                            <div class="activity-feed-content">
+                                <div class="activity-feed-title">Signed "One Planet, One Responsibility" Pledge</div>
+                                <div class="activity-feed-time">Verified Citizen Commitment</div>
+                            </div>
+                        </li>
+                        <li class="activity-feed-item">
+                            <span class="activity-feed-icon">🧮</span>
+                            <div class="activity-feed-content">
+                                <div class="activity-feed-title">Completed Scientific Carbon Audit</div>
+                                <div class="activity-feed-time">Calculated via Embedded EcoEngine</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Run simulation
+async function runSimulate() {
+    const car = document.getElementById('slider-car').value;
+    const solar = document.getElementById('slider-solar').value;
+    const diet = document.getElementById('slider-diet').value;
+    const waste = document.getElementById('slider-waste').value;
+
+    document.getElementById('disp-car').textContent = `${car}% reduction`;
+    document.getElementById('disp-solar').textContent = `${solar}% renewable`;
+    document.getElementById('disp-diet').textContent = `${diet} days / week`;
+    document.getElementById('disp-waste').textContent = `${waste}% diversion`;
+
+    try {
+        const res = await fetch('/api/dashboard/simulate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                car_reduction_pct: car,
+                solar_share_pct: solar,
+                plant_diet_days: diet,
+                waste_recycle_pct: waste
+            })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+            document.getElementById('sim-co2-saved').textContent = Math.round(data.total_annual_co2_kg).toLocaleString();
+            document.getElementById('sim-trees-equiv').textContent = Math.round(data.trees_equivalent).toLocaleString();
+        }
+    } catch (e) {
+        // Fallback local computation
+        const total = (car * 18) + (solar * 14) + (diet * 52 * 2.8) + (waste * 2.2);
+        document.getElementById('sim-co2-saved').textContent = Math.round(total).toLocaleString();
+        document.getElementById('sim-trees-equiv').textContent = Math.round(total / 21.77).toLocaleString();
+    }
+}
+
+// Toggle daily action
+async function toggleDailyAction(checkbox, title, metric) {
+    if (!checkbox.checked) return;
+    
+    try {
+        const res = await fetch('/api/dashboard/log-action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action_type: 'daily_habit',
+                title: title,
+                impact_metric: metric,
+                unit: 'kg CO2'
+            })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+            showToast(`Logged: ${title} (+${metric} kg CO₂ saved!)`, 'success');
+            addActivityItem('🌱', title, 'Just now');
+            if (data.summary && data.summary.eco_level) {
+                document.getElementById('eco-level-tag').textContent = data.summary.eco_level;
+            }
+        } else if (res.status === 401) {
+            showToast('Sign in to permanently save your daily actions to your profile!', 'info');
+        }
+    } catch (e) {
+        showToast(`Habit noted! +${metric} kg saved.`, 'success');
+    }
+}
+
+// Log custom eco action
+async function handleCustomAction(e) {
+    e.preventDefault();
+    const titleInput = document.getElementById('custom-action-title');
+    const metricInput = document.getElementById('custom-action-metric');
+    const title = titleInput.value.trim();
+    const metric = parseFloat(metricInput.value) || 1.0;
+
+    if (!title) return;
+
+    try {
+        const res = await fetch('/api/dashboard/log-action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action_type: 'custom',
+                title: title,
+                impact_metric: metric,
+                unit: 'kg CO2'
+            })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+            showToast(`Custom Action Logged: ${title}`, 'success');
+            addActivityItem('🌿', title, 'Just now');
+            titleInput.value = '';
+            if (data.summary && data.summary.eco_level) {
+                document.getElementById('eco-level-tag').textContent = data.summary.eco_level;
+            }
+        } else {
+            showToast(data.message || 'Please sign in to log actions.', 'info');
+        }
+    } catch (err) {
+        showToast('Action saved locally.', 'success');
+        addActivityItem('🌿', title, 'Just now');
+        titleInput.value = '';
+    }
+}
+
+function addActivityItem(icon, title, time) {
+    const list = document.getElementById('activity-feed-list');
+    if (!list) return;
+    const item = document.createElement('li');
+    item.className = 'activity-feed-item';
+    item.innerHTML = `
+        <span class="activity-feed-icon">${icon}</span>
+        <div class="activity-feed-content">
+            <div class="activity-feed-title">${title}</div>
+            <div class="activity-feed-time">${time}</div>
+        </div>
+    `;
+    list.prepend(item);
+}
+
+// Initialize user summary data from API
+async function loadDashboardData() {
+    try {
+        const res = await fetch('/api/dashboard/stats');
+        const data = await res.json();
+        if (data.status === 'success' && data.user_summary) {
+            const u = data.user_summary;
+            if (u.latest_carbon_tonnes) {
+                document.getElementById('user-carbon-val').innerHTML = `${u.latest_carbon_tonnes} <span style="font-size:.85rem;color:#64748b;">t/yr</span>`;
+            }
+            if (u.latest_water_liters) {
+                document.getElementById('user-water-val').innerHTML = `${u.latest_water_liters} <span style="font-size:.85rem;color:#64748b;">L/day</span>`;
+            }
+            if (u.trees_equivalent) {
+                document.getElementById('user-trees-val').innerHTML = `${u.trees_equivalent} <span style="font-size:.85rem;color:#64748b;">trees</span>`;
+            }
+            if (u.eco_level) {
+                document.getElementById('eco-level-tag').textContent = u.eco_level;
+            }
+
+            // Populate recent actions
+            if (u.recent_actions && u.recent_actions.length > 0) {
+                const list = document.getElementById('activity-feed-list');
+                list.innerHTML = '';
+                u.recent_actions.forEach(a => {
+                    addActivityItem('🌱', a.title, a.logged_at ? a.logged_at.split(' ')[0] : 'Recent');
+                });
+            }
+        }
+    } catch (e) {
+        console.warn('Dashboard stats fallback to default values:', e);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    runSimulate();
+    loadDashboardData();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+{% block title %}Waste Management & Circular Economy – Zero Waste Solutions | EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#0a1b0c,#1b3b18,#16a34a);padding:95px 0 65px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(74,222,128,0.2) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="container" style="position:relative;z-index:2;text-align:center;">
+    <nav aria-label="Breadcrumb" style="margin-bottom:1.25rem;">
+      <ol style="display:flex;justify-content:center;align-items:center;gap:.5rem;list-style:none;padding:0;margin:0;font-size:.875rem;">
+        <li><a href="/" style="color:rgba(255,255,255,.65);text-decoration:none;">Home</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li><a href="/solutions" style="color:rgba(255,255,255,.65);text-decoration:none;">Solutions</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li style="color:rgba(255,255,255,.95);font-weight:600;">Waste Management</li>
+      </ol>
+    </nav>
+    <div style="font-size:4.5rem;margin-bottom:1rem;filter:drop-shadow(0 4px 24px rgba(22,163,74,.6));">♻️</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:#fff;margin:0 0 1rem;line-height:1.15;">
+      Waste Management &amp; Circular Economy<br>
+      <span style="color:#86efac;">Designing Out Waste, Regenerating Nature</span>
+    </h1>
+    <p style="font-size:1.15rem;color:rgba(255,255,255,.8);max-width:720px;margin:0 auto 2rem;line-height:1.7;">
+      Humanity generates 2.24 billion tonnes of municipal solid waste every year. From microplastics choking our oceans to mountains of toxic electronic waste, shifting from a linear "take-make-waste" model to a circular regenerative economy is essential.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="#waste-audit" style="background:#16a34a;color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:700;font-size:.95rem;box-shadow:0 4px 18px rgba(22,163,74,.4);transition:transform .2s;">
+        🧪 Take Household Waste Audit
+      </a>
+      <a href="/pledge" style="background:rgba(255,255,255,.12);color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid rgba(255,255,255,.25);transition:background .2s;">
+        🌍 Sign Zero-Waste Pledge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- WASTE DATA STRIP -->
+<section style="background:linear-gradient(135deg,#052e16,#064e3b);padding:3.5rem 0;">
+  <div class="container">
+    <p style="text-align:center;color:#6ee7b7;font-weight:700;letter-spacing:.15em;font-size:.8rem;text-transform:uppercase;margin-bottom:2rem;">
+      World Bank &amp; UNEP Verified Waste Statistics
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
+      {% set facts = [
+        ("2.24B t","global municipal solid waste generated each year","World Bank"),
+        ("400M t","of plastic manufactured annually — over half is single-use","UNEP 2023"),
+        ("62M t","of electronic waste discarded annually, growing 5× faster than recycling","UNITAR"),
+        ("9%","of all plastic ever manufactured has been recycled","OECD"),
+        ("1.3B t","of edible food is wasted globally while 800M go hungry","UN FAO"),
+        ("33%","of municipal waste is openly dumped or burned in open air","What a Waste 2.0")
+      ] %}
+      {% for val, desc, src in facts %}
+      <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2.2rem;font-weight:800;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">{{val}}</div>
+        <div style="color:rgba(255,255,255,.85);font-size:.9rem;margin:.5rem 0 .4rem;line-height:1.4;">{{desc}}</div>
+        <div style="color:rgba(255,255,255,.45);font-size:.75rem;">{{src}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- THE 5-R ZERO WASTE HIERARCHY -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#dcfce7;color:#15803d;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Action Framework</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        The 5-R Zero-Waste Hierarchy
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:620px;margin:0 auto;font-size:1.05rem;">
+        Recycling is the last line of defence — true sustainability starts with refusing and reducing upstream.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
+      {% set r_steps = [
+        ("1","🚫","Refuse","Reject single-use plastics, excessive packaging, promotional junk, and non-recyclable materials before they enter your lifecycle."),
+        ("2","📉","Reduce","Minimize consumption. Buy higher-quality durable items, choose bulk refills, and cut unneeded acquisitions."),
+        ("3","🔄","Reuse","Extend product lifetimes through repair, second-hand trade, upcycling, washable containers, and cloth bags."),
+        ("4","🍂","Rot (Compost)","Divert organic food scraps and green waste to composting to prevent landfill anaerobic methane production and enrich topsoil."),
+        ("5","♻️","Recycle","Properly separate clean paper, aluminum, glass, and rigid polymers that cannot be avoided by preceding steps.")
+      ] %}
+      {% for num, icon, title, desc in r_steps %}
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:1.75rem;position:relative;display:flex;flex-direction:column;box-shadow:0 8px 20px rgba(0,0,0,.03);">
+        <div style="position:absolute;top:1rem;right:1rem;width:28px;height:28px;background:rgba(34,197,94,.12);color:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;">{{num}}</div>
+        <div style="font-size:2.5rem;margin-bottom:1rem;">{{icon}}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">{{title}}</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.88rem;line-height:1.6;margin:0;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- MATERIAL DECOMPOSITION TIMELINE -->
+<section style="padding:5rem 0;background:var(--bg-surface,#fff);border-top:1px solid var(--border-color,#e2e8f0);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#fee2e2;color:#991b1b;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Environmental Persistence</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        How Long Does Our Trash Last?
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:620px;margin:0 auto;font-size:1.05rem;">
+        Items used for just minutes persist in ecosystems for decades, centuries, or millennia.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+      {% set decomps = [
+        ("🍎","Apple Core / Food Scraps","2 to 4 Weeks","#16a34a","Rapidly decomposes in aerobic soil; produces potent methane if trapped in airtight landfills."),
+        ("📦","Cardboard Box","2 Months","#16a34a","Easily recyclable up to 7 times before cellulose fibers become too short to bind."),
+        ("🚬","Cigarette Butt (Cellulose Acetate)","10 to 12 Years","#ea580c","Made of plastic filters that leach arsenic, lead, and nicotine into waterways and soil."),
+        ("🛍️","Plastic Grocery Bag","20 to 50 Years","#dc2626","Fragments into microscopic particles that never truly biodegrade, poisoning marine food webs."),
+        ("🥫","Aluminum Beverage Can","200 to 250 Years","#ca8a04","100% infinitely recyclable without loss of quality. Recycling saves 95% of energy vs mining bauxite."),
+        ("🧴","PET Plastic Water Bottle","450 to 500 Years","#dc2626","Only 9% recycled globally; 1 million bottles purchased every single minute worldwide."),
+        ("☕","Styrofoam Cup (Expanded Polystyrene)","500+ Years / Forever","#991b1b","Virtually non-biodegradable; breaks into toxic pellets ingested by fish and birds."),
+        ("🍾","Glass Bottle","1 Million+ Years","#0284c7","Indefinitely recyclable forever without quality loss, but takes geological epochs to weather away.")
+      ] %}
+      {% for icon, item, time, col, note in decomps %}
+      <div style="background:var(--bg-page,#f8fafc);border-radius:16px;border:1px solid var(--border-color,#e2e8f0);padding:1.5rem;border-left:4px solid {{col}};box-shadow:0 4px 15px rgba(0,0,0,.02);">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">{{icon}}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 .25rem;">{{item}}</h4>
+        <div style="color:{{col}};font-weight:800;font-size:1.15rem;margin-bottom:.5rem;">⏳ {{time}}</div>
+        <p style="color:var(--text-secondary,#64748b);font-size:.82rem;line-height:1.5;margin:0;">{{note}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CIRCULAR ECONOMY & INDUSTRIAL SYSTEMS -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#fef3c7;color:#b45309;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Industrial Transformation</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        From Linear to Circular Systems
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:600px;margin:0 auto;font-size:1.05rem;">
+        How progressive businesses, cities, and governments are eliminating waste by design.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">📦</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Extended Producer Responsibility (EPR)</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Legislation requiring manufacturers to fund and manage the end-of-life collection and recovery of electronics, packaging, tires, and vehicles, creating powerful financial incentives to design for disassembly.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🍄</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Bio-Based &amp; Mycelium Materials</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Mushroom mycelium, agricultural hemp waste, and seaweed algae replacing polystyrene packaging and petrochemical plastics with 100% home-compostable alternatives that dissolve into soil nutrients within 45 days.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🏭</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Industrial Symbiosis</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Eco-industrial parks (e.g. Kalundborg, Denmark) where waste heat, steam, sulfur, and fly ash from one facility become direct raw inputs for neighbouring industries, achieving near-zero aggregate net waste.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">📱</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Urban Mining &amp; E-Waste Recovery</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          One tonne of discarded smartphones contains up to 100× more gold, copper, and palladium than a tonne of mined ore. Modular electronics and mandatory Right to Repair laws restore hardware longevity.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOM-BY-ROOM ZERO-WASTE BLUEPRINT -->
+<section style="padding:5rem 0;background:var(--bg-surface,#fff);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#dcfce7;color:#166534;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Practical Living</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Room-by-Room Zero-Waste Blueprint
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:620px;margin:0 auto;font-size:1.05rem;">
+        Simple swaps that eliminate 80% of household landfill waste while saving money.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+      <!-- Kitchen -->
+      <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;">
+        <div style="font-size:2.5rem;margin-bottom:.75rem;">🍳</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1rem;">The Kitchen</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.75rem;font-size:.88rem;color:var(--text-secondary,#64748b);">
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Replace paper towels with washable cotton Swedish dishcloths.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Swap plastic cling wrap for breathable beeswax wraps.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Keep an airtight countertop bin for composting fruit/vegetable scraps.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Store leftovers in glass Pyrex or stainless steel containers.</li>
+        </ul>
+      </div>
+
+      <!-- Bathroom -->
+      <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;">
+        <div style="font-size:2.5rem;margin-bottom:.75rem;">🛁</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1rem;">The Bathroom</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.75rem;font-size:.88rem;color:var(--text-secondary,#64748b);">
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Switch from liquid shampoo bottles to solid shampoo &amp; conditioner bars.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Use a traditional double-edged safety razor with recyclable steel blades.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Bamboo toothbrushes with compostable plant-based bristles.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Toothpaste tablets packaged in glass refill jars.</li>
+        </ul>
+      </div>
+
+      <!-- Grocery & On-the-Go -->
+      <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;">
+        <div style="font-size:2.5rem;margin-bottom:.75rem;">🛍️</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1rem;">Groceries &amp; Daily Life</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.75rem;font-size:.88rem;color:var(--text-secondary,#64748b);">
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Canvas tote bags + mesh produce bags for loose fruits &amp; vegetables.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Buy staples (rice, lentils, oats, nuts) from package-free bulk refill stores.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Insulated stainless steel water bottle &amp; reusable coffee tumbler.</li>
+          <li style="display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#16a34a;font-weight:800;">✓</span> Bamboo travel cutlery set to politely refuse plastic forks.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE HOUSEHOLD WASTE AUDIT & QUIZ -->
+<section id="waste-audit" style="padding:5rem 0;background:var(--bg-page,#f8fafc);border-top:1px solid var(--border-color,#e2e8f0);">
+  <div class="container" style="max-width:880px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#dbeafe;color:#1e40af;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Self-Assessment</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Quick Household Waste Audit
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);font-size:1.05rem;">
+        Check off the habits you already practice to see your Zero-Waste Diverter Score.
+      </p>
+    </div>
+
+    <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:22px;padding:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.04);">
+      <div id="waste-checklist" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;">
+        {% set checklist = [
+          ("carry_bags","I bring reusable canvas tote bags when grocery shopping.", 10),
+          ("water_bottle","I carry a refillable stainless steel or glass water bottle daily.", 10),
+          ("no_straws","I refuse single-use plastic straws, cups, and plastic cutlery.", 10),
+          ("compost_organics","I compost food scraps (backyard, curbside organics, or worm bin).", 20),
+          ("bulk_buying","I buy grains, spices, or cleaners in bulk using refill containers.", 15),
+          ("solid_shampoo","I use bar soap, shampoo bars, or package-free personal care items.", 10),
+          ("repair_habits","I repair clothes, shoes, and electronics instead of tossing them.", 15),
+          ("no_bottled_water","I never buy cases of disposable single-use plastic water bottles.", 10)
+        ] %}
+        {% for id, text, pts in checklist %}
+        <label style="display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--bg-page,#f8fafc);border-radius:12px;border:1px solid var(--border-color,#e2e8f0);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(34,197,94,0.06)'" onmouseout="this.style.background=''">
+          <input type="checkbox" class="audit-check" data-points="{{pts}}" style="width:20px;height:20px;accent-color:#16a34a;" onchange="calculateWasteScore()"/>
+          <span style="font-size:.92rem;font-weight:600;color:var(--text-primary,#0f172a);flex:1;">{{text}}</span>
+          <span style="font-size:.8rem;color:#16a34a;font-weight:700;">+{{pts}} pts</span>
+        </label>
+        {% endfor %}
+      </div>
+
+      <div style="background:linear-gradient(135deg,#052e16,#14532d);border-radius:16px;padding:1.75rem;text-align:center;color:#fff;">
+        <span style="font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:#86efac;font-weight:700;">Your Waste Diversion Score</span>
+        <div id="audit-score-num" style="font-size:3.2rem;font-weight:900;font-family:'Plus Jakarta Sans',sans-serif;color:#4ade80;line-height:1.2;margin:.25rem 0;">
+          0 / 100
+        </div>
+        <div id="audit-score-tier" style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.5rem;">
+          Linear Consumer (Beginner)
+        </div>
+        <p id="audit-score-desc" style="color:rgba(255,255,255,.8);font-size:.9rem;max-width:550px;margin:0 auto;line-height:1.6;">
+          Tick the boxes above to calculate your current score and receive tailored tips.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<section style="padding:5rem 0;background:var(--bg-surface,#fff);">
+  <div class="container" style="max-width:850px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#e0e7ff;color:#3730a3;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Common Queries</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Zero-Waste &amp; Recycling FAQs
+      </h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+      {% set faqs = [
+        ("Can all plastics really be recycled, or is that a myth?",
+         "Most plastic recycling is a marketing myth. Only rigid PET (#1) and HDPE (#2) bottles have viable global recycling markets. Mixed plastics, multilayer pouches, black takeout containers, and flexible films (#3, #4, #6, #7) are technically impossible or economically unprofitable to recycle mechanically, ending up incinerated or landfilled. True solutions require eliminating single-use polymers at the source."),
+        ("Are 'compostable' or 'biodegradable' plastics (PLA) safe for the oceans?",
+         "No. Bioplastics made from polylactic acid (PLA) require industrial composting facilities reaching 60°C (140°F) with specific humidity and bacteria to degrade. In seawater or ordinary backyard soil, PLA behaves exactly like petroleum plastic, persisting for decades and posing the same choke hazard to wildlife."),
+        ("Does adopting a zero-waste lifestyle cost more money?",
+         "Actually, zero-waste saves an average household between $1,500 and $3,000 per year. By refusing disposable convenience products (paper towels, bottled water, packaged snacks), buying in bulk, cooking whole foods, and repairing durable goods, families drastically lower their weekly grocery and supply expenses."),
+        ("What is the single most impactful waste habit to begin with?",
+         "Diverting organic food waste into composting. Organic matter rotting inside airtight landfills generates methane (CH₄) — a greenhouse gas with 28–36× the global warming potential of CO₂ over a 100-year timescale. Composting turns potential climate damage into fertile topsoil.")
+      ] %}
+      {% for q, a in faqs %}
+      <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:14px;padding:1.5rem;box-shadow:0 4px 15px rgba(0,0,0,.02);">
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 .6rem;">
+          ❓ {{q}}
+        </h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.7;margin:0;">
+          {{a}}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CALL TO ACTION BANNER -->
+<section style="background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:4.5rem 0;text-align:center;color:#fff;">
+  <div class="container" style="max-width:760px;margin:0 auto;">
+    <div style="font-size:3.5rem;margin-bottom:1rem;">♻️</div>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:900;margin:0 0 1rem;color:#fff;">
+      Lead the Zero-Waste Revolution
+    </h2>
+    <p style="font-size:1.15rem;color:rgba(255,255,255,.9);line-height:1.7;margin:0 auto 2rem;">
+      We do not need a handful of people doing zero-waste perfectly; we need millions doing it imperfectly.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/lifestyle" style="background:#fff;color:#166534;padding:.9rem 2.25rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:1rem;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:transform .2s;">
+        🌿 Complete Sustainable Lifestyle Guide
+      </a>
+      <a href="/pledge" style="background:rgba(255,255,255,.15);color:#fff;padding:.9rem 2.25rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:1rem;border:1.5px solid rgba(255,255,255,.4);transition:background .2s;">
+        ✍️ Sign the Official Pledge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function calculateWasteScore() {
+  const checks = document.querySelectorAll('.audit-check');
+  let score = 0;
+  checks.forEach(c => {
+    if (c.checked) score += parseInt(c.dataset.points, 10);
+  });
+  
+  document.getElementById('audit-score-num').textContent = score + ' / 100';
+  const tier = document.getElementById('audit-score-tier');
+  const desc = document.getElementById('audit-score-desc');
+  
+  if (score >= 80) {
+    tier.textContent = "Zero-Waste Master 🌟";
+    desc.textContent = "Phenomenal! You are diverting the vast majority of your household waste and inspiring your community.";
+  } else if (score >= 50) {
+    tier.textContent = "Eco Conscious Reducer 🌿";
+    desc.textContent = "Great progress! You have conquered the basics. Consider adding composting or bulk shopping to take the next leap.";
+  } else if (score >= 20) {
+    tier.textContent = "Emerging Green Citizen 🌱";
+    desc.textContent = "A solid foundation! Swapping single-use water bottles and getting a canvas tote will make an immediate difference.";
+  } else {
+    tier.textContent = "Linear Consumer (Beginner) 📦";
+    desc.textContent = "Ready to start your journey! Pick just 1 or 2 small habits this week to see how easy reducing waste can be.";
+  }
+}
+</script>
+{% endblock %}

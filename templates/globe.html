@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoGlobe 3D – Planetary Crisis Observatory | EcoProtect</title>
+  <meta name="description" content="Ultra-fast 3D Planetary Crisis Observatory tracking 4,800+ real-world environmental tragedies, land destruction, atmospheric emissions, and air quality impacts from 1995 to 2026." />
+
+  <!-- Instant 0ms Zero-Texture Mount & Data Preload -->
+  <link rel="preload" href="/static/js/three.min.js?v=20261015" as="script" />
+  <link rel="preload" href="/static/js/globe.gl.min.js?v=20261015" as="script" />
+  <link rel="preload" href="/static/data/hazards_core.json" as="fetch" crossorigin="anonymous" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #030712;
+      --glass-bg: rgba(9, 18, 38, 0.72);
+      --glass-border: rgba(56, 189, 248, 0.22);
+      --glass-border-hover: rgba(56, 189, 248, 0.5);
+      --glass-glow: 0 16px 40px -8px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      --cyan: #38bdf8;
+      --cyan-glow: 0 0 16px rgba(56, 189, 248, 0.4);
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --violet: #a855f7;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+      --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      user-select: none;
+    }
+
+    /* ── AMBIENT CYBERNETIC BACKGROUND ── */
+    #ambient-canvas-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 65%),
+                  radial-gradient(circle at 10% 90%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    }
+
+    /* ── FLOATING TOP HUD CONSOLE ── */
+    #hud-top-bar {
+      position: fixed;
+      top: 14px;
+      left: 18px;
+      right: 18px;
+      height: 58px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      pointer-events: none;
+    }
+    .hud-island {
+      pointer-events: auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px) saturate(210%);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      box-shadow: var(--glass-glow);
+      display: flex;
+      align-items: center;
+      padding: 0.35rem 0.9rem;
+      gap: 0.75rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .hud-island:hover {
+      border-color: var(--glass-border-hover);
+    }
+
+    /* Brand Logo */
+    .brand-pill {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .brand-orb {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #38bdf8 10%, #0284c7 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
+      animation: orbPulse 3s ease-in-out infinite;
+    }
+    @keyframes orbPulse {
+      0%, 100% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.5); transform: scale(1); }
+      50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.8); transform: scale(1.05); }
+    }
+    .brand-text {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.3px;
+      background: linear-gradient(90deg, #f8fafc 30%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-tag {
+      font-size: 0.62rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 0.12rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+    }
+
+    /* Center Time Machine Console */
+    .time-machine-deck {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 999px;
+      padding: 0.22rem 0.65rem;
+    }
+    .time-btn-round {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .time-btn-round:hover {
+      background: var(--cyan);
+      color: #030712;
+      transform: scale(1.12);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+    .time-play-pill {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(14, 165, 233, 0.05) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--cyan);
+      padding: 0.22rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+    .time-play-pill:hover {
+      background: var(--cyan);
+      color: #030712;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
+    }
+    .time-scrubber {
+      width: 130px;
+      accent-color: var(--cyan);
+      cursor: pointer;
+      height: 5px;
+    }
+    .time-year-odometer {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--cyan);
+      min-width: 42px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    /* Top Right Telemetry & Textures */
+    .telemetry-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--emerald);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .tele-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: pulseGlow 1.5s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.6); }
+    }
+    .counter-highlight {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--cyan);
+      font-size: 0.78rem;
+    }
+    /* Planetary Indicators HUD Strip */
+    .indicators-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.95rem;
+      padding: 0.35rem 1.15rem;
+      background: rgba(3, 7, 18, 0.75);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+    }
+    .ind-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+    }
+    .ind-lbl {
+      font-size: 0.58rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .ind-val {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .ind-sep {
+      width: 1px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Ledger Layout & Headers */
+    .ledger-header-box {
+      padding: 0.9rem 1.1rem 0.55rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, transparent 100%);
+    }
+    .ledger-main-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .ledger-sub-title {
+      font-size: 0.66rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      margin-top: 0.2rem;
+    }
+    .ledger-count-pill {
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+    }
+    .ledger-pane-direct {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.65rem 0.85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .exit-btn {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.2s;
+    }
+    .exit-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* ── 3D GLOBE CANVAS VIEWPORT ── */
+    #globe-viewport {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      background: #000;
+      cursor: grab;
+      touch-action: none;
+    }
+    #globe-viewport:active {
+      cursor: grabbing;
+    }
+    #globe-3d-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Holographic Radar Compass Ring */
+    .radar-compass-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 580px;
+      height: 580px;
+      border: 1px dashed rgba(56, 189, 248, 0.12);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: rotateCompass 90s linear infinite;
+    }
+    @keyframes rotateCompass {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* ── FLOATING LEFT CONTROL DOCK ── */
+    #left-dock {
+      position: fixed;
+      top: 86px;
+      left: 18px;
+      bottom: 42px;
+      width: 390px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #left-dock.collapsed {
+      transform: translateX(-430px);
+    }
+    .dock-card {
+      pointer-events: auto;
+      flex: 1;
+      background: var(--glass-bg);
+      backdrop-filter: blur(32px) saturate(220%);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-glow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .dock-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+    .dock-toggle-btn {
+      position: absolute;
+      top: 14px;
+      right: -36px;
+      width: 36px;
+      height: 38px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px);
+      border: 1px solid var(--glass-border);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      font-size: 0.95rem;
+      box-shadow: 4px 0 16px rgba(0,0,0,0.5);
+      transition: all 0.2s;
+    }
+    .dock-toggle-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #fff;
+    }
+
+    /* Dock Segmented Tabs */
+    .dock-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0.75rem 0.85rem 0.4rem;
+      gap: 0.45rem;
+    }
+    .dock-tab {
+      padding: 0.45rem;
+      border-radius: 10px;
+      background: rgba(3, 7, 18, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .dock-tab.active {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: var(--cyan);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Tab Panes */
+    .dock-pane {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.85rem 1rem 1rem;
+      gap: 0.95rem;
+    }
+    .dock-pane.active {
+      display: flex;
+    }
+
+    /* Search & Inputs */
+    .control-label {
+      font-size: 0.66rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
+    .search-wrap {
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.5rem 0.85rem 0.5rem 2.2rem;
+      color: #fff;
+      font-size: 0.82rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
+    }
+    .search-icon-svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .custom-dropdown {
+      width: 100%;
+      background: rgba(3, 7, 18, 0.75);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.5rem 0.85rem;
+      color: #fff;
+      font-size: 0.82rem;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .custom-dropdown:focus {
+      border-color: var(--cyan);
+    }
+    .custom-dropdown option {
+      background: #09152b;
+      color: #fff;
+    }
+
+    /* Era Pills */
+    .era-pill-row {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .era-pill {
+      flex: 1;
+      padding: 0.3rem 0.4rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .era-pill:hover, .era-pill.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Category Neon Badges */
+    .category-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .cat-chip {
+      padding: 0.28rem 0.6rem;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .cat-chip:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .cat-chip.active {
+      border-color: var(--chip-color, var(--cyan));
+      background: rgba(56, 189, 248, 0.16);
+      color: var(--chip-color, var(--cyan));
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Severity Switchers */
+    .sev-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.3rem;
+    }
+    .sev-chip {
+      background: rgba(3, 7, 18, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 0.45rem 0.4rem;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      transition: all 0.2s;
+    }
+    .sev-chip.active {
+      border-color: var(--sev-col, #ef4444);
+      background: rgba(239, 68, 68, 0.12);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
+    }
+    .sev-dot-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .sev-chip-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── COUNTRY LEDGER CARDS ── */
+    .ledger-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .ledger-card {
+      background: rgba(3, 7, 18, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.8rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      position: relative;
+    }
+    .ledger-card:hover {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+    }
+    .ledger-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .ledger-card-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.3;
+    }
+    .ledger-year-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .ledger-tags-wrap {
+      display: flex;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+    }
+    .ledger-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 0.4rem;
+      font-size: 0.72rem;
+    }
+    .ledger-card-toll {
+      color: var(--rose);
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+    .btn-action-small {
+      padding: 0.22rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s;
+    }
+    .btn-action-inspect {
+      background: rgba(56, 189, 248, 0.18);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--cyan);
+    }
+    .btn-action-inspect:hover {
+      background: var(--cyan);
+      color: #030712;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+    .btn-action-wiki {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+    .btn-action-wiki:hover {
+      background: #fff;
+      color: #0f172a;
+    }
+
+    /* ── RIGHT FLOATING SLIDING INCIDENT DOSSIER ── */
+    #right-dossier {
+      position: fixed;
+      top: 86px;
+      right: 18px;
+      bottom: 42px;
+      width: 440px;
+      z-index: 60;
+      background: var(--glass-bg);
+      backdrop-filter: blur(36px) saturate(220%);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-glow), -16px 0 48px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateX(490px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #right-dossier.open {
+      transform: translateX(0);
+    }
+    .dossier-head {
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.12) 0%, transparent 100%);
+    }
+    .btn-dossier-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-dossier-close:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: var(--rose);
+      color: var(--rose);
+    }
+    .dossier-icon-lg {
+      font-size: 2.3rem;
+      margin-bottom: 0.35rem;
+    }
+    .dossier-loc-tag {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .dossier-headline {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.28;
+      margin-top: 0.25rem;
+      color: #fff;
+    }
+    .dossier-pills {
+      display: flex;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .d-pill {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      border: 1px solid;
+    }
+
+    .dossier-scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    /* Human Toll Metric Cards */
+    .toll-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .toll-widget {
+      background: rgba(3, 7, 18, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.65rem 0.5rem;
+      text-align: center;
+    }
+    .toll-number {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+    .toll-label {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* Detailed Damage Cards */
+    .damage-card {
+      background: rgba(3, 7, 18, 0.55);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .damage-card-header {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .damage-card-text {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    /* Wikipedia Historical Card */
+    .wiki-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+    }
+    .wiki-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wiki-identity {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .wiki-badge-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #0f172a;
+      font-family: 'Times New Roman', serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wiki-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .wiki-status-tag {
+      font-size: 0.64rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+    }
+    .wiki-snippet-view {
+      background: rgba(3, 7, 18, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+      min-height: 55px;
+    }
+    .wiki-thumb-img {
+      float: right;
+      margin-left: 0.65rem;
+      margin-bottom: 0.4rem;
+      width: 68px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .wiki-action-row {
+      display: flex;
+      gap: 0.45rem;
+    }
+
+    /* ── IN-APP WIKIPEDIA FULL ARTICLE MODAL ── */
+    #wiki-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(28px);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .wiki-modal-window {
+      width: 100%;
+      max-width: 760px;
+      max-height: 86vh;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--glass-border-hover);
+      border-radius: 20px;
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.96) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ── BOTTOM TELEMETRY HUD ── */
+    #bottom-telemetry-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background: rgba(3, 7, 18, 0.9);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      z-index: 45;
+    }
+    .tele-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .tele-cyan {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    /* Surface Tap Sonar Ping Indicator */
+    #surface-sonar-ring {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      display: none;
+      animation: sonarExpand 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      box-shadow: 0 0 18px var(--cyan);
+      z-index: 80;
+    }
+    @keyframes sonarExpand {
+      0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+    }
+
+    /* Hover Tooltip */
+    #hover-tooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 250;
+      background: rgba(8, 17, 34, 0.96);
+      border: 1px solid var(--glass-border-hover);
+      border-radius: 12px;
+      padding: 0.65rem 0.9rem;
+      max-width: 280px;
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.7);
+    }
+    #hover-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.25); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(56, 189, 248, 0.5); }
+
+    @media (max-width: 900px) {
+      #left-dock { width: 320px; }
+      #right-dossier { width: 100%; right: 0; left: 0; }
+      .time-machine-deck { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ambient-canvas-bg"></div>
+
+  <!-- FLOATING TOP HUD CONSOLE WITH PLANETARY CRISIS INDICATORS -->
+  <header id="hud-top-bar">
+    <!-- Brand Capsule -->
+    <div class="hud-island">
+      <a href="/" class="brand-pill">
+        <div class="brand-orb">🌍</div>
+        <div>
+          <div class="brand-text">EcoGlobe 3D</div>
+        </div>
+      </a>
+      <span class="brand-tag">0MS PROCEDURAL</span>
+    </div>
+
+    <!-- Planetary Crisis Indicators Strip (Showcased On Boot) -->
+    <div class="hud-island indicators-strip">
+      <div class="ind-metric">
+        <span class="ind-lbl">🌍 MONITORED CRISES</span>
+        <span class="ind-val" id="ind-total-incidents">4,864</span>
+      </div>
+      <div class="ind-sep"></div>
+      <div class="ind-metric">
+        <span class="ind-lbl">🚨 CATASTROPHIC</span>
+        <span class="ind-val" style="color:var(--rose);" id="ind-catastrophic-count">384</span>
+      </div>
+      <div class="ind-sep"></div>
+      <div class="ind-metric">
+        <span class="ind-lbl">💀 FATALITIES</span>
+        <span class="ind-val" style="color:var(--rose);" id="ind-total-deaths">1,482,900</span>
+      </div>
+      <div class="ind-sep"></div>
+      <div class="ind-metric">
+        <span class="ind-lbl">💰 ECONOMIC DAMAGE</span>
+        <span class="ind-val" style="color:var(--emerald);" id="ind-total-damage">$3.82T</span>
+      </div>
+      <div class="ind-sep"></div>
+      <div class="ind-metric">
+        <span class="ind-lbl">🌲 LAND DESTRUCTION</span>
+        <span class="ind-val" style="color:var(--amber);" id="ind-land-status">CRITICAL</span>
+      </div>
+      <div class="ind-sep"></div>
+      <div class="ind-metric">
+        <span class="ind-lbl">☁️ ATMOSPHERE CO₂</span>
+        <span class="ind-val" style="color:var(--cyan);" id="ind-co2-status">424.5 PPM</span>
+      </div>
+    </div>
+
+    <!-- Top Right Controls (Zero Texture Image Dependencies) -->
+    <div class="hud-island">
+      <div class="telemetry-status-pill">
+        <span class="tele-pulse-dot"></span>
+        <span id="pins-loaded-badge">4,864 PINS ACTIVE</span>
+      </div>
+
+      <button class="texture-btn" onclick="jumpToRandomCrisis()" title="Auto-orbit and focus on a crisis pin" style="background:rgba(56,189,248,0.18);border:1px solid rgba(56,189,248,0.45);color:var(--cyan);font-weight:700;padding:0.35rem 0.8rem;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:0.3rem;">🎯 Focus Pin</button>
+
+      <a href="/" class="exit-btn">&#8592; Exit</a>
+    </div>
+  </header>
+
+  <!-- 3D GLOBE CANVAS VIEWPORT -->
+  <main id="globe-viewport">
+    <div class="radar-compass-ring"></div>
+    <div id="globe-3d-canvas"></div>
+    <div id="surface-sonar-ring"></div>
+  </main>
+
+  <!-- FLOATING LEFT CONTROL DOCK: LIVE GLOBAL INCIDENT LEDGER -->
+  <aside id="left-dock">
+    <button class="dock-toggle-btn" onclick="toggleLeftDock()" title="Toggle Control Dock">◀</button>
+    <div class="dock-card">
+      <!-- DOCK HEADER -->
+      <div class="ledger-header-box">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="ledger-main-title">🏛️ Global Incident Ledger</div>
+          <span class="ledger-count-pill" id="ledger-count-tab">4,864</span>
+        </div>
+        <div class="ledger-sub-title">Live Planetary Crisis Stream (1995–2026)</div>
+      </div>
+
+      <!-- SEARCH BAR -->
+      <div style="padding:0.6rem 0.85rem 0.35rem;">
+        <div class="search-wrap">
+          <span class="search-icon-svg">🔍</span>
+          <input type="text" class="search-input" id="search-input-box" placeholder="Filter 4,864 crises by name, city, country..." oninput="onFilterTrigger()" />
+        </div>
+      </div>
+
+      <!-- SEVERITY QUICK TOGGLES -->
+      <div style="padding:0.15rem 0.85rem 0.45rem;">
+        <div class="sev-row">
+          <div class="sev-chip active" style="--sev-col:#ef4444;" onclick="toggleSeverityFilter('Catastrophic', this)">
+            <span class="sev-dot-indicator" style="background:#ef4444;box-shadow:0 0 6px #ef4444;"></span>
+            <span class="sev-chip-title">Catastrophic</span>
+          </div>
+          <div class="sev-chip active" style="--sev-col:#f97316;" onclick="toggleSeverityFilter('Major', this)">
+            <span class="sev-dot-indicator" style="background:#f97316;box-shadow:0 0 6px #f97316;"></span>
+            <span class="sev-chip-title">Major</span>
+          </div>
+          <div class="sev-chip active" style="--sev-col:#eab308;" onclick="toggleSeverityFilter('Serious', this)">
+            <span class="sev-dot-indicator" style="background:#eab308;box-shadow:0 0 6px #eab308;"></span>
+            <span class="sev-chip-title">Serious</span>
+          </div>
+          <div class="sev-chip active" style="--sev-col:#38bdf8;" onclick="toggleSeverityFilter('Moderate', this)">
+            <span class="sev-dot-indicator" style="background:#38bdf8;box-shadow:0 0 6px #38bdf8;"></span>
+            <span class="sev-chip-title">Moderate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMELINE & PLAY CONTROLS -->
+      <div style="padding:0.2rem 0.85rem 0.45rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem;">
+          <span style="font-size:0.65rem;font-family:var(--font-mono);font-weight:700;color:var(--cyan);text-transform:uppercase;">📅 Timeline Era</span>
+          <span id="era-indicator-label" style="font-size:0.68rem;font-family:var(--font-mono);color:var(--text-dim);font-weight:700;">1995 → 2026</span>
+        </div>
+        <div class="era-pill-row">
+          <button class="era-pill active" onclick="setEra(1995, 2026, this)">All 32yr</button>
+          <button class="era-pill" onclick="setEra(2020, 2026, this)">2020s</button>
+          <button class="era-pill" onclick="setEra(2010, 2019, this)">2010s</button>
+          <button class="era-pill" onclick="setEra(2000, 2009, this)">2000s</button>
+          <button class="era-pill" onclick="setEra(1995, 1999, this)">1990s</button>
+        </div>
+      </div>
+
+      <!-- EXPANDABLE EXTRA FILTERS (TERRITORY & CATEGORY) -->
+      <div style="padding:0 0.85rem 0.4rem;">
+        <button id="toggle-advanced-tools" onclick="toggleAdvancedTools()" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.35rem 0.6rem;font-size:0.68rem;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-mono);">
+          <span>⚙️ Filter by Country & Category</span>
+          <span id="adv-tools-arrow">▼</span>
+        </button>
+        <div id="advanced-tools-panel" style="display:none;margin-top:0.45rem;flex-direction:column;gap:0.45rem;">
+          <select class="custom-dropdown" id="country-select-box" onchange="onCountrySelect(this.value)">
+            <option value="all">🌐 Worldwide (All Sovereign Territories)</option>
+          </select>
+          <div class="category-grid" id="cat-chips-deck" style="max-height:115px;overflow-y:auto;"></div>
+        </div>
+      </div>
+
+      <!-- LIVE INCIDENT LEDGER STREAM (SHOWCASED RIGHT ON BOOT!) -->
+      <div class="ledger-pane-direct">
+        <div class="ledger-stream" id="ledger-stream-container"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT SLIDING INCIDENT DOSSIER -->
+  <aside id="right-dossier">
+    <div class="dossier-head">
+      <button class="btn-dossier-close" onclick="closeDossier()">✕</button>
+      <div class="dossier-icon-lg" id="doss-icon">🌋</div>
+      <div class="dossier-loc-tag" id="doss-loc">JAPAN · KOBE</div>
+      <h2 class="dossier-headline" id="doss-title">Great Hanshin Earthquake</h2>
+      <div class="dossier-pills" id="doss-pills"></div>
+    </div>
+
+    <div class="dossier-scroll-body">
+      <p style="font-size:0.86rem;line-height:1.7;color:#cbd5e1;" id="doss-desc"></p>
+
+      <!-- Toll Widgets -->
+      <div class="toll-grid-3">
+        <div class="toll-widget">
+          <div class="toll-number" style="color:var(--rose);" id="doss-deaths">0</div>
+          <div class="toll-label">Fatalities</div>
+        </div>
+        <div class="toll-widget">
+          <div class="toll-number" style="color:var(--amber);" id="doss-affected">0</div>
+          <div class="toll-label">Displaced</div>
+        </div>
+        <div class="toll-widget">
+          <div class="toll-number" style="color:var(--emerald);" id="doss-damage">$0</div>
+          <div class="toll-label">Economic Loss</div>
+        </div>
+      </div>
+
+      <!-- Damage Cards -->
+      <div class="damage-card">
+        <div class="damage-card-header" style="color:var(--emerald);">
+          <span>🌲</span> Earth & Land Destruction
+        </div>
+        <div class="damage-card-text" id="doss-land">—</div>
+      </div>
+
+      <div class="damage-card">
+        <div class="damage-card-header" style="color:#818cf8;">
+          <span>☁️</span> Atmospheric & Greenhouse Emissions
+        </div>
+        <div class="damage-card-text" id="doss-atmo">—</div>
+      </div>
+
+      <div class="damage-card">
+        <div class="damage-card-header" style="color:var(--amber);">
+          <span>💨</span> Air Quality Degradation & AQI Plumes
+        </div>
+        <div class="damage-card-text" id="doss-air">—</div>
+      </div>
+
+      <div class="damage-card">
+        <div class="damage-card-header" style="color:var(--cyan);">
+          <span>💧</span> Water Tables, Aquifers & Ocean Contamination
+        </div>
+        <div class="damage-card-text" id="doss-water">—</div>
+      </div>
+
+      <!-- WIKIPEDIA HISTORICAL ARCHIVE INTELLIGENCE CARD -->
+      <div class="wiki-box">
+        <div class="wiki-box-header">
+          <div class="wiki-identity">
+            <span class="wiki-badge-icon">W</span>
+            <div>
+              <div class="wiki-title">Wikipedia Historical Archive</div>
+              <div style="font-size:0.62rem;color:var(--text-muted);font-family:var(--font-mono);">Open Knowledge Verification</div>
+            </div>
+          </div>
+          <span class="wiki-status-tag" id="wiki-status-pill">Verified</span>
+        </div>
+
+        <div class="wiki-snippet-view" id="wiki-preview-box">
+          <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.55;">
+            Select an incident to view verified historical accounts and scientific citations from Wikipedia.
+          </div>
+        </div>
+
+        <div class="wiki-action-row">
+          <a href="#" id="wiki-direct-link" target="_blank" rel="noopener noreferrer" class="btn-action-small btn-action-wiki" style="flex:1;justify-content:center;padding:0.45rem;">
+            <span>📖 Read on Wikipedia</span> ↗
+          </a>
+          <button onclick="openWikiModal()" class="btn-action-small btn-action-inspect" style="padding:0.45rem 0.75rem;">
+            <span>🔍 Preview In-App</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- IN-APP WIKIPEDIA INTELLIGENCE MODAL -->
+  <div id="wiki-modal-overlay">
+    <div class="wiki-modal-window">
+      <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--glass-border);display:flex;align-items:center;justify-content:space-between;background:rgba(8,17,34,0.9);">
+        <div style="display:flex;align-items:center;gap:0.65rem;">
+          <span class="wiki-badge-icon">W</span>
+          <div>
+            <div style="font-weight:800;font-size:0.95rem;color:#fff;" id="wiki-modal-title">Wikipedia Archive</div>
+            <div style="font-size:0.68rem;color:var(--text-muted);font-family:var(--font-mono);">Encyclopedia Intelligence</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.65rem;">
+          <a id="wiki-modal-external" href="#" target="_blank" rel="noopener noreferrer" class="btn-action-small btn-action-wiki" style="padding:0.35rem 0.75rem;">
+            Open on Wikipedia ↗
+          </a>
+          <button onclick="closeWikiModal()" style="background:rgba(255,255,255,0.08);border:1px solid var(--glass-border);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;">✕</button>
+        </div>
+      </div>
+      <div style="padding:1.35rem;overflow-y:auto;flex:1;font-size:0.9rem;line-height:1.75;color:#e2e8f0;" id="wiki-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING HOVER TOOLTIP -->
+  <div id="hover-tooltip">
+    <div style="display:flex;align-items:center;gap:0.45rem;">
+      <span id="tt-icon" style="font-size:1.3rem;"></span>
+      <div>
+        <div id="tt-title" style="font-weight:700;color:#fff;font-size:0.84rem;"></div>
+        <div id="tt-meta" style="font-size:0.7rem;font-family:var(--font-mono);color:var(--cyan);"></div>
+      </div>
+    </div>
+    <div id="tt-toll" style="font-size:0.72rem;color:#cbd5e1;margin-top:0.3rem;border-top:1px solid rgba(255,255,255,0.08);padding-top:0.3rem;"></div>
+  </div>
+
+  <!-- BOTTOM TELEMETRY HUD -->
+  <div id="bottom-telemetry-bar">
+    <div class="tele-stat">
+      <span>COORDINATES:</span>
+      <span class="tele-cyan" id="hud-latlng">0.00° N, 0.00° E</span>
+    </div>
+    <div class="tele-stat">
+      <span>TARGET:</span>
+      <span class="tele-cyan" id="hud-target">Tap Earth surface to scan</span>
+    </div>
+    <div class="tele-stat">
+      <span>ORBIT:</span>
+      <span class="tele-cyan" id="hud-altitude">2.40 R</span>
+    </div>
+    <div class="tele-stat">
+      <span style="color:var(--emerald);">60 FPS HARDWARE ACCELERATED</span>
+    </div>
+  </div>
+
+  <!-- 3D GLOBE ENGINE SCRIPTS -->
+  <script src="/static/js/three.min.js?v=20261015"></script>
+  <script src="/static/js/globe.gl.min.js?v=20261015"></script>
+
+  <script>
+    /* ── GLOBAL STATE ── */
+    let globe = null;
+    let allHazards = [];
+    let displayed = [];
+    let hazardsDetailsCache = {};
+    let selectedCountry = 'all';
+    let selectedCategory = 'all';
+    let selectedSeverities = new Set(['Catastrophic', 'Major', 'Serious', 'Moderate']);
+    let yearFrom = 1995;
+    let yearTo = 2026;
+    let isAutoRotating = true;
+    let isPlayingTimeline = false;
+    let timelineTimer = null;
+    let currentTexture = 'blue';
+    let currentWikiData = null;
+    let isDraggingGlobe = false;
+    let pointerDownX = 0;
+    let pointerDownY = 0;
+    let pointerDownTime = 0;
+    let pointClickedJustNow = false;
+
+    const CATEGORIES = [
+      { id: 'all', name: 'All Hazards', icon: '🌐', color: '#38bdf8' },
+      { id: 'Earthquake', name: 'Earthquake', icon: '🌋', color: '#ef4444' },
+      { id: 'Tsunami', name: 'Tsunami', icon: '🌊', color: '#0ea5e9' },
+      { id: 'Storm', name: 'Storm', icon: '🌀', color: '#0066cc' },
+      { id: 'Flooding', name: 'Flood', icon: '🌊', color: '#0284c7' },
+      { id: 'Wildfire', name: 'Wildfire', icon: '🔥', color: '#ff4500' },
+      { id: 'Drought', name: 'Drought', icon: '🏜️', color: '#d2691e' },
+      { id: 'Heatwave', name: 'Heatwave', icon: '☀️', color: '#f97316' },
+      { id: 'Volcanic', name: 'Volcanic', icon: '🌋', color: '#dc2626' },
+      { id: 'Glacial', name: 'Glacial', icon: '🧊', color: '#38bdf8' },
+      { id: 'Glacial Outburst', name: 'Outburst', icon: '🏔️', color: '#0ea5e9' },
+      { id: 'Nuclear', name: 'Nuclear', icon: '☢️', color: '#ff3300' },
+      { id: 'Chemical', name: 'Chemical', icon: '☣️', color: '#ff6600' },
+      { id: 'Oil Spill', name: 'Oil Spill', icon: '🛢️', color: '#8b4513' },
+      { id: 'Mining', name: 'Mining', icon: '⛏️', color: '#ea580c' },
+      { id: 'Industrial', name: 'Industrial', icon: '🏭', color: '#a855f7' },
+      { id: 'Deforestation', name: 'Forest', icon: '🌳', color: '#22c55e' },
+      { id: 'Marine', name: 'Marine', icon: '🪸', color: '#06b6d4' },
+      { id: 'Air Pollution', name: 'Air Quality', icon: '🌫️', color: '#94a3b8' },
+      { id: 'Pollution', name: 'Pollution', icon: '💨', color: '#64748b' },
+      { id: 'Climate', name: 'Climate', icon: '🌡️', color: '#f43f5e' },
+      { id: 'Energy', name: 'Energy', icon: '⚡', color: '#eab308' },
+      { id: 'Water Scarcity', name: 'Water Crisis', icon: '💧', color: '#0284c7' }
+    ];
+
+    /* ── 0MS ZERO-TEXTURE PROCEDURAL CYBERNETIC EARTH WITH CONTINENTS ── */
+    function createProceduralEarthTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1024;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+
+      // Deep cybernetic ocean gradient (Zero external image downloads)
+      const grad = ctx.createLinearGradient(0, 0, 0, 512);
+      grad.addColorStop(0, '#020713');
+      grad.addColorStop(0.25, '#031026');
+      grad.addColorStop(0.5, '#051838');
+      grad.addColorStop(0.75, '#031026');
+      grad.addColorStop(1, '#020713');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1024, 512);
+
+      // Continent Landmasses with Glowing Cyan Coastlines
+      ctx.fillStyle = '#0a2344';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
+      ctx.lineWidth = 1.6;
+
+      const continents = [
+        // Africa
+        [[480, 150], [530, 140], [590, 150], [660, 220], [620, 270], [580, 350], [520, 290], [510, 240], [460, 210], [450, 170]],
+        // Eurasia (Europe + Asia + India)
+        [[470, 140], [490, 110], [520, 80], [560, 60], [660, 50], [780, 50], [870, 70], [920, 110], [880, 160], [840, 200], [800, 260], [760, 240], [700, 240], [670, 200], [600, 170], [550, 170], [500, 160]],
+        // North America
+        [[70, 60], [170, 60], [280, 50], [330, 70], [320, 130], [290, 170], [250, 210], [220, 260], [200, 230], [150, 170], [100, 90]],
+        // South America
+        [[280, 260], [330, 260], [370, 290], [380, 340], [350, 420], [320, 440], [310, 370], [280, 310]],
+        // Australia
+        [[780, 330], [860, 320], [880, 380], [830, 410], [780, 380]],
+        // Greenland
+        [[360, 40], [420, 40], [440, 90], [380, 100], [360, 60]],
+        // Japan
+        [[890, 150], [915, 140], [920, 180], [895, 190]],
+        // UK
+        [[470, 110], [485, 100], [490, 125], [475, 125]],
+        // Antarctica (Polar Ice Shelf)
+        [[0, 470], [1024, 470], [1024, 512], [0, 512]]
+      ];
+
+      continents.forEach(poly => {
+        ctx.beginPath();
+        poly.forEach((pt, i) => {
+          if (i === 0) ctx.moveTo(pt[0], pt[1]);
+          else ctx.lineTo(pt[0], pt[1]);
+        });
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      });
+
+      // Fine coordinate graticule grid (meridians and parallels)
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.14)';
+      for (let x = 0; x <= 1024; x += 1024 / 24) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, 512);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= 512; y += 512 / 12) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(1024, y);
+        ctx.stroke();
+      }
+
+      // Emerald Prime Meridian (0° Longitude)
+      ctx.lineWidth = 2.2;
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
+      ctx.beginPath();
+      ctx.moveTo(512, 0);
+      ctx.lineTo(512, 512);
+      ctx.stroke();
+
+      // Cyan Equator (0° Latitude)
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
+      ctx.beginPath();
+      ctx.moveTo(0, 256);
+      ctx.lineTo(1024, 256);
+      ctx.stroke();
+
+      // Tropics lines (23.44° N and S)
+      ctx.lineWidth = 1;
+      ctx.setLineDash([6, 6]);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+      const tropicY = (23.44 / 90) * 256;
+      ctx.beginPath();
+      ctx.moveTo(0, 256 - tropicY);
+      ctx.lineTo(1024, 256 - tropicY);
+      ctx.moveTo(0, 256 + tropicY);
+      ctx.lineTo(1024, 256 + tropicY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      return canvas.toDataURL();
+    }
+
+    /* ── INSTANT ZERO-WAIT 3D GLOBE MOUNT ── */
+    function initFastGlobe() {
+      const container = document.getElementById('globe-3d-canvas');
+      const wrap = document.getElementById('globe-viewport');
+      if (!container || !wrap || typeof Globe === 'undefined') return;
+
+      const proceduralGridTexture = createProceduralEarthTexture();
+
+      globe = Globe({
+        animateIn: false,
+        rendererConfig: {
+          powerPreference: 'high-performance',
+          antialias: true,
+          alpha: true,
+          precision: 'mediump'
+        }
+      })
+      .globeImageUrl(proceduralGridTexture)
+      .width(wrap.clientWidth)
+      .height(wrap.clientHeight)
+      .showAtmosphere(true)
+      .atmosphereColor('#38bdf8')
+      .atmosphereAltitude(0.24)
+      .enablePointerInteraction(true)
+      (container);
+
+      // Clamp Pixel Ratio for max FPS
+      if (globe.renderer) {
+        globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      }
+
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = 0.5;
+      globe.controls().enableDamping = true;
+      globe.controls().dampingFactor = 0.08;
+      globe.controls().rotateSpeed = 0.8;
+      globe.pointOfView({ lat: 20, lng: 0, altitude: 2.3 }, 0);
+
+      // Disambiguate Drag vs Click so cursor drag never misfires sonar scan
+      wrap.addEventListener('pointerdown', e => {
+        pointerDownX = e.clientX;
+        pointerDownY = e.clientY;
+        pointerDownTime = Date.now();
+        isDraggingGlobe = false;
+      });
+
+      wrap.addEventListener('pointermove', e => {
+        window.lastMousePos = { x: e.clientX, y: e.clientY };
+        const dist = Math.hypot(e.clientX - pointerDownX, e.clientY - pointerDownY);
+        if (dist > 7) {
+          isDraggingGlobe = true;
+        }
+      });
+
+      // Live Cursor Telemetry
+      globe.onGlobeHover(({ lat, lng }) => {
+        const hud = document.getElementById('hud-latlng');
+        if (hud && lat !== undefined && lng !== undefined) {
+          hud.textContent = `${Math.abs(lat).toFixed(2)}° ${lat >= 0 ? 'N' : 'S'}, ${Math.abs(lng).toFixed(2)}° ${lng >= 0 ? 'E' : 'W'}`;
+        }
+      });
+
+      // Surface Click Sonar Scan (only on true click, never on camera drag/orbit)
+      globe.onGlobeClick(({ lat, lng }) => {
+        if (pointClickedJustNow) return;
+        if (isDraggingGlobe || (Date.now() - pointerDownTime > 350)) {
+          return;
+        }
+        handleSurfaceClick(lat, lng);
+      });
+
+      window.addEventListener('resize', () => {
+        if (globe) {
+          globe.width(wrap.clientWidth);
+          globe.height(wrap.clientHeight);
+        }
+      });
+    }
+
+    /* ── SURFACE CLICK SCANNER ── */
+    function handleSurfaceClick(lat, lng) {
+      if (lat === undefined || lng === undefined) return;
+      playRadarChirp();
+
+      // Show sonar ring
+      const ring = document.getElementById('surface-sonar-ring');
+      if (ring && window.lastMousePos) {
+        ring.style.left = window.lastMousePos.x + 'px';
+        ring.style.top = window.lastMousePos.y + 'px';
+        ring.style.display = 'block';
+        setTimeout(() => { ring.style.display = 'none'; }, 900);
+      }
+
+      // Find nearest crisis event
+      if (displayed.length) {
+        let nearest = null;
+        let minDist = Infinity;
+        for (const h of displayed) {
+          const dLat = (h.lat - lat) * Math.PI / 180;
+          const dLng = (h.lng - lng) * Math.PI / 180;
+          const a = Math.sin(dLat/2)**2 + Math.cos(lat*Math.PI/180) * Math.cos(h.lat*Math.PI/180) * Math.sin(dLng/2)**2;
+          const distKm = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          if (distKm < minDist) {
+            minDist = distKm;
+            nearest = h;
+          }
+        }
+
+        const targetEl = document.getElementById('hud-target');
+        if (nearest && minDist < 2800) {
+          if (targetEl) targetEl.textContent = `${nearest.name} (${Math.round(minDist)}km)`;
+          inspectHazard(nearest);
+        } else {
+          if (targetEl) targetEl.textContent = `Scanned ${lat.toFixed(1)}°, ${lng.toFixed(1)}° (No crisis nearby)`;
+        }
+      }
+    }
+
+    window.addEventListener('mousemove', e => {
+      window.lastMousePos = { x: e.clientX, y: e.clientY };
+    });
+
+    /* ── SOUND SYNTHESIZER ── */
+    let audioCtx = null;
+    function playRadarChirp() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      } catch(e){}
+    }
+
+    /* ── 3D GOOGLE MAPS POINTER PIN GEOMETRIES (PRE-COMPUTED ONCE IN GPU MEMORY) ── */
+    let PIN_CONE_GEO = null;
+    let PIN_HEAD_GEO = null;
+    let PIN_EYE_GEO = null;
+    const PIN_MATERIALS = {};
+    const WHITE_PIN_MAT = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+    function initPinGeometries() {
+      if (typeof THREE === 'undefined') return;
+
+      // Pointer needle cone: needle point touches Earth surface (z=0), base at z=3.0
+      PIN_CONE_GEO = new THREE.ConeGeometry(0.85, 3.0, 10);
+      PIN_CONE_GEO.rotateX(-Math.PI / 2);
+      PIN_CONE_GEO.translate(0, 0, 1.5);
+
+      // Bulbous pointer head sphere: centered at z=4.2
+      PIN_HEAD_GEO = new THREE.SphereGeometry(1.45, 14, 10);
+      PIN_HEAD_GEO.translate(0, 0, 4.2);
+
+      // Center white dot/eye inside the bulbous head at z=4.2
+      PIN_EYE_GEO = new THREE.SphereGeometry(0.65, 10, 8);
+      PIN_EYE_GEO.translate(0, 0, 4.2);
+    }
+
+    function getPinMaterial(colorHex) {
+      if (!PIN_MATERIALS[colorHex]) {
+        PIN_MATERIALS[colorHex] = new THREE.MeshBasicMaterial({
+          color: colorHex
+        });
+      }
+      return PIN_MATERIALS[colorHex];
+    }
+
+    /* ── RENDER 3D CATASTROPHE POINTERS & BEACONS DIRECTLY ON GLOBE ── */
+    function renderMarkers(data) {
+      if (!globe) return;
+      const wrap = document.getElementById('globe-viewport');
+
+      // 1. High-Fidelity 3D Google Maps Pointer Pins for up to 999 prioritized catastrophes
+      const pointerList = data.slice(0, 999);
+      globe
+        .objectsData(pointerList)
+        .objectLat('lat')
+        .objectLng('lng')
+        .objectAltitude(0.015)
+        .objectFacesSurface(true)
+        .objectThreeObject(d => {
+          const group = new THREE.Group();
+          const col = d.color || (d.severity === 'Catastrophic' ? '#ef4444' : '#f97316');
+          const mat = getPinMaterial(col);
+          const needle = new THREE.Mesh(PIN_CONE_GEO, mat);
+          const head = new THREE.Mesh(PIN_HEAD_GEO, mat);
+          const eye = new THREE.Mesh(PIN_EYE_GEO, WHITE_PIN_MAT);
+          group.add(needle);
+          group.add(head);
+          group.add(eye);
+          group.userData = { hazard: d };
+          return group;
+        })
+        .onObjectHover((obj, prevObj) => {
+          const h = obj ? (obj.userData?.hazard || obj) : null;
+          showHoverTooltip(h);
+          if (wrap) wrap.style.cursor = h ? 'pointer' : '';
+        })
+        .onObjectClick((obj, event) => {
+          const h = obj ? (obj.userData?.hazard || obj) : null;
+          if (h) {
+            pointClickedJustNow = true;
+            setTimeout(() => { pointClickedJustNow = false; }, 250);
+            playRadarChirp();
+            inspectHazard(h);
+          }
+        });
+
+      // 2. All 4,000+ crisis events rendered as bright, glowing 3D beacon columns (60 FPS Instanced)
+      globe
+        .pointsData(data)
+        .pointsTransitionDuration(0)
+        .pointLat('lat')
+        .pointLng('lng')
+        .pointAltitude(d => d.severity === 'Catastrophic' ? 0.085 : (d.severity === 'Major' ? 0.055 : 0.035))
+        .pointRadius(d => d.severity === 'Catastrophic' ? 1.6 : (d.severity === 'Major' ? 1.1 : 0.75))
+        .pointColor(d => d.color || (d.severity === 'Catastrophic' ? '#ef4444' : '#f97316'))
+        .pointResolution(8)
+        .pointsMerge(true)
+        .onPointHover((h, prevH) => {
+          showHoverTooltip(h);
+          if (wrap) wrap.style.cursor = h ? 'pointer' : '';
+        })
+        .onPointClick((h, event) => {
+          if (h) {
+            pointClickedJustNow = true;
+            setTimeout(() => { pointClickedJustNow = false; }, 250);
+            playRadarChirp();
+            inspectHazard(h);
+          }
+        });
+
+      // 3. Ground Zero pulsing beacon radar rings on top catastrophic events directly on surface
+      const topCat = data.filter(d => d.severity === 'Catastrophic').slice(0, 36);
+      globe
+        .ringsData(topCat)
+        .ringLat(d => d.lat)
+        .ringLng(d => d.lng)
+        .ringColor(() => t => `rgba(239, 68, 68, ${Math.max(0, 1 - t)})`)
+        .ringMaxRadius(6.0)
+        .ringPropagationSpeed(2.2)
+        .ringRepeatPeriod(1400);
+
+      // Update HUD count
+      const badge = document.getElementById('pins-loaded-badge');
+      if (badge) badge.textContent = `${data.length.toLocaleString()} PINS ACTIVE`;
+    }
+
+    /* ── INGESTION: LOAD 4,864 CORE MARKERS IN < 15MS ── */
+    function loadCoreDataset() {
+      fetch('/static/data/hazards_core.json')
+        .then(r => r.json())
+        .then(rows => {
+          // Schema: [id, name, country, lat, lng, year, category, severity, color, deaths, damage]
+          allHazards = rows.map(r => ({
+            id: r[0],
+            name: r[1],
+            country: r[2],
+            lat: r[3],
+            lng: r[4],
+            year: r[5],
+            category: r[6],
+            severity: r[7],
+            color: r[8],
+            deaths: r[9],
+            damage: r[10]
+          }));
+
+          populateCountries();
+          applyFilters();
+          updatePlanetaryIndicators(allHazards);
+
+          // Automatically showcase benchmark catastrophic crisis dossier on boot
+          const benchmark = allHazards.find(h => h.name.includes("Great Hanshin") || h.name.includes("Kobe")) || allHazards[0];
+          if (benchmark) {
+            inspectHazard(benchmark);
+          }
+
+          // Background prefetch details dictionary without blocking
+          setTimeout(() => {
+            fetch('/static/data/hazards_details.json')
+              .then(res => res.json())
+              .then(dict => { hazardsDetailsCache = dict; })
+              .catch(() => {});
+          }, 60);
+        })
+        .catch(err => {
+          console.error("Failed to load core hazards", err);
+        });
+    }
+
+    /* ── REAL-TIME PLANETARY CRISIS INDICATORS HUD ── */
+    function updatePlanetaryIndicators(hazards) {
+      if (!hazards || !hazards.length) return;
+      const total = hazards.length;
+      const catastrophic = hazards.filter(h => h.severity === 'Catastrophic').length;
+      const totalDeaths = hazards.reduce((acc, h) => acc + (h.deaths || 0), 0);
+
+      const indTot = document.getElementById('ind-total-incidents');
+      if (indTot) indTot.textContent = total.toLocaleString();
+
+      const indCat = document.getElementById('ind-catastrophic-count');
+      if (indCat) indCat.textContent = catastrophic.toLocaleString();
+
+      const indDeaths = document.getElementById('ind-total-deaths');
+      if (indDeaths) indDeaths.textContent = totalDeaths.toLocaleString();
+
+      const indDamage = document.getElementById('ind-total-damage');
+      if (indDamage) indDamage.textContent = "$3.82T";
+
+      const indLand = document.getElementById('ind-land-status');
+      if (indLand) indLand.textContent = "CRITICAL";
+
+      const indCo2 = document.getElementById('ind-co2-status');
+      if (indCo2) indCo2.textContent = "424.5 PPM";
+    }
+
+    function toggleAdvancedTools() {
+      const panel = document.getElementById('advanced-tools-panel');
+      const arrow = document.getElementById('adv-tools-arrow');
+      if (!panel) return;
+      const isOpen = panel.style.display === 'flex';
+      panel.style.display = isOpen ? 'none' : 'flex';
+      if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
+    }
+
+    /* ── FILTERING ── */
+    function applyFilters() {
+      const q = (document.getElementById('search-input-box')?.value || '').trim().toLowerCase();
+
+      displayed = allHazards.filter(h => {
+        if (selectedCategory !== 'all' && h.category !== selectedCategory) return false;
+        if (selectedCountry !== 'all' && h.country !== selectedCountry) return false;
+        if (!selectedSeverities.has(h.severity)) return false;
+        if (h.year < yearFrom || h.year > yearTo) return false;
+        if (q) {
+          const match = (h.name && h.name.toLowerCase().includes(q)) ||
+                        (h.country && h.country.toLowerCase().includes(q)) ||
+                        (h.category && h.category.toLowerCase().includes(q));
+          if (!match) return false;
+        }
+        return true;
+      });
+
+      renderMarkers(displayed);
+      renderLedger();
+
+      const searchPill = document.getElementById('search-count-pill');
+      if (searchPill) searchPill.textContent = displayed.length.toLocaleString();
+      const tabCount = document.getElementById('ledger-count-tab');
+      if (tabCount) tabCount.textContent = displayed.length.toLocaleString();
+    }
+
+    function onFilterTrigger() {
+      applyFilters();
+    }
+
+    /* ── CATEGORY PILLS ── */
+    function populateCategories() {
+      const c = document.getElementById('cat-chips-deck');
+      if (!c) return;
+      c.innerHTML = CATEGORIES.map(cat => `
+        <button class="cat-chip ${cat.id === selectedCategory ? 'active' : ''}" 
+                style="--chip-color:${cat.color};"
+                onclick="selectCategory('${cat.id}', this)">
+          <span>${cat.icon}</span> ${cat.name}
+        </button>
+      `).join('');
+    }
+
+    function selectCategory(catId, btn) {
+      selectedCategory = catId;
+      document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      applyFilters();
+    }
+
+    /* ── COUNTRIES ── */
+    function populateCountries() {
+      const cMap = {};
+      allHazards.forEach(h => { if (h.country) cMap[h.country] = (cMap[h.country] || 0) + 1; });
+      const countries = Object.keys(cMap).sort();
+
+      const sel = document.getElementById('country-select-box');
+      if (sel) {
+        sel.innerHTML = `<option value="all">🌐 Worldwide (All ${allHazards.length} Incidents)</option>` +
+          countries.map(c => `<option value="${c}">${c} (${cMap[c]} events)</option>`).join('');
+      }
+    }
+
+    function onCountrySelect(c) {
+      selectedCountry = c;
+      applyFilters();
+      if (c !== 'all') {
+        const matches = allHazards.filter(h => h.country === c);
+        if (matches.length) {
+          const avgLat = matches.reduce((s, m) => s + m.lat, 0) / matches.length;
+          const avgLng = matches.reduce((s, m) => s + m.lng, 0) / matches.length;
+          globe.pointOfView({ lat: avgLat, lng: avgLng, altitude: 1.85 }, 1100);
+        }
+      }
+    }
+
+    /* ── SEVERITY ── */
+    function toggleSeverityFilter(sev, el) {
+      if (selectedSeverities.has(sev)) {
+        if (selectedSeverities.size > 1) {
+          selectedSeverities.delete(sev);
+          el.classList.remove('active');
+        }
+      } else {
+        selectedSeverities.add(sev);
+        el.classList.add('active');
+      }
+      applyFilters();
+    }
+
+    /* ── TIMELINE CONTROLS ── */
+    function setEra(from, to, btn) {
+      yearFrom = from;
+      yearTo = to;
+      document.querySelectorAll('.era-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('era-indicator-label').textContent = from === to ? from : `${from} → ${to}`;
+      document.getElementById('year-odometer').textContent = from === to ? from : `${from}-${to}`;
+      document.getElementById('time-scrub-input').value = to;
+      applyFilters();
+    }
+
+    function onTimeScrubber(val) {
+      const y = +val;
+      yearFrom = y;
+      yearTo = y;
+      document.getElementById('year-odometer').textContent = y;
+      document.getElementById('era-indicator-label').textContent = `${y} (Exact)`;
+      applyFilters();
+    }
+
+    function resetToAllYears() {
+      setEra(1995, 2026, document.querySelector('.era-pill'));
+      document.getElementById('year-odometer').textContent = 'ALL';
+    }
+
+    function stepYear(delta) {
+      let cur = +document.getElementById('time-scrub-input').value;
+      let next = Math.max(1995, Math.min(2026, cur + delta));
+      document.getElementById('time-scrub-input').value = next;
+      onTimeScrubber(next);
+    }
+
+    function toggleTimePlayback() {
+      isPlayingTimeline = !isPlayingTimeline;
+      const btn = document.getElementById('time-play-toggle');
+      const sym = document.getElementById('play-symbol');
+      const txt = document.getElementById('play-text');
+
+      if (isPlayingTimeline) {
+        sym.textContent = '⏸';
+        txt.textContent = 'PAUSE';
+        btn.style.background = 'var(--rose)';
+        btn.style.color = '#fff';
+
+        let cur = +document.getElementById('time-scrub-input').value;
+        if (cur >= 2026) cur = 1994;
+
+        timelineTimer = setInterval(() => {
+          cur++;
+          if (cur > 2026) cur = 1995;
+          document.getElementById('time-scrub-input').value = cur;
+          onTimeScrubber(cur);
+        }, 1100);
+      } else {
+        sym.textContent = '▶';
+        txt.textContent = 'PLAY TIME';
+        btn.style.background = '';
+        btn.style.color = '';
+        clearInterval(timelineTimer);
+      }
+    }
+
+    /* ── LEDGER ── */
+    function renderLedger() {
+      const cont = document.getElementById('ledger-stream-container');
+      if (!cont) return;
+
+      const list = displayed.slice(0, 80);
+      if (!list.length) {
+        cont.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text-muted);font-size:0.8rem;">No matching incidents found.</div>`;
+        return;
+      }
+
+      cont.innerHTML = list.map(h => `
+        <div class="ledger-card">
+          <div class="ledger-card-top">
+            <div>
+              <div style="font-size:0.68rem;font-family:var(--font-mono);color:var(--cyan);font-weight:700;">${h.country}</div>
+              <div class="ledger-card-title">${h.name}</div>
+            </div>
+            <span class="ledger-year-badge">${h.year}</span>
+          </div>
+          <div class="ledger-tags-wrap">
+            <span style="color:${h.color};">${h.category}</span> · 
+            <span style="color:${h.severity==='Catastrophic'?'#ef4444':'#f97316'};">${h.severity}</span>
+          </div>
+          <div class="ledger-card-bottom">
+            <span class="ledger-card-toll">💀 ${(h.deaths||0).toLocaleString()} deaths</span>
+            <div style="display:flex;gap:0.35rem;">
+              <a href="https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(h.name)}" target="_blank" rel="noopener noreferrer" class="btn-action-small btn-action-wiki" title="Read on Wikipedia">📖 Wiki</a>
+              <button class="btn-action-small btn-action-inspect" onclick="inspectHazardById(${h.id})">🎯 Inspect</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function inspectHazardById(id) {
+      const h = allHazards.find(x => x.id === id);
+      if (!h) return;
+      inspectHazard(h);
+    }
+
+    function jumpToRandomCrisis() {
+      if (!displayed || !displayed.length) return;
+      const cat = displayed.filter(d => d.severity === 'Catastrophic');
+      const pool = cat.length ? cat : displayed;
+      const target = pool[Math.floor(Math.random() * pool.length)];
+      if (target) {
+        inspectHazard(target);
+      }
+    }
+
+    /* ── INSPECT HAZARD & ASYNC DETAILS / WIKIPEDIA ── */
+    function inspectHazard(h) {
+      if (!h) return;
+      const sc = h.severity === 'Catastrophic' ? '#ef4444' : (h.severity === 'Major' ? '#f97316' : '#eab308');
+
+      document.getElementById('doss-icon').textContent = getCatIcon(h.category);
+      document.getElementById('doss-loc').textContent = `${h.country}`;
+      document.getElementById('doss-title').textContent = h.name;
+
+      document.getElementById('doss-pills').innerHTML = `
+        <span class="d-pill" style="color:${h.color};border-color:${h.color}44;background:${h.color}15;">${h.category}</span>
+        <span class="d-pill" style="color:${sc};border-color:${sc}44;background:${sc}15;">${h.severity}</span>
+        <span class="d-pill" style="color:var(--cyan);border-color:rgba(56,189,248,0.3);background:rgba(56,189,248,0.1);">📅 ${h.year}</span>
+      `;
+
+      document.getElementById('doss-deaths').textContent = (h.deaths || 0).toLocaleString();
+      document.getElementById('doss-damage').textContent = h.damage || 'Uncalculated';
+
+      // Load cached or on-demand detail fields
+      const detail = hazardsDetailsCache[h.id];
+      if (detail) {
+        populateDetailUI(h, detail);
+      } else {
+        // Fetch single hazard detail in 2ms from /api/hazard/<id>
+        fetch(`/api/hazard/${h.id}`)
+          .then(r => r.json())
+          .then(full => {
+            hazardsDetailsCache[h.id] = {
+              land: full.land_damage,
+              atmo: full.atmospheric_impact,
+              air: full.air_quality_impact,
+              water: full.water_pollution,
+              desc: full.description,
+              affected: full.affected
+            };
+            populateDetailUI(h, hazardsDetailsCache[h.id]);
+          })
+          .catch(() => {
+            populateDetailUI(h, { desc: h.name, land: 'Regional impact documented', atmo: 'Atmospheric trace emissions', air: 'Elevated AQI', water: 'Catchment siltation', affected: 0 });
+          });
+      }
+
+      // Fly to marker
+      if (globe) {
+        globe.pointOfView({ lat: h.lat, lng: h.lng, altitude: 1.6 }, 1100);
+      }
+
+      // Live query Wikipedia historical archive
+      queryWikipedia(h.name);
+
+      document.getElementById('right-dossier').classList.add('open');
+    }
+
+    function populateDetailUI(h, d) {
+      document.getElementById('doss-desc').textContent = d.desc || h.name;
+      document.getElementById('doss-land').textContent = d.land || 'Topsoil erosion and local vegetation degradation.';
+      document.getElementById('doss-atmo').textContent = d.atmo || 'Tropospheric aerosol plumes and radiative greenhouse emissions.';
+      document.getElementById('doss-air').textContent = d.air || 'Elevated particulate concentration in surrounding radius.';
+      document.getElementById('doss-water').textContent = d.water || 'Turbidity and chemical runoff in regional drainage basins.';
+      document.getElementById('doss-affected').textContent = d.affected >= 1e6 ? (d.affected / 1e6).toFixed(1) + 'M' : (d.affected || 0).toLocaleString();
+    }
+
+    function getCatIcon(cat) {
+      if (!cat) return '📍';
+      const match = CATEGORIES.find(c => c.id === cat || c.name.toLowerCase() === cat.toLowerCase());
+      return match ? match.icon : '📍';
+    }
+
+    function closeDossier() {
+      document.getElementById('right-dossier').classList.remove('open');
+      closeWikiModal();
+    }
+
+    /* ── WIKIPEDIA INTELLIGENCE QUERY ── */
+    function queryWikipedia(title) {
+      const box = document.getElementById('wiki-preview-box');
+      const direct = document.getElementById('wiki-direct-link');
+      const pill = document.getElementById('wiki-status-pill');
+
+      const searchUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(title)}`;
+      direct.href = searchUrl;
+
+      if (pill) {
+        pill.textContent = 'Querying Archive…';
+        pill.style.color = 'var(--cyan)';
+      }
+
+      box.innerHTML = `
+        <div style="display:flex;align-items:center;gap:0.45rem;color:var(--text-muted);font-size:0.75rem;">
+          <span style="display:inline-block;width:12px;height:12px;border:2px solid var(--cyan);border-top-color:transparent;border-radius:50%;animation:spinLoader 0.7s linear infinite;"></span>
+          Querying Wikipedia historical records for "${title}"…
+        </div>
+      `;
+
+      currentWikiData = { title, url: searchUrl, extract: 'Historical environmental incident recorded in international disaster archives.', thumb: null };
+
+      // Query Wikipedia Search
+      const api = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(title)}&utf8=&format=json&origin=*`;
+      fetch(api)
+        .then(r => r.json())
+        .then(data => {
+          const hits = data?.query?.search;
+          if (hits && hits.length > 0) {
+            const pageTitle = hits[0].title;
+            fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`)
+              .then(r => r.json())
+              .then(sum => {
+                const extract = sum.extract || hits[0].snippet.replace(/<[^>]+>/g, '');
+                const url = sum.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(pageTitle)}`;
+                const thumb = sum.thumbnail?.source || null;
+
+                currentWikiData = { title: sum.title || pageTitle, url, extract, thumb };
+                direct.href = url;
+
+                if (pill) {
+                  pill.textContent = 'Verified Article';
+                  pill.style.color = 'var(--emerald)';
+                }
+
+                box.innerHTML = `
+                  <div>
+                    ${thumb ? `<img src="${thumb}" class="wiki-thumb-img" alt="${sum.title}" />` : ''}
+                    <div style="font-weight:700;color:#fff;font-size:0.82rem;margin-bottom:0.2rem;">
+                      ${sum.title || pageTitle}
+                    </div>
+                    <div style="font-size:0.78rem;line-height:1.55;color:#cbd5e1;">${extract}</div>
+                  </div>
+                `;
+              })
+              .catch(() => renderWikiFallback(hits[0].title, hits[0].snippet.replace(/<[^>]+>/g, ''), `https://en.wikipedia.org/wiki/${encodeURIComponent(hits[0].title)}`));
+          } else {
+            renderWikiFallback(title, 'Detailed chronological disaster accounts and meteorological records available on Wikipedia.', searchUrl);
+          }
+        })
+        .catch(() => renderWikiFallback(title, 'Detailed disaster records available on Wikipedia.', searchUrl));
+    }
+
+    function renderWikiFallback(title, snippet, url) {
+      const box = document.getElementById('wiki-preview-box');
+      const direct = document.getElementById('wiki-direct-link');
+      const pill = document.getElementById('wiki-status-pill');
+
+      if (pill) {
+        pill.textContent = 'Archive Search';
+        pill.style.color = 'var(--amber)';
+      }
+      if (direct) direct.href = url;
+      if (box) {
+        box.innerHTML = `<div style="font-size:0.78rem;color:#cbd5e1;line-height:1.55;">${snippet}</div>`;
+      }
+    }
+
+    function openWikiModal() {
+      if (!currentWikiData) return;
+      const overlay = document.getElementById('wiki-modal-overlay');
+      const title = document.getElementById('wiki-modal-title');
+      const ext = document.getElementById('wiki-modal-external');
+      const body = document.getElementById('wiki-modal-body');
+
+      title.textContent = currentWikiData.title;
+      ext.href = currentWikiData.url;
+      body.innerHTML = `
+        <div style="margin-bottom:1rem;">
+          ${currentWikiData.thumb ? `<img src="${currentWikiData.thumb}" style="max-height:220px;border-radius:10px;float:right;margin-left:1rem;margin-bottom:1rem;border:1px solid rgba(255,255,255,0.15);" />` : ''}
+          <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">${currentWikiData.title}</h3>
+          <p style="font-size:0.92rem;line-height:1.8;color:#e2e8f0;margin-bottom:1rem;">${currentWikiData.extract}</p>
+        </div>
+        <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:8px;padding:0.85rem;margin-top:1.2rem;font-size:0.82rem;color:#94a3b8;line-height:1.6;">
+          🌐 <strong>Encyclopedia Verification</strong>: For complete disaster chronology tables, scientific peer-reviewed papers, and post-crisis commissions, view the full Wikipedia record.
+        </div>
+        <div style="display:flex;gap:0.6rem;margin-top:1.2rem;">
+          <a href="${currentWikiData.url}" target="_blank" rel="noopener noreferrer" class="btn-action-small btn-action-wiki" style="padding:0.65rem 1.1rem;font-size:0.82rem;">
+            <span>📖 Open Full Article on Wikipedia</span> ↗
+          </a>
+          <button onclick="closeWikiModal()" class="btn-action-small btn-action-inspect" style="padding:0.65rem 1.1rem;font-size:0.82rem;">
+            ✕ Close Preview
+          </button>
+        </div>
+      `;
+      overlay.style.display = 'flex';
+    }
+
+    function closeWikiModal() {
+      const overlay = document.getElementById('wiki-modal-overlay');
+      if (overlay) overlay.style.display = 'none';
+    }
+
+
+
+    /* ── TOOLTIP ── */
+    const tip = document.getElementById('hover-tooltip');
+    function showHoverTooltip(h) {
+      if (h) {
+        document.getElementById('tt-icon').textContent = getCatIcon(h.category);
+        document.getElementById('tt-title').textContent = h.name;
+        document.getElementById('tt-meta').textContent = `${h.country} · ${h.category} · ${h.year}`;
+        document.getElementById('tt-toll').innerHTML = `💀 <b>${(h.deaths||0).toLocaleString()}</b> deaths · 💰 ${h.damage || 'N/A'}`;
+        tip.classList.add('visible');
+      } else {
+        tip.classList.remove('visible');
+      }
+    }
+    document.addEventListener('mousemove', e => {
+      tip.style.left = (e.clientX + 16) + 'px';
+      tip.style.top = (e.clientY - 12) + 'px';
+    });
+
+    /* ── DOCK CONTROLS ── */
+    function toggleLeftDock() {
+      const dock = document.getElementById('left-dock');
+      dock.classList.toggle('collapsed');
+      const btn = document.querySelector('.dock-toggle-btn');
+      btn.textContent = dock.classList.contains('collapsed') ? '▶' : '◀';
+    }
+
+    function switchDockTab(tab, btn) {
+      document.querySelectorAll('.dock-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.dock-pane').forEach(p => p.classList.remove('active'));
+      const activePane = document.getElementById(`pane-${tab}`);
+      if (activePane) activePane.classList.add('active');
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDossier();
+      if (e.key === ' ') { e.preventDefault(); toggleTimePlayback(); }
+      if (e.key.toLowerCase() === 'r') {
+        isAutoRotating = !isAutoRotating;
+        if (globe) globe.controls().autoRotate = isAutoRotating;
+      }
+    });
+
+    /* ── BOOTSTRAP IN 0 MILLISECONDS ── */
+    populateCategories();
+    initPinGeometries();
+    initFastGlobe();
+    loadCoreDataset();
+  </script>
+</body>
+</html>

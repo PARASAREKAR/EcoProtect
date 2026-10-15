@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Conditions | EcoProtect Environmental Platform{% endblock %}
+
+{% block extra_head %}
+<style>
+/* ── TERMS & CONDITIONS STYLES ── */
+.terms-page-wrapper {
+    background: var(--bg-primary, #f8fafc);
+    padding: 3.5rem 0 6rem;
+    min-height: calc(100vh - var(--nav-h));
+}
+
+.terms-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.terms-header-box {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+.terms-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem .85rem;
+    background: rgba(16,124,65,0.1);
+    border: 1px solid rgba(16,124,65,0.25);
+    border-radius: 99px;
+    color: #107c41;
+    font-weight: 700;
+    font-size: .82rem;
+    margin-bottom: 1rem;
+}
+.terms-header-box h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: .85rem;
+    line-height: 1.2;
+}
+.terms-meta {
+    font-size: .9rem;
+    color: #64748b;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Quick Navigation Anchor Bar */
+.terms-toc-bar {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+}
+.terms-toc-title {
+    font-weight: 700;
+    font-size: .88rem;
+    color: #334155;
+    margin-bottom: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+.terms-toc-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+}
+.terms-toc-links a {
+    display: inline-block;
+    padding: .35rem .75rem;
+    background: #f1f5f9;
+    border-radius: 8px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: #475569;
+    text-decoration: none;
+    transition: all .15s ease;
+}
+.terms-toc-links a:hover {
+    background: #107c41;
+    color: #ffffff;
+}
+
+/* Terms Content Card */
+.terms-content-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 3.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+@media (max-width: 680px) {
+    .terms-content-card { padding: 2rem 1.5rem; }
+}
+
+.terms-section {
+    margin-bottom: 3rem;
+}
+.terms-section:last-child {
+    margin-bottom: 0;
+}
+.terms-section h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 1rem;
+    padding-bottom: .6rem;
+    border-bottom: 2px solid rgba(16,124,65,0.2);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+.terms-section p, .terms-section li {
+    font-size: .95rem;
+    color: #475569;
+    line-height: 1.75;
+    margin-bottom: .9rem;
+}
+.terms-section ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+.terms-callout {
+    padding: 1.25rem 1.5rem;
+    background: #f0fdf4;
+    border-left: 4px solid #107c41;
+    border-radius: 0 12px 12px 0;
+    margin: 1.25rem 0;
+    font-size: .92rem;
+    color: #166534;
+}
+
+/* Bottom Acceptance Sticky Trigger */
+.terms-acceptance-footer {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 16px;
+    text-align: center;
+}
+.terms-acceptance-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .85rem 2rem;
+    background: linear-gradient(135deg, #107c41, #22c55e);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: .95rem;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(16,124,65,0.3);
+    transition: all .2s;
+    margin-top: 1rem;
+}
+.terms-acceptance-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16,124,65,0.4);
+}
+
+/* Dark mode */
+body.dark-mode .terms-page-wrapper { background: #060b0e; }
+body.dark-mode .terms-header-box { border-bottom-color: #1e2d33; }
+body.dark-mode .terms-header-box h1 { color: #f8fafc; }
+body.dark-mode .terms-toc-bar,
+body.dark-mode .terms-content-card {
+    background: #0f171d;
+    border-color: #1e2d33;
+}
+body.dark-mode .terms-toc-title { color: #cbd5e1; }
+body.dark-mode .terms-toc-links a {
+    background: #16222a;
+    color: #94a3b8;
+}
+body.dark-mode .terms-section h2 {
+    color: #f8fafc;
+    border-bottom-color: rgba(34,197,94,0.3);
+}
+body.dark-mode .terms-section p,
+body.dark-mode .terms-section li {
+    color: #94a3b8;
+}
+body.dark-mode .terms-callout {
+    background: rgba(34,197,94,0.08);
+    color: #86efac;
+}
+body.dark-mode .terms-acceptance-footer {
+    background: #141f26;
+    border-color: #243542;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="terms-page-wrapper">
+    <div class="terms-container">
+
+        <!-- Header -->
+        <div class="terms-header-box">
+            <span class="terms-badge">⚖️ Platform Governance & Legal Standard</span>
+            <h1>Terms and Conditions</h1>
+            <div class="terms-meta">
+                <span>Last Updated: October 14, 2026</span>
+                <span>Version: 3.2.0</span>
+                <span>Applicable: Global Community</span>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="terms-toc-bar">
+            <div class="terms-toc-title">Quick Navigation Index</div>
+            <div class="terms-toc-links">
+                <a href="#mission">1. Environmental Mission</a>
+                <a href="#scientific-data">2. Scientific Calculations</a>
+                <a href="#accounts">3. Accounts & Database Storage</a>
+                <a href="#remember-me">4. Remember Me & Sessions</a>
+                <a href="#simulations">5. Control Simulations</a>
+                <a href="#pledges">6. Pledges & Conduct</a>
+                <a href="#events">7. Field Events Safety</a>
+                <a href="#privacy">8. Privacy & Data Rights</a>
+            </div>
+        </div>
+
+        <!-- Main Card Content -->
+        <div class="terms-content-card">
+
+            <!-- Section 1 -->
+            <div class="terms-section" id="mission">
+                <h2><span>🌍</span> 1. Environmental Mission & Agreement to Terms</h2>
+                <p>Welcome to <strong>EcoProtect</strong>. By accessing, browsing, registering for an account, or interacting with our environmental calculation tools, 3D EcoGlobe hazard systems, event portals, or community pledging infrastructure, you explicitly agree to comply with and be legally bound by these Terms and Conditions.</p>
+                <p>The central purpose of the EcoProtect platform is to empower individuals, communities, and policy makers with rigorous scientific environmental understanding, carbon control methodologies, and actionable conservation tools.</p>
+                <div class="terms-callout">
+                    <strong>Core Commitment:</strong> You agree to use this platform in good faith to promote environmental stewardship, factual ecological education, and constructive community sustainability actions.
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="terms-section" id="scientific-data">
+                <h2><span>📊</span> 2. Scientific Data Integrity & Environmental Calculators</h2>
+                <p>Our carbon footprint, water footprint, and forest sequestration computation engines utilize published scientific baselines provided by authoritative international bodies:</p>
+                <ul>
+                    <li><strong>Intergovernmental Panel on Climate Change (IPCC):</strong> Sixth Assessment Report (AR6) global warming potentials and emissions factors.</li>
+                    <li><strong>National Oceanic and Atmospheric Administration (NOAA):</strong> Mauna Loa atmospheric carbon dioxide concentration benchmarks.</li>
+                    <li><strong>International Energy Agency (IEA):</strong> Renewable electricity grid penetration and lifecycle generation multipliers.</li>
+                    <li><strong>United Nations Food and Agriculture Organization (UN FAO):</strong> Global forest inventory and native species biomass sequestration rates.</li>
+                </ul>
+                <p>While our algorithms and C++ embedded eco-engines provide high-precision estimations, personal lifestyle impacts may vary depending on micro-climate, local grid electricity fuel mixes, and individual consumption habits. Results are provided for environmental guidance and personal mitigation benchmarking.</p>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="terms-section" id="accounts">
+                <h2><span>🔐</span> 3. User Accounts, Registration & Login Database Storage</h2>
+                <p>When you create an account on EcoProtect to monitor your environmental control dashboard:</p>
+                <ul>
+                    <li>You agree to provide accurate, current, and complete registration information (including your name, email address, and optional city/focus area).</li>
+                    <li>All login passwords are cryptographically hashed using industry-standard SHA-256 one-way hashing before storage in our SQLite relational database. Plaintext passwords are never logged, stored, or visible to platform operators.</li>
+                    <li>You are responsible for safeguarding your credentials and for all actions taken under your authenticated profile.</li>
+                </ul>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="terms-section" id="remember-me">
+                <h2><span>💾</span> 4. "Remember Me" Login Persistence & Cookie Architecture</h2>
+                <p>To provide seamless environmental tracking across device restarts, EcoProtect offers a persistent <strong>"Remember My Login"</strong> feature:</p>
+                <ul>
+                    <li>When selected, a secure, cryptographically random 64-character session token is stored in the <code>user_sessions</code> table within the backend database, paired with an expiration timestamp (30 days from creation).</li>
+                    <li>A corresponding secure HTTP cookie named <code>eco_remember_token</code> is placed on your browser, flagged with <code>HttpOnly</code> and <code>SameSite=Lax</code> protections to safeguard against cross-site scripting (XSS) and unauthorized token extraction.</li>
+                    <li>You can terminate all active sessions and revoke remembered logins at any time by clicking <strong>Log Out</strong> or clearing your browser cookies.</li>
+                </ul>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="terms-section" id="simulations">
+                <h2><span>🎛️</span> 5. Climate Control Scenarios & Mitigation Projections</h2>
+                <p>The interactive scenario sliders provided within the Environmental Control Dashboard allow users to simulate hypothetical reductions in transport fuel, electricity, dietary animal protein, and landfill waste.</p>
+                <p>Projections computed by the simulator reflect linear and multi-variable reductions based on standard per-capita averages. They do not constitute formal commercial carbon offset certificates or regulatory compliance verification without third-party accredited auditing.</p>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="terms-section" id="pledges">
+                <h2><span>📜</span> 6. Community Pledging & Citizen Code of Conduct</h2>
+                <p>When you sign the "One Planet, One Responsibility" pledge or submit feedback on environmental policies:</p>
+                <ul>
+                    <li>You warrant that pledge commitments reflect authentic intentions to reduce personal and community environmental degradation.</li>
+                    <li>Harassment, climate denial propaganda, misinformation, commercial spam, or malicious automated form submissions are strictly prohibited and will result in immediate database IP revocation.</li>
+                </ul>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="terms-section" id="events">
+                <h2><span>🌲</span> 7. Volunteer Conservation Events & Field Participation</h2>
+                <p>EcoProtect coordinates community tree planting, coastal debris clean-ups, and sustainability seminars. Attendance at in-person conservation events is voluntary. Participants are responsible for adhering to local outdoor safety guidelines, wearing appropriate protective gear, and maintaining environmental respect for public and protected wildlife sanctuaries.</p>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="terms-section" id="privacy">
+                <h2><span>🛡️</span> 8. Privacy, Data Protection & Open Eco-Data Rights</h2>
+                <p>We believe in radical transparency: your personal contact details will never be sold, leased, or traded to commercial marketing aggregators. Environmental data aggregated by the platform (e.g. cumulative trees planted, total verified pledges, and aggregate carbon reduction) is shared openly to demonstrate community climate resilience.</p>
+                <p>Users maintain the right to request full export or deletion of their registered user account, calculation history, and logged habits from the SQLite database by contacting our data protection officers at <code>privacy@ecoprotect.org</code>.</p>
+            </div>
+
+            <!-- End of Scroll Acceptance Footer -->
+            <div class="terms-acceptance-footer">
+                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:#0f172a;margin-bottom:.5rem;">
+                    You have reached the end of the Environmental Terms
+                </h3>
+                <p style="font-size:.9rem;color:#64748b;max-width:600px;margin:0 auto 1.25rem;">
+                    Thank you for reviewing our standards of environmental control, scientific integrity, and database protection.
+                </p>
+                <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+                    <a href="/dashboard" class="terms-acceptance-btn">
+                        <span>Go to Environmental Dashboard</span> →
+                    </a>
+                    <a href="/login" class="terms-acceptance-btn" style="background:transparent;border:1.5px solid #107c41;color:#107c41;box-shadow:none;">
+                        <span>Sign In / Create Account</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

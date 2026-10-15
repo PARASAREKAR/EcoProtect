@@ -1,0 +1,2002 @@
+{% extends "base.html" %}
+
+{% block title %}EcoProtect | 1:1 Planetary Observation Center & Global Awareness Platform{% endblock %}
+
+{% block extra_head %}
+<!-- Preload Local High-Performance Three.js + Globe.gl -->
+<link rel="preload" href="/static/js/three.min.js" as="script" />
+<link rel="preload" href="/static/js/globe.gl.min.js" as="script" />
+<script src="/static/js/three.min.js"></script>
+<script src="/static/js/globe.gl.min.js"></script>
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   ECOPROTECT — CLEAN MODERN HOME PAGE STYLING
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --eco-primary: #107c41;
+  --eco-primary-glow: rgba(16, 124, 65, 0.25);
+  --eco-accent: #38bdf8;
+  --eco-surface: #ffffff;
+  --eco-border: #e2e8f0;
+  --eco-text: #0f172a;
+  --eco-muted: #64748b;
+}
+
+/* ── CLEAN HERO WRAPPER ── */
+.clean-hero-wrapper {
+  position: relative;
+  background: radial-gradient(circle at 10% 20%, #081726 0%, #030a12 100%);
+  color: #f8fafc;
+  padding: 2rem 1.5rem 3.5rem;
+  overflow: hidden;
+}
+
+.clean-ambient-glow {
+  position: absolute;
+  top: -15%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.14) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top Telemetry Capsule */
+.clean-telemetry-capsule {
+  max-width: 1400px;
+  margin: 0 auto 1.75rem;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  border-radius: 99px;
+  padding: 0.45rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  z-index: 10;
+}
+
+.telem-left-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: #94a3b8;
+  flex-wrap: wrap;
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulseBeacon 1.6s infinite;
+  display: inline-block;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.telem-right-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.telem-pill-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 0.25rem 0.65rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.telem-pill-btn:hover, .telem-pill-btn.active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+/* ── HERO SPLIT GRID ── */
+.clean-hero-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 2.75rem;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 980px) {
+  .clean-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Hero Left Content */
+.clean-hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.clean-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 99px;
+  color: #86efac;
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+}
+
+.clean-hero-h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+}
+
+.text-gradient-eco {
+  background: linear-gradient(135deg, #4ade80, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.clean-hero-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  max-width: 580px;
+}
+
+.clean-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.25rem;
+}
+
+.btn-hero-primary {
+  padding: 0.85rem 1.6rem;
+  background: linear-gradient(135deg, #107c41, #22c55e);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 6px 20px rgba(16, 124, 65, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 124, 65, 0.45);
+}
+
+.btn-hero-secondary {
+  padding: 0.85rem 1.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f1f5f9;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.btn-hero-outline {
+  padding: 0.85rem 1.25rem;
+  background: transparent;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+}
+
+.btn-hero-outline:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: #38bdf8;
+}
+
+/* Vitals Row */
+.clean-vitals-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 540px;
+}
+
+.vital-item strong {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.vital-item span {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* ── HERO RIGHT: CLEAN GLOBE STAGE ── */
+.clean-globe-stage {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  background: radial-gradient(circle at center, #0a1b2d 0%, #02070e 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(56, 189, 248, 0.05);
+  overflow: hidden;
+}
+
+#globe-canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+}
+
+#globe-canvas:active {
+  cursor: grabbing;
+}
+
+/* Minimal Top-Right Controls Overlay */
+.clean-globe-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.clean-ctrl-pill {
+  background: rgba(6, 14, 24, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #cbd5e1;
+  padding: 0.35rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.clean-ctrl-pill:hover, .clean-ctrl-pill.active {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+/* Compact Floating Hotspot Dossier Card (Left Overlay) */
+.clean-mission-card {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 1rem;
+  max-width: 320px;
+  width: calc(100% - 2rem);
+  background: rgba(4, 10, 18, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 16px;
+  padding: 1rem;
+  z-index: 20;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clean-mission-card.minimized {
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hud-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.threat-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+  border: 1px solid #ef444466;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  text-transform: uppercase;
+}
+
+.cat-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.hud-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.2rem;
+  margin-left: auto;
+}
+
+.hud-close-btn:hover { color: #ffffff; }
+
+.hud-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.2rem;
+}
+
+.hud-location {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.hud-desc {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hud-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.hud-stat-cell {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+}
+
+.hud-stat-value {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #38bdf8;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.hud-stat-label {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+
+.hud-action-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hud-arrow-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.hud-arrow-btn:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+.hud-cta-link {
+  flex: 1;
+  padding: 0.45rem 0.75rem;
+  background: linear-gradient(135deg, #107c41, #22c55e);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Hotspot Ribbon */
+.hotspot-ribbon {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  z-index: 15;
+  background: rgba(6, 14, 24, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  border-radius: 12px;
+  padding: 0.35rem 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hotspot-ribbon::-webkit-scrollbar { display: none; }
+
+.ribbon-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.ribbon-pill:hover, .ribbon-pill.active {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+.ribbon-pill .badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* ── 4 GLOBAL INDICATORS RIBBON ── */
+.clean-indicators-section {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 2.5rem 1.5rem;
+}
+
+body.dark-mode .clean-indicators-section {
+  background: #09121a;
+  border-bottom-color: #1e2d38;
+}
+
+.indicators-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .indicators-inner { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .indicators-inner { grid-template-columns: 1fr; }
+}
+
+.ind-clean-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+body.dark-mode .ind-clean-card {
+  background: #0f1c24;
+  border-color: #1e2e38;
+}
+
+.ind-clean-card:hover {
+  transform: translateY(-2px);
+  border-color: #107c41;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+.ind-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.ind-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+body.dark-mode .ind-num {
+  color: #ffffff;
+}
+
+.ind-label {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+/* ── FEATURED ENVIRONMENTAL ACTION PORTALS ── */
+.clean-portals-section {
+  padding: 5rem 1.5rem;
+  background: #f8fafc;
+}
+
+body.dark-mode .clean-portals-section {
+  background: #050c12;
+}
+
+.clean-portals-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.clean-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3.5rem;
+}
+
+.clean-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #107c41;
+  margin-bottom: 0.4rem;
+}
+
+.clean-h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.8rem;
+}
+
+body.dark-mode .clean-h2 { color: #f8fafc; }
+
+.clean-lead {
+  font-size: 1.02rem;
+  color: #64748b;
+  line-height: 1.65;
+}
+
+/* 6-Card Clean Grid */
+.clean-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 980px) {
+  .clean-pillars-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .clean-pillars-grid { grid-template-columns: 1fr; }
+}
+
+.pillar-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.75rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+body.dark-mode .pillar-card {
+  background: #0c161d;
+  border-color: #1a2730;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--p-accent, #107c41);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.pillar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.pillar-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: var(--p-bg, #f0fdf4);
+}
+
+.pillar-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--p-accent, #107c41);
+  background: var(--p-bg, #f0fdf4);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}
+
+.pillar-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+body.dark-mode .pillar-title { color: #f8fafc; }
+
+.pillar-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.pillar-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--p-accent, #107c41);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Two Highlight Banners (Dashboard + Globe) */
+.clean-feature-banners {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 860px) {
+  .clean-feature-banners { grid-template-columns: 1fr; }
+}
+
+.feature-banner-card {
+  border-radius: 20px;
+  padding: 2.25rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  transition: all 0.25s ease;
+  color: #ffffff;
+}
+
+.banner-dash {
+  background: linear-gradient(135deg, #092615 0%, #0d3822 50%, #061c10 100%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  box-shadow: 0 12px 30px rgba(9, 38, 21, 0.2);
+}
+
+.banner-globe {
+  background: linear-gradient(135deg, #07172b 0%, #0e2747 50%, #051324 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 12px 30px rgba(7, 23, 43, 0.25);
+}
+
+.feature-banner-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
+
+.fb-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.fb-h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+  color: #ffffff;
+}
+
+.fb-desc {
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.fb-arrow-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+/* ── PLEDGE STRIP ── */
+.clean-pledge-strip {
+  background: linear-gradient(135deg, #062413 0%, #0c3d20 50%, #051a0e 100%);
+  padding: 4.5rem 1.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.clean-pledge-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.pledge-count {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #4ade80;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-bottom: 0.25rem;
+}
+
+/* ── CITATIONS STRIP ── */
+.clean-citations-strip {
+  background: #071018;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.25rem 1.5rem;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.clean-citation-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+  font-weight: 700;
+}
+</style>
+{% endblock %}
+
+{% block hero %}
+<section class="clean-hero-wrapper">
+  <div class="clean-ambient-glow"></div>
+
+  <!-- Telemetry Capsule Bar -->
+  <div class="clean-telemetry-capsule">
+    <div class="telem-left-group">
+      <span class="live-pulse-dot"></span>
+      <span><strong>Live Planetary Twin</strong> · NOAA Atmospheric Baseline</span>
+      <span style="color:#38bdf8;" id="telem-coords">LAT 15.00°N · LNG 30.00°W</span>
+      <span id="telem-utc" style="display:none;"></span>
+    </div>
+
+    <div class="telem-right-group">
+      <a href="/dashboard" class="telem-pill-btn" style="color:#86efac; border-color:rgba(34,197,94,0.3);">
+        <span>📊</span> Dashboard
+      </a>
+      <a href="/globe" class="telem-pill-btn" style="color:#38bdf8; border-color:rgba(56,189,248,0.3);">
+        <span>🌐</span> 3D EcoGlobe
+      </a>
+      <button type="button" class="telem-pill-btn" id="tour-btn" onclick="toggleWorldTour()">
+        <span>🎬</span> Tour: <strong id="tour-status">OFF</strong>
+      </button>
+      <button type="button" class="telem-pill-btn" onclick="toggleAutoRotate()" id="ar-toggle-btn">
+        ⏸️ Pause
+      </button>
+    </div>
+  </div>
+
+  <!-- Clean Split Hero Grid -->
+  <div class="clean-hero-grid">
+    <!-- Left: Typography & Actions -->
+    <div class="clean-hero-content">
+      <div class="clean-live-pill">
+        <span>🌱</span> Real-Time Planetary Observation & Citizen Action
+      </div>
+      <h1 class="clean-hero-h1">
+        Measure. Understand.<br>
+        <span class="text-gradient-eco">Protect Our Planet.</span>
+      </h1>
+      <p class="clean-hero-lead">
+        EcoProtect synthesizes live satellite telemetry, verified environmental hazard records, and community conservation engines to empower citizens, event organizers, and leaders in safeguarding Earth.
+      </p>
+
+      <div class="clean-hero-actions">
+        <a href="/globe" class="btn-hero-primary" title="Launch the real-time 3D Environmental Disaster Map">
+          <span>🌐 Launch EcoGlobe 3D</span>
+        </a>
+        <a href="/dashboard" class="btn-hero-secondary" title="Access your personal environmental control dashboard">
+          <span>📊 View Dashboard</span>
+        </a>
+        <a href="/calculator" class="btn-hero-outline" title="Calculate household footprint">
+          <span>🧮 Calculator</span>
+        </a>
+      </div>
+
+      <!-- Quick Metrics Vitals -->
+      <div class="clean-vitals-row">
+        <div class="vital-item">
+          <strong>422.5 ppm</strong>
+          <span>Atmospheric CO₂</span>
+        </div>
+        <div class="vital-item">
+          <strong>30.2%</strong>
+          <span>Clean Power</span>
+        </div>
+        <div class="vital-item">
+          <strong>12,480+</strong>
+          <span>Pledges Signed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Clean 3D Earth Globe Stage -->
+    <div class="clean-globe-stage" id="viewport-container">
+      <div id="globe-canvas"></div>
+
+      <!-- Clean Floating Controls -->
+      <div class="clean-globe-controls">
+        <button type="button" class="clean-ctrl-pill" onclick="toggleAutoRotate()" title="Pause or resume globe auto-spin">
+          <span>🌍</span> Spin
+        </button>
+        <button type="button" class="clean-ctrl-pill" onclick="toggleFullscreen()" title="Toggle fullscreen view">
+          <span>⛶</span> Fullscreen
+        </button>
+      </div>
+
+      <!-- Floating Compact Dossier Card -->
+      <div class="clean-mission-card" id="mission-drawer">
+        <div class="hud-top-meta">
+          <span id="hud-threat-badge" class="threat-badge">CRITICAL SEVERITY</span>
+          <span id="hud-category-label" class="cat-badge">PLANETARY FRONTIER</span>
+          <button type="button" class="hud-close-btn" onclick="toggleMissionDrawer()" title="Close dossier card">✕</button>
+        </div>
+        <h3 class="hud-title" id="hud-title">Amazon Rainforest Tipping Point</h3>
+        <p class="hud-location" id="hud-location">📍 Amazonas Basin, Brazil / South America</p>
+        <p class="hud-desc" id="hud-desc">
+          Over 20% of the Amazon has been clear-cut for cattle ranching, soy monoculture, and illegal timber.
+        </p>
+
+        <div class="hud-stats-grid" id="hud-stats">
+          <div class="hud-stat-cell">
+            <div class="hud-stat-value" id="hud-stat-0-val">10,000 km²/yr</div>
+            <div class="hud-stat-label" id="hud-stat-0-key">Tree cover loss rate</div>
+          </div>
+          <div class="hud-stat-cell">
+            <div class="hud-stat-value" id="hud-stat-1-val">17–20%</div>
+            <div class="hud-stat-label" id="hud-stat-1-key">Dieback threshold</div>
+          </div>
+          <div class="hud-stat-cell" style="display:none;">
+            <div class="hud-stat-value" id="hud-stat-2-val">150–200 Gt</div>
+            <div class="hud-stat-label" id="hud-stat-2-key">Carbon locked</div>
+          </div>
+          <div class="hud-stat-cell" style="display:none;">
+            <div class="hud-stat-value" id="hud-stat-3-val">10%</div>
+            <div class="hud-stat-label" id="hud-stat-3-key">Biodiversity</div>
+          </div>
+        </div>
+
+        <div class="hud-action-row">
+          <button type="button" class="hud-arrow-btn" onclick="cycleHotspot(-1)" title="Previous Hotspot">◀</button>
+          <a href="/forests" class="hud-cta-link" id="hud-cta-link">Explore Module →</a>
+          <button type="button" class="hud-arrow-btn" onclick="cycleHotspot(1)" title="Next Hotspot">▶</button>
+        </div>
+      </div>
+
+      <!-- Hotspot Bottom Chips Ribbon -->
+      <div class="hotspot-ribbon" id="hotspot-ribbon">
+        <!-- Dynamically generated pills -->
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- ── 4 GLOBAL INDICATORS STRIP ── -->
+<section class="clean-indicators-section">
+  <div class="indicators-inner">
+    <div class="ind-clean-card">
+      <div class="ind-icon-box" style="background:#fef2f2; color:#ef4444;">🌡️</div>
+      <div>
+        <div class="ind-num">422.5 <span style="font-size:.9rem; color:#94a3b8;">ppm</span></div>
+        <div class="ind-label">Atmospheric CO₂ Concentration</div>
+      </div>
+    </div>
+
+    <div class="ind-clean-card">
+      <div class="ind-icon-box" style="background:#f0fdf4; color:#107c41;">⚡</div>
+      <div>
+        <div class="ind-num">30.2%</div>
+        <div class="ind-label">Global Renewable Power Share</div>
+      </div>
+    </div>
+
+    <div class="ind-clean-card">
+      <div class="ind-icon-box" style="background:#ecfdf5; color:#059669;">🌲</div>
+      <div>
+        <div class="ind-num">31.2%</div>
+        <div class="ind-label">Global Forest Land Coverage</div>
+      </div>
+    </div>
+
+    <div class="ind-clean-card">
+      <div class="ind-icon-box" style="background:#eff6ff; color:#0284c7;">💧</div>
+      <div>
+        <div class="ind-num">2.2B <span style="font-size:.9rem; color:#94a3b8;">people</span></div>
+        <div class="ind-label">Facing Clean Water Stress</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED ENVIRONMENTAL ACTION PORTALS ── -->
+<section class="clean-portals-section">
+  <div class="clean-portals-inner">
+    <div class="clean-section-header">
+      <p class="clean-eyebrow">Planetary Knowledge Architecture</p>
+      <h2 class="clean-h2">Explore Dedicated Environmental Pillars</h2>
+      <p class="clean-lead">
+        Each ecological domain is mapped into a comprehensive, verified knowledge module with interactive calculators, scientific citations, and local solutions.
+      </p>
+    </div>
+
+    <!-- 6-Card Clean Pillars Grid -->
+    <div class="clean-pillars-grid">
+      <!-- 1. Climate Action -->
+      <a href="/climate" class="pillar-card" style="--p-accent:#f59e0b; --p-bg:#fffbeb;">
+        <div>
+          <div class="pillar-top">
+            <div class="pillar-icon-box">🌡️</div>
+            <span class="pillar-tag">IPCC Science</span>
+          </div>
+          <h3 class="pillar-title">Climate &amp; Cryosphere</h3>
+          <p class="pillar-desc">Explore 1.5°C carbon budget trajectories, polar ice melt rates, greenhouse radiative forcing, and climate tipping points.</p>
+        </div>
+        <span class="pillar-link">Explore Climate Science →</span>
+      </a>
+
+      <!-- 2. Forests & Biodiversity -->
+      <a href="/forests" class="pillar-card" style="--p-accent:#16a34a; --p-bg:#f0fdf4;">
+        <div>
+          <div class="pillar-top">
+            <div class="pillar-icon-box">🌲</div>
+            <span class="pillar-tag">Carbon Sinks</span>
+          </div>
+          <h3 class="pillar-title">Forests &amp; Biodiversity</h3>
+          <p class="pillar-desc">Discover old-growth tropical rainforest protection, indigenous stewardship models, and certified global reforestation drives.</p>
+        </div>
+        <span class="pillar-link">Explore Forests →</span>
+      </a>
+
+      <!-- 3. Freshwater Security -->
+      <a href="/water-conservation" class="pillar-card" style="--p-accent:#0284c7; --p-bg:#eff6ff;">
+        <div>
+          <div class="pillar-top">
+            <div class="pillar-icon-box">💧</div>
+            <span class="pillar-tag">Hydrosphere</span>
+          </div>
+          <h3 class="pillar-title">Water Conservation</h3>
+          <p class="pillar-desc">Data on groundwater aquifer depletion, inland sea desiccation, agricultural drip efficiency, and solar desalination.</p>
+        </div>
+        <span class="pillar-link">Explore Water Security →</span>
+      </a>
+
+      <!-- 4. Renewable Energy Transition -->
+      <a href="/renewable-energy" class="pillar-card" style="--p-accent:#eab308; --p-bg:#fefce8;">
+        <div>
+          <div class="pillar-top">
+            <div class="pillar-icon-box">⚡</div>
+            <span class="pillar-tag">Decarbonization</span>
+          </div>
+          <h3 class="pillar-title">Renewable Energy</h3>
+          <p class="pillar-desc">Utility-scale solar PV, offshore wind, utility battery storage (BESS), and power grid decarbonization pathways.</p>
+        </div>
+        <span class="pillar-link">Explore Clean Power →</span>
+      </a>
+
+      <!-- 5. Zero Waste & Circularity -->
+      <a href="/waste-management" class="pillar-card" style="--p-accent:#84cc16; --p-bg:#f7fee7;">
+        <div>
+          <div class="pillar-top">
+            <div class="pillar-icon-box">♻️</div>
+            <span class="pillar-tag">Circular Economy</span>
+          </div>
+          <h3 class="pillar-title">Zero Waste Management</h3>
+          <p class="pillar-desc">The 5-R reduction hierarchy, Extended Producer Responsibility (EPR), mycelium packaging, and municipal composting.</p>
+        </div>
+        <span class="pillar-link">Explore Waste Solutions →</span>
+      </a>
+
+      <!-- 6. Scientific Footprint Calculator -->
+      <a href="/calculator" class="pillar-card" style="--p-accent:#06b6d4; --p-bg:#ecfeff;">
+        <div>
+          <div class="pillar-top">
+            <div class="pillar-icon-box">🧮</div>
+            <span class="pillar-tag">Interactive Engine</span>
+          </div>
+          <h3 class="pillar-title">Footprint Calculator</h3>
+          <p class="pillar-desc">Compute your household carbon and water footprint using EPA &amp; IPCC equations compiled in high-performance WebAssembly/C++.</p>
+        </div>
+        <span class="pillar-link">Calculate Your Footprint →</span>
+      </a>
+    </div>
+
+    <!-- 2 Highlighted Platform Portals -->
+    <div class="clean-feature-banners">
+      <a href="/dashboard" class="feature-banner-card banner-dash">
+        <div>
+          <span class="fb-badge" style="background:rgba(34,197,94,0.25); color:#86efac;">Member Hub</span>
+          <h3 class="fb-h3">Environmental Control Dashboard</h3>
+          <p class="fb-desc">
+            Track your personal carbon baseline, run "what-if" mitigation simulations, log daily green habits, and access organizer decks.
+          </p>
+        </div>
+        <div class="fb-arrow-btn">→</div>
+      </a>
+
+      <a href="/globe" class="feature-banner-card banner-globe">
+        <div>
+          <span class="fb-badge" style="background:rgba(56,189,248,0.25); color:#7dd3fc;">Real-Time 3D Map</span>
+          <h3 class="fb-h3">EcoGlobe 3D Hazard Tracker</h3>
+          <p class="fb-desc">
+            Explore 30+ documented historical ecological disasters and browse live global environmental news reports in full 3D WebGL.
+          </p>
+        </div>
+        <div class="fb-arrow-btn">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── GLOBAL CITIZEN PLEDGE STRIP ── -->
+<div class="clean-pledge-strip">
+  <div class="clean-pledge-inner">
+    <div class="pledge-count" id="pledge-counter">12,480+</div>
+    <div style="font-size:.95rem; color:#a7f3d0; font-weight:600; margin-bottom:1.25rem;">
+      Citizens worldwide have pledged to protect our biosphere
+    </div>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(1.8rem,4vw,2.5rem); font-weight:800; margin-bottom:.85rem;">
+      One Planet, Shared Responsibility
+    </h2>
+    <p style="font-size:1rem; color:rgba(255,255,255,.8); line-height:1.7; margin-bottom:2rem;">
+      Make a verifiable commitment to reduce personal emissions, conserve water, and advocate for sustainability. Receive your official digital certificate.
+    </p>
+    <a href="/pledge" class="btn-hero-primary" style="display:inline-flex; font-size:1rem; padding:.9rem 2.2rem; border-radius:99px;">
+      <span>🌍 Sign the Global Pledge</span>
+    </a>
+  </div>
+</div>
+
+<!-- ── SCIENTIFIC CITATIONS STRIP ── -->
+<div class="clean-citations-strip">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div>Grounded in peer-reviewed planetary telemetry and open data:</div>
+    <div class="clean-citation-logos">
+      <span>🛰️ NASA Earth Observatory</span>
+      <span>🌊 NOAA Climate.gov</span>
+      <span>🌡️ IPCC AR6 Working Groups</span>
+      <span>🌿 UNEP Global Environment</span>
+      <span>💧 UN-Water / UNESCO</span>
+      <span>🌍 Copernicus Atmosphere</span>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   1:1 PHOTOREALISTIC EARTH SIMULATION & MISSION COMMANDER ENGINE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+// ── 16 Geographically Verified Planetary Hotspots ──
+const PLANETARY_HOTSPOTS = [
+  {
+    id: "amazon",
+    lat: -3.465, lng: -62.215,
+    name: "Amazon Rainforest Tipping Point",
+    location: "Amazonas Basin, Brazil / South America",
+    type: "deforestation", typeLabel: "Deforestation & Wildfire",
+    severity: "CRITICAL", color: "#ef4444",
+    desc: "Over 20% of the Amazon has been clear-cut for cattle ranching, soy monoculture, and illegal timber. Scientists warn the biome is approaching a self-reinforcing dieback threshold toward dry savanna.",
+    stats: [
+      { val: "10,000 km²/yr", key: "Tree cover loss rate" },
+      { val: "17–20%", key: "Dieback threshold" },
+      { val: "150–200 Gt", key: "Carbon sequestered" },
+      { val: "10%", key: "Global biodiversity share" }
+    ],
+    link: "/forests"
+  },
+  {
+    id: "garbage_patch",
+    lat: 35.0, lng: -145.0,
+    name: "Great Pacific Garbage Patch",
+    location: "North Pacific Subtropical Gyre",
+    type: "plastic", typeLabel: "Marine Plastic Gyre",
+    severity: "SEVERE", color: "#f59e0b",
+    desc: "A swirling vortex of marine debris covering 1.6 million km² in the North Pacific Subtropical Gyre. Over 80,000 tonnes of plastic break down into toxic microplastics consumed by marine organisms.",
+    stats: [
+      { val: "1.6M km²", key: "Surface expanse" },
+      { val: "80,000 t", key: "Floating plastic mass" },
+      { val: "700+", key: "Marine species harmed" },
+      { val: "1.8 Trillion", key: "Plastic pieces" }
+    ],
+    link: "/waste-management"
+  },
+  {
+    id: "arctic",
+    lat: 78.22, lng: 15.65,
+    name: "Arctic Svalbard & Permafrost Melt",
+    location: "Svalbard Archipelago / Arctic Ocean",
+    type: "climate", typeLabel: "Polar Cryosphere Thaw",
+    severity: "CRITICAL", color: "#38bdf8",
+    desc: "Warming at 4× the global average rate. Svalbard glaciers are retreating rapidly, and thawing permafrost releases ancient trapped methane and carbon dioxide into the atmosphere in a self-amplifying loop.",
+    stats: [
+      { val: "4× Faster", key: "Warming vs global avg" },
+      { val: "-12.6%/dec", key: "Sea ice extent drop" },
+      { val: "1,700 Gt", key: "Permafrost carbon locked" },
+      { val: "+3.2°C", key: "Arctic temp anomaly" }
+    ],
+    link: "/climate"
+  },
+  {
+    id: "great_barrier_reef",
+    lat: -18.287, lng: 147.699,
+    name: "Great Barrier Reef Bleaching",
+    location: "Coral Sea, Queensland, Australia",
+    type: "ocean", typeLabel: "Coral Acidification",
+    severity: "CRITICAL", color: "#fb923c",
+    desc: "Earth's largest living structure has suffered 6 mass bleaching events since 1998 due to prolonged marine heatwaves and ocean acidification from absorbed atmospheric CO₂.",
+    stats: [
+      { val: "50%+", key: "Shallow corals lost" },
+      { val: "2,300 km", key: "Reef ecosystem length" },
+      { val: "1,500+", key: "Fish species reliant" },
+      { val: "pH 8.05", key: "Acidification drop" }
+    ],
+    link: "/climate"
+  },
+  {
+    id: "beijing_basin",
+    lat: 39.904, lng: 116.407,
+    name: "Beijing & North China Plain Smog",
+    location: "Beijing / Hebei Basin, China",
+    type: "air", typeLabel: "Toxic PM2.5 Inversion",
+    severity: "SEVERE", color: "#a855f7",
+    desc: "Heavy industrial coal combustion, metallurgy, and vehicle exhaust generate winter PM2.5 levels exceeding WHO safe thresholds up to 20-fold, creating regional respiratory emergencies.",
+    stats: [
+      { val: "150+ µg/m³", key: "Peak winter PM2.5" },
+      { val: "1.1M /yr", key: "Premature deaths in region" },
+      { val: "5 µg/m³", key: "WHO safe guideline" },
+      { val: "$38 Billion", key: "Annual healthcare burden" }
+    ],
+    link: "/problems"
+  },
+  {
+    id: "maldives",
+    lat: 3.202, lng: 73.220,
+    name: "Maldives Coral Atoll Inundation",
+    location: "Indian Ocean, Republic of Maldives",
+    type: "sea_level", typeLabel: "Sea Level Inundation",
+    severity: "CRITICAL", color: "#06b6d4",
+    desc: "With an average elevation of 1.8 metres, the 1,192 coral islands face catastrophic sea level rise, coastal erosion, and saltwater intrusion into essential freshwater lenses.",
+    stats: [
+      { val: "1.8 m", key: "Average ground height" },
+      { val: "+3.7 mm/yr", key: "Sea level acceleration" },
+      { val: "80%", key: "Islands < 1m elevation" },
+      { val: "2100", key: "Projected uninhabitable" }
+    ],
+    link: "/climate"
+  },
+  {
+    id: "aral_sea",
+    lat: 45.0, lng: 59.60,
+    name: "Aral Sea Ecological Collapse",
+    location: "Kazakhstan / Uzbekistan border",
+    type: "water", typeLabel: "Catastrophic Desiccation",
+    severity: "CATASTROPHIC", color: "#ec4899",
+    desc: "Once the world's 4th largest lake, diversion of feeder rivers for monoculture cotton has shrunk the sea by 90%, leaving the Aralkum toxic salt desert that poisons regional populations.",
+    stats: [
+      { val: "90%", key: "Water volume depleted" },
+      { val: "75M tonnes", key: "Toxic salt dust per yr" },
+      { val: "24 Species", key: "Endemic fish extinct" },
+      { val: "60 Million", key: "Affected inhabitants" }
+    ],
+    link: "/water-conservation"
+  },
+  {
+    id: "congo_basin",
+    lat: -0.228, lng: 25.50,
+    name: "Congo Basin Net Carbon Sink",
+    location: "Democratic Republic of Congo, Central Africa",
+    type: "deforestation", typeLabel: "Deforestation & Poaching",
+    severity: "HIGH ALERT", color: "#84cc16",
+    desc: "Earth's second largest tropical rainforest and the last intact major tropical net carbon sink, sequestering 66 billion tonnes of carbon. Confronted by slash-and-burn expansion and timber concessions.",
+    stats: [
+      { val: "3.3M km²", key: "Intact forest area" },
+      { val: "66 Gt", key: "Carbon reservoir" },
+      { val: "600K ha/yr", key: "Annual clearing" },
+      { val: "10,000+", key: "Endemic flora species" }
+    ],
+    link: "/forests"
+  },
+  {
+    id: "ganges",
+    lat: 25.317, lng: 83.00,
+    name: "Ganges River Basin Degradation",
+    location: "Uttar Pradesh / Bihar, India",
+    type: "water", typeLabel: "Freshwater Pollution",
+    severity: "SEVERE", color: "#f97316",
+    desc: "Provides freshwater for 500 million people, yet receives 3 billion litres of untreated municipal wastewater daily alongside industrial chromium and persistent agrochemicals.",
+    stats: [
+      { val: "3B Litres", key: "Daily untreated sewage" },
+      { val: "500M+", key: "Dependent populace" },
+      { val: "BOD 6×", key: "Above safe limit" },
+      { val: "100×", key: "Safe coliform limit" }
+    ],
+    link: "/water-conservation"
+  },
+  {
+    id: "thwaites",
+    lat: -75.50, lng: -106.75,
+    name: "Thwaites 'Doomsday' Glacier",
+    location: "West Antarctic Ice Sheet",
+    type: "climate", typeLabel: "Ice Sheet Instability",
+    severity: "CRITICAL", color: "#818cf8",
+    desc: "The size of Great Britain, Thwaites is undermined by circumpolar deep warm water melting its grounding line. Its collapse would destabilize neighboring glaciers and elevate global seas by 3+ metres.",
+    stats: [
+      { val: "65 cm", key: "Direct sea level rise" },
+      { val: "192,000 km²", key: "Glacier area" },
+      { val: "50 Gt/yr", key: "Ice loss rate" },
+      { val: "3.3 m", key: "Total WAIS collapse" }
+    ],
+    link: "/climate"
+  },
+  {
+    id: "lake_chad",
+    lat: 13.0, lng: 14.50,
+    name: "Lake Chad Basin Desiccation",
+    location: "Sahel Region (Chad/Nigeria/Niger/Cameroon)",
+    type: "water", typeLabel: "Shrinking Freshwater Lake",
+    severity: "CRITICAL", color: "#e11d48",
+    desc: "Lake Chad has lost 90% of its open water surface since the 1960s from shifting monsoons and unmanaged irrigation, sparking intense regional food insecurity and pastoral displacement.",
+    stats: [
+      { val: "90%", key: "Surface water vanished" },
+      { val: "30 Million", key: "Populace in crisis" },
+      { val: "25K → 2.5K km²", key: "Surface shrinkage" },
+      { val: "4 Nations", key: "Bordering lake basin" }
+    ],
+    link: "/water-conservation"
+  },
+  {
+    id: "california_fires",
+    lat: 39.75, lng: -121.60,
+    name: "California Megafire Regime",
+    location: "Sierra Nevada / Northern California, USA",
+    type: "wildfire", typeLabel: "Pyrocumulonimbus Fires",
+    severity: "SEVERE", color: "#f43f5e",
+    desc: "Extended megadrought, winter snowpack depletion, and pine beetle mortality have created conditions for explosive firestorms generating their own lightning weather systems.",
+    stats: [
+      { val: "4M Hectares", key: "Burned in peak seasons" },
+      { val: "100M+", key: "Drought-killed trees" },
+      { val: "1.2 Gt CO₂", key: "Record wildfire emissions" },
+      { val: "$100B+", key: "Economic damage" }
+    ],
+    link: "/forests"
+  },
+  {
+    id: "gulf_dead_zone",
+    lat: 28.50, lng: -90.50,
+    name: "Gulf of Mexico Hypoxic Dead Zone",
+    location: "Mississippi River Outflow, Northern Gulf",
+    type: "ocean", typeLabel: "Hypoxic Oxygen Depletion",
+    severity: "HIGH ALERT", color: "#14b8a6",
+    desc: "Agricultural nitrogen and phosphorus from the Midwest drain down the Mississippi, triggering massive algal blooms. Decomposition starves the water column of oxygen, suffocating benthic life.",
+    stats: [
+      { val: "15,000 km²", key: "Summer dead zone size" },
+      { val: "< 2 mg/L", key: "Lethal oxygen limit" },
+      { val: "1.5M tonnes", key: "Nitrate runoff annually" },
+      { val: "Shrimp & Finfish", key: "Fisheries collapse risk" }
+    ],
+    link: "/problems"
+  },
+  {
+    id: "chernobyl",
+    lat: 51.389, lng: 30.099,
+    name: "Chernobyl Exclusion Rewilding",
+    location: "Polesie Radioecological Reserve, Ukraine",
+    type: "anthropocene", typeLabel: "Nuclear Rewilding",
+    severity: "MONITORING", color: "#10b981",
+    desc: "A 2,600 km² contaminated perimeter where the exclusion of human settlement has paradoxically enabled European bison, lynx, and Przewalski's wild horses to expand unmolested by hunting or agriculture.",
+    stats: [
+      { val: "2,600 km²", key: "Wilderness buffer" },
+      { val: "7× Wolves", key: "Density vs adjacent forests" },
+      { val: "400+ Species", key: "Wildlife recolonization" },
+      { val: "Cs-137 / Sr-90", key: "Persistent soil isotopes" }
+    ],
+    link: "/biodiversity"
+  },
+  {
+    id: "atacama_salar",
+    lat: -23.50, lng: -68.25,
+    name: "Atacama Lithium Brine Depletion",
+    location: "Salar de Atacama, Northern Chile",
+    type: "water", typeLabel: "Mineral Aquifer Depletion",
+    severity: "HIGH ALERT", color: "#d97706",
+    desc: "Pumping millions of litres of subterranean mineral brine into open evaporation pans in Earth's driest desert depletes surrounding freshwater aquifers, impacting flamingo populations and indigenous survival.",
+    stats: [
+      { val: "2M Litres", key: "Brine/tonne lithium" },
+      { val: "65%", key: "Regional water extracted" },
+      { val: "Andean Flamingo", key: "12% breeding drop" },
+      { val: "Hyper-arid", key: "Extremely fragile basin" }
+    ],
+    link: "/problems"
+  },
+  {
+    id: "mariana_trench",
+    lat: 11.35, lng: 142.20,
+    name: "Mariana Trench Abyssal Depths",
+    location: "Challenger Deep, Western Pacific",
+    type: "plastic", typeLabel: "Abyssal Plastic Deposition",
+    severity: "SEVERE", color: "#6366f1",
+    desc: "At Earth's deepest marine abyss (10,994 metres), submersibles discovered discarded plastic packaging and found 100% of examined endemic amphipod crustaceans contained synthetic microplastic fibers.",
+    stats: [
+      { val: "10,994 m", key: "Challenger Deep floor" },
+      { val: "100%", key: "Crustaceans with microplastics" },
+      { val: "2,200 pcs/m²", key: "Sediment particle density" },
+      { val: "Zero pristine", key: "Ecosystems remaining" }
+    ],
+    link: "/waste-management"
+  }
+];
+
+// ── 6 Global Circulation & Atmospheric Currents Arcs ──
+const CIRCULATION_ARCS = [
+  {
+    name: "Thermohaline Deep Ocean Conveyor",
+    startLat: 78.22, startLng: 15.65,
+    endLat: 3.20, endLng: 73.22,
+    color: ["#38bdf8", "#0284c7"],
+    desc: "Cold, dense Arctic meltwater drives the deep Atlantic overturning circulation toward the Indian Ocean."
+  },
+  {
+    name: "Trans-Pacific Plastic Gyre Conveyor",
+    startLat: 31.23, startLng: 121.47,
+    endLat: 35.0, endLng: -145.0,
+    color: ["#f59e0b", "#ef4444"],
+    desc: "Pacific gyre currents funnel marine debris from Asian & American coasts into the Great Garbage Patch."
+  },
+  {
+    name: "Trans-Atlantic Saharan Mineral Dust Jet",
+    startLat: 19.0, startLng: 10.0,
+    endLat: -3.46, endLng: -62.21,
+    color: ["#eab308", "#10b981"],
+    desc: "High-altitude trade winds transport 28M tonnes of Saharan phosphorus dust annually to replenish Amazonian soils."
+  },
+  {
+    name: "Antarctic Circumpolar Teleconnection",
+    startLat: -75.50, startLng: -106.75,
+    endLat: -18.28, endLng: 147.70,
+    color: ["#818cf8", "#fb923c"],
+    desc: "Deep Southern Ocean temperature and salinity shifts teleconnect directly to Pacific coral reef bleaching."
+  },
+  {
+    name: "Equatorial Monsoon Moisture Highway",
+    startLat: -0.22, startLng: 25.50,
+    endLat: 25.31, endLng: 83.00,
+    color: ["#22c55e", "#06b6d4"],
+    desc: "Evapotranspiration from the Congo Basin fuels atmospheric rivers sustaining South Asian monsoon rainfall."
+  },
+  {
+    name: "Gulf Stream Thermal Highway",
+    startLat: 28.50, startLng: -90.50,
+    endLat: 55.0, endLng: -10.0,
+    color: ["#f43f5e", "#38bdf8"],
+    desc: "Warmer equatorial currents transport heat to northern latitudes, destabilizing under Greenland meltwater influx."
+  }
+];
+
+// ── 3D Hexagonal Impact Hotspots (Global Emissions & Forest Loss) ──
+const HEX_IMPACT_POINTS = [
+  { lat: -3.46, lng: -62.2, weight: 1.8 },
+  { lat: -6.0,  lng: -55.0, weight: 1.5 },
+  { lat: 39.9,  lng: 116.4, weight: 2.2 },
+  { lat: 31.2,  lng: 121.5, weight: 2.0 },
+  { lat: 28.6,  lng: 77.2,  weight: 1.9 },
+  { lat: 25.3,  lng: 83.0,  weight: 1.6 },
+  { lat: 40.7,  lng: -74.0, weight: 1.4 },
+  { lat: 34.0,  lng: -118.2,weight: 1.5 },
+  { lat: 51.5,  lng: -0.1,  weight: 1.2 },
+  { lat: 52.5,  lng: 13.4,  weight: 1.3 },
+  { lat: 25.2,  lng: 55.3,  weight: 1.9 },
+  { lat: -0.2,  lng: 25.5,  weight: 1.4 },
+  { lat: -2.5,  lng: 115.0, weight: 1.7 },
+  { lat: 78.2,  lng: 15.6,  weight: 1.8 },
+  { lat: -75.5, lng:-106.7, weight: 1.7 }
+];
+
+// ── State Variables ──
+let globe;
+let cloudMesh = null;
+let currentHotspotIndex = 0;
+let autoRotating = true;
+let isTourActive = false;
+let tourTimer = null;
+let currentTextureMode = 'day';
+
+// Web Audio synthesizer
+let audioCtx = null;
+let ambientOsc = null;
+let ambientGain = null;
+let isAudioActive = false;
+
+// ── Initialize 1:1 Earth Simulation (Instant Render) ──
+function initPlanetaryGlobe() {
+  const container = document.getElementById('globe-canvas');
+  if (!container || typeof GlobeGL === 'undefined') return;
+
+  const isPotato = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+                   (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+                   /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+  globe = GlobeGL({
+    animateIn: false,
+    rendererConfig: {
+      powerPreference: 'high-performance',
+      antialias: !isPotato,
+      alpha: true,
+      precision: 'mediump'
+    }
+  })
+    .width(container.clientWidth)
+    .height(container.clientHeight)
+    // 1:1 Photorealistic Earth Textures
+    .globeImageUrl('/static/textures/earth-dark.jpg')
+    .bumpImageUrl('/static/textures/earth-topology.png')
+    .backgroundImageUrl('/static/textures/night-sky.png')
+    // Atmospheric Rayleigh Haze
+    .showAtmosphere(true)
+    .atmosphereColor('#38bdf8')
+    .atmosphereAltitude(0.2)
+    // Crisis Beacons
+    .pointsData(PLANETARY_HOTSPOTS)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointColor('color')
+    .pointAltitude(0.02)
+    .pointRadius(0.65)
+    .pointsMerge(true)
+    .pointLabel(d => `
+      <div style="background:rgba(4,10,18,0.92);backdrop-filter:blur(12px);border:1px solid ${d.color}66;border-radius:12px;padding:.65rem 1rem;font-family:'Inter',sans-serif;color:#f1f5f9;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+        <div style="font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:${d.color};margin-bottom:.2rem;">${d.severity} · ${d.typeLabel}</div>
+        <strong style="font-size:.9rem;color:#fff;">${d.name}</strong><br>
+        <span style="font-size:.78rem;color:#94a3b8;">📍 ${d.location}</span>
+      </div>
+    `)
+    .onPointClick(d => {
+      const idx = PLANETARY_HOTSPOTS.findIndex(h => h.id === d.id);
+      if (idx !== -1) selectHotspot(idx, true);
+    })
+    // Pulsing Rings (Threat Waves)
+    .ringsData(PLANETARY_HOTSPOTS.slice(0, 4))
+    .ringLat('lat')
+    .ringLng('lng')
+    .ringColor(d => t => {
+      const alpha = Math.max(0, 1 - t);
+      const hexAlpha = Math.round(alpha * 180).toString(16).padStart(2, '0');
+      return `${d.color}${hexAlpha}`;
+    })
+    .ringMaxRadius(4.8)
+    .ringPropagationSpeed(2.8)
+    .ringRepeatPeriod(1000)
+    // Planetary Circulation Arcs
+    .arcsData(CIRCULATION_ARCS)
+    .arcStartLat('startLat')
+    .arcStartLng('startLng')
+    .arcEndLat('endLat')
+    .arcEndLng('endLng')
+    .arcColor('color')
+    .arcAltitude(0.3)
+    .arcStroke(1.2)
+    .arcDashLength(0.45)
+    .arcDashGap(2.2)
+    .arcDashAnimateTime(2200)
+    .arcLabel(d => `
+      <div style="background:rgba(4,10,18,0.92);border:1px solid #38bdf866;border-radius:10px;padding:.5rem .85rem;color:#f1f5f9;font-size:.78rem;">
+        <strong style="color:#38bdf8;">🌐 ${d.name}</strong><br>
+        <span style="color:#94a3b8;">${d.desc}</span>
+      </div>
+    `)
+    // 3D Hexagonal Impact Pillars
+    .hexBinPointsData(HEX_IMPACT_POINTS)
+    .hexBinPointLat('lat')
+    .hexBinPointLng('lng')
+    .hexBinPointWeight('weight')
+    .hexAltitude(d => Math.min(0.25, d.sumWeight * 0.08))
+    .hexTopColor(() => 'rgba(244,63,94,0.75)')
+    .hexSideColor(() => 'rgba(244,63,94,0.25)')
+    .hexBinResolution(3)
+    (container);
+
+  // Clamp render pixel ratio on potato GPUs to prevent stutter
+  if (globe && globe.renderer) {
+    const r = globe.renderer();
+    if (r && r.setPixelRatio) {
+      r.setPixelRatio(isPotato ? 1 : Math.min(window.devicePixelRatio || 1, 1.25));
+    }
+  }
+
+  // Auto-rotation & Controls
+  globe.controls().autoRotate = true;
+  globe.controls().autoRotateSpeed = 0.55;
+  globe.controls().enableZoom = true;
+  globe.controls().zoomSpeed = 0.75;
+
+  // Initial Point of View (Atlantic view showing Amazon & Arctic)
+  globe.pointOfView({ lat: 10, lng: -45, altitude: 2.3 });
+
+  // Floating 3D Clouds Sphere Mesh
+  setupCloudLayer();
+
+  // Mouse coordinate tracker for dynamic HUD
+  setupCoordinateTracker(container);
+
+  // Render bottom ribbon pills
+  buildHotspotRibbon();
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    globe.width(container.clientWidth).height(container.clientHeight);
+  });
+}
+
+// ── Floating 3D Atmospheric Clouds Layer (Deferred for Speed) ──
+function setupCloudLayer() {
+  if (typeof THREE === 'undefined' || !globe) return;
+
+  setTimeout(() => {
+    try {
+      const scene = globe.scene();
+      const globeRadius = globe.getGlobeRadius();
+      const cloudGeom = new THREE.SphereGeometry(globeRadius * 1.008, 64, 64);
+      
+      const textureLoader = new THREE.TextureLoader();
+      textureLoader.load('/static/textures/earth-clouds.png', (cloudTex) => {
+        const cloudMat = new THREE.MeshPhongMaterial({
+          map: cloudTex,
+          transparent: true,
+          opacity: 0.45,
+          blending: THREE.NormalBlending,
+          depthWrite: false
+        });
+        cloudMesh = new THREE.Mesh(cloudGeom, cloudMat);
+        scene.add(cloudMesh);
+
+        // Cloud rotation loop
+        function animateClouds() {
+          requestAnimationFrame(animateClouds);
+          if (cloudMesh && cloudMesh.visible) {
+            cloudMesh.rotation.y += 0.0002;
+          }
+        }
+        animateClouds();
+      });
+    } catch (err) {
+      console.warn("Cloud layer setup notice:", err);
+    }
+  }, 1200);
+}
+
+// ── Mouse Dynamic Coordinates HUD Tracker ──
+function setupCoordinateTracker(container) {
+  container.addEventListener('mousemove', (e) => {
+    if (!globe) return;
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const coords = globe.toGeoCoords({ x, y });
+    if (coords && coords.lat !== undefined && coords.lng !== undefined) {
+      const latDir = coords.lat >= 0 ? 'N' : 'S';
+      const lngDir = coords.lng >= 0 ? 'E' : 'W';
+      const telemEl = document.getElementById('telem-coords');
+      if (telemEl) {
+        telemEl.textContent = 
+          `LAT ${Math.abs(coords.lat).toFixed(2)}°${latDir} · LNG ${Math.abs(coords.lng).toFixed(2)}°${lngDir}`;
+      }
+    }
+  });
+}
+
+// ── Toggle Mission Dossier Drawer ──
+function toggleMissionDrawer() {
+  const drawer = document.getElementById('mission-drawer');
+  if (drawer) {
+    drawer.classList.toggle('minimized');
+    playUiSound(720, 0.03);
+  }
+}
+
+// ── Switch Photorealistic Earth Modes ──
+function setEarthTexture(mode) {
+  currentTextureMode = mode;
+  document.querySelectorAll('.cp-mode-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`btn-mode-${mode}`);
+  if (btn) btn.classList.add('active');
+
+  playUiSound(720, 0.04);
+
+  if (mode === 'day') {
+    globe.globeImageUrl('/static/textures/earth-blue-marble.jpg')
+         .bumpImageUrl('/static/textures/earth-topology.png')
+         .atmosphereColor('#38bdf8');
+    if (cloudMesh) cloudMesh.visible = true;
+  } else if (mode === 'night') {
+    globe.globeImageUrl('/static/textures/earth-night.jpg')
+         .bumpImageUrl(null)
+         .atmosphereColor('#60a5fa');
+    if (cloudMesh) cloudMesh.visible = false;
+  } else if (mode === 'thermal') {
+    globe.globeImageUrl('/static/textures/earth-dark.jpg')
+         .bumpImageUrl('/static/textures/earth-topology.png')
+         .atmosphereColor('#f43f5e');
+    if (cloudMesh) cloudMesh.visible = false;
+  } else if (mode === 'dark') {
+    globe.globeImageUrl('/static/textures/earth-dark.jpg')
+         .bumpImageUrl(null)
+         .atmosphereColor('#22c55e');
+    if (cloudMesh) cloudMesh.visible = false;
+  }
+}
+
+// ── Toggle Layer Visibility ──
+function toggleCloudsLayer(visible) {
+  if (cloudMesh) cloudMesh.visible = visible;
+  playUiSound(640, 0.03);
+}
+
+function toggleArcsLayer(visible) {
+  globe.arcsData(visible ? CIRCULATION_ARCS : []);
+  playUiSound(640, 0.03);
+}
+
+function toggleColumnsLayer(visible) {
+  globe.hexBinPointsData(visible ? HEX_IMPACT_POINTS : []);
+  playUiSound(640, 0.03);
+}
+
+function toggleRingsLayer(visible) {
+  globe.ringsData(visible ? PLANETARY_HOTSPOTS : []);
+  playUiSound(640, 0.03);
+}
+
+// ── Camera Navigation & Viewpoint Presets ──
+function flyToPreset(lat, lng, alt) {
+  if (!globe) return;
+  globe.pointOfView({ lat, lng, altitude: alt }, 1400);
+  playUiSound(880, 0.05);
+}
+
+function toggleAutoRotate() {
+  if (!globe) return;
+  autoRotating = !autoRotating;
+  globe.controls().autoRotate = autoRotating;
+  const btn = document.getElementById('ar-toggle-btn');
+  if (btn) btn.textContent = autoRotating ? '⏸️ Pause' : '▶️ Spin';
+  playUiSound(540, 0.04);
+}
+
+// ── Select Hotspot & Update HUD Dossier ──
+function selectHotspot(index, animateCamera = true) {
+  currentHotspotIndex = index;
+  const spot = PLANETARY_HOTSPOTS[index];
+  if (!spot) return;
+
+  // Fly camera to hotspot coordinates
+  if (animateCamera && globe) {
+    globe.pointOfView({ lat: spot.lat, lng: spot.lng, altitude: 1.85 }, 1300);
+  }
+
+  // Restore drawer if minimized
+  const drawer = document.getElementById('mission-drawer');
+  if (drawer) drawer.classList.remove('minimized');
+
+  // Update HUD text & metrics
+  const badge = document.getElementById('hud-threat-badge');
+  if (badge) {
+    badge.textContent = `${spot.severity} SEVERITY`;
+    badge.style.borderColor = `${spot.color}66`;
+    badge.style.color = spot.color;
+    badge.style.background = `${spot.color}18`;
+  }
+
+  const cat = document.getElementById('hud-category-label');
+  if (cat) cat.textContent = spot.typeLabel.toUpperCase();
+  const title = document.getElementById('hud-title');
+  if (title) title.textContent = spot.name;
+  const loc = document.getElementById('hud-location');
+  if (loc) loc.textContent = `📍 ${spot.location}`;
+  const desc = document.getElementById('hud-desc');
+  if (desc) desc.textContent = spot.desc;
+  const cta = document.getElementById('hud-cta-link');
+  if (cta) cta.href = spot.link;
+
+  spot.stats.forEach((st, i) => {
+    const valEl = document.getElementById(`hud-stat-${i}-val`);
+    const keyEl = document.getElementById(`hud-stat-${i}-key`);
+    if (valEl && keyEl) {
+      valEl.textContent = st.val;
+      valEl.style.color = spot.color;
+      keyEl.textContent = st.key;
+    }
+  });
+
+  // Highlight active pill in bottom ribbon
+  document.querySelectorAll('.ribbon-pill').forEach((pill, i) => {
+    pill.classList.toggle('active', i === index);
+  });
+
+  playUiSound(920, 0.06);
+}
+
+function cycleHotspot(dir) {
+  let next = currentHotspotIndex + dir;
+  if (next < 0) next = PLANETARY_HOTSPOTS.length - 1;
+  if (next >= PLANETARY_HOTSPOTS.length) next = 0;
+  selectHotspot(next, true);
+}
+
+// ── Cinematic Auto-Pilot Tour ──
+function toggleWorldTour() {
+  isTourActive = !isTourActive;
+  const statusEl = document.getElementById('tour-status');
+  const btn = document.getElementById('tour-btn');
+
+  if (isTourActive) {
+    if (statusEl) statusEl.textContent = 'ACTIVE';
+    if (btn) btn.classList.add('active');
+    globe.controls().autoRotate = false;
+    runTourStep();
+  } else {
+    if (statusEl) statusEl.textContent = 'OFF';
+    if (btn) btn.classList.remove('active');
+    clearTimeout(tourTimer);
+    globe.controls().autoRotate = autoRotating;
+  }
+}
+
+function runTourStep() {
+  if (!isTourActive) return;
+  selectHotspot(currentHotspotIndex, true);
+  currentHotspotIndex = (currentHotspotIndex + 1) % PLANETARY_HOTSPOTS.length;
+  tourTimer = setTimeout(runTourStep, 7000);
+}
+
+// ── Hotspot Ribbon Carousel Builder ──
+function buildHotspotRibbon() {
+  const ribbon = document.getElementById('hotspot-ribbon');
+  if (!ribbon) return;
+  ribbon.innerHTML = '';
+  PLANETARY_HOTSPOTS.forEach((spot, i) => {
+    const pill = document.createElement('div');
+    pill.className = `ribbon-pill ${i === 0 ? 'active' : ''}`;
+    pill.innerHTML = `
+      <span class="badge-dot" style="background:${spot.color}"></span>
+      <span>${spot.name.split(' ')[0]}</span>
+    `;
+    pill.onclick = () => selectHotspot(i, true);
+    ribbon.appendChild(pill);
+  });
+}
+
+// ── Fullscreen Toggle ──
+function toggleFullscreen() {
+  const elem = document.getElementById('viewport-container');
+  if (!elem) return;
+  if (!document.fullscreenElement) {
+    elem.requestFullscreen().catch(err => console.log(err));
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+// ── Live UTC Clock ──
+function startUtcClock() {
+  function tick() {
+    const el = document.getElementById('telem-utc');
+    if (!el) return;
+    const now = new Date();
+    el.textContent = now.toUTCString().split(' ')[4] + ' UTC';
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+// ── Web Audio Space Ambience & UI Synthesis ──
+function initWebAudio() {
+  if (audioCtx) return;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  audioCtx = new AudioContext();
+
+  // Subtle deep space hum
+  ambientOsc = audioCtx.createOscillator();
+  const filter = audioCtx.createBiquadFilter();
+  ambientGain = audioCtx.createGain();
+
+  ambientOsc.type = 'sine';
+  ambientOsc.frequency.setValueAtTime(55, audioCtx.currentTime); // 55 Hz A1 low drone
+
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(110, audioCtx.currentTime);
+
+  ambientGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+
+  ambientOsc.connect(filter);
+  filter.connect(ambientGain);
+  ambientGain.connect(audioCtx.destination);
+  ambientOsc.start();
+}
+
+function toggleWebAudio() {
+  initWebAudio();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  isAudioActive = !isAudioActive;
+  const icon = document.getElementById('audio-icon');
+  const btn = document.getElementById('audio-btn');
+
+  if (isAudioActive) {
+    ambientGain.gain.setTargetAtTime(0.05, audioCtx.currentTime, 0.1);
+    icon.textContent = '🔊';
+    btn.classList.add('active');
+  } else {
+    ambientGain.gain.setTargetAtTime(0.0, audioCtx.currentTime, 0.1);
+    icon.textContent = '🔇';
+    btn.classList.remove('active');
+  }
+}
+
+function playUiSound(freq, duration = 0.05) {
+  if (!isAudioActive || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(freq * 0.5, audioCtx.currentTime + duration);
+
+    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
+}
+
+// ── Boot Sequence ──
+document.addEventListener('DOMContentLoaded', () => {
+  startUtcClock();
+  setTimeout(initPlanetaryGlobe, 150);
+
+  // Fetch live pledge counter
+  if (typeof API !== 'undefined' && API.getPledges) {
+    API.getPledges().then(d => {
+      if (d && d.total_pledges) {
+        document.getElementById('pledge-counter').textContent = d.total_pledges.toLocaleString() + '+';
+      }
+    });
+  }
+});
+</script>
+{% endblock %}

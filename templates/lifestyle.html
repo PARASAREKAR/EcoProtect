@@ -1,0 +1,844 @@
+{% extends "base.html" %}
+{% block title %}Sustainable Living — Small Changes, Massive Impact | EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background: linear-gradient(160deg,#0a1505,#0b2d14,#1a4731); padding: 100px 0 80px; position: relative; overflow: hidden;">
+  <!-- Decorative bokeh circles -->
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;">
+    <div style="position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(16,124,65,0.18) 0%,transparent 70%);top:-80px;right:-60px;"></div>
+    <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(52,211,153,0.12) 0%,transparent 70%);bottom:-50px;left:10%;"></div>
+    <div style="position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(16,124,65,0.10) 0%,transparent 70%);top:30%;left:60%;"></div>
+  </div>
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom:28px;">
+      <ol style="list-style:none;padding:0;margin:0;display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;">
+        <li><a href="/" style="color:rgba(255,255,255,0.65);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#6ee7b7'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Home</a></li>
+        <li style="color:rgba(255,255,255,0.4);">›</li>
+        <li style="color:#6ee7b7;font-weight:600;">Sustainable Living</li>
+      </ol>
+    </nav>
+    <!-- Icon -->
+    <div style="font-size:4.5rem;line-height:1;margin-bottom:20px;filter:drop-shadow(0 4px 16px rgba(0,0,0,0.4));" role="img" aria-label="Leaf">🌿</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:#fff;margin:0 0 18px;line-height:1.15;text-shadow:0 2px 20px rgba(0,0,0,0.5);">
+      Sustainable Living —<br>
+      <span style="background:linear-gradient(90deg,#6ee7b7,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Small Changes, Massive Impact</span>
+    </h1>
+    <p style="font-family:'Inter',sans-serif;font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,0.78);max-width:680px;margin:0 auto 36px;line-height:1.75;">
+      Every meal you choose, every trip you take, every item you buy carries an environmental footprint. Billions of everyday choices — stacked together — are either heating the planet or healing it. Here's your complete guide to living lighter on the Earth.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="#habits-checklist" class="btn btn-primary" style="background:#107c41;border-color:#107c41;padding:14px 28px;font-weight:700;border-radius:50px;">
+        Start My Checklist
+      </a>
+      <a href="#challenge" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff;padding:14px 28px;font-weight:700;border-radius:50px;">
+        30-Day Challenge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 — IMPACT SUMMARY BANNER
+═══════════════════════════════════════════════════════════ -->
+<section style="background:linear-gradient(135deg,#0b2d14 0%,#107c41 100%);padding:60px 0;" aria-labelledby="impact-heading">
+  <div class="container">
+    <h2 id="impact-heading" style="text-align:center;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.9rem;font-weight:800;margin:0 0 12px;">
+      Your Choices Are Powerful
+    </h2>
+    <p style="text-align:center;color:rgba(255,255,255,0.75);margin:0 0 48px;font-size:1rem;">Key statistics that prove every decision matters — backed by IPCC, WHO, and UN data.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+
+      <!-- Stat 1 -->
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:transform .3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:2.8rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">70%</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:6px 0;">IPCC Report</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.93rem;line-height:1.6;margin:0;">of global greenhouse emissions are influenced by individual and household choices.</p>
+      </div>
+
+      <!-- Stat 2 -->
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:transform .3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:2.8rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">−500<span style="font-size:1.3rem;">kg</span></div>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:6px 0;">CO₂ / Year</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.93rem;line-height:1.6;margin:0;">Saved by choosing plant-based meals just 4 days per week instead of a meat-heavy diet.</p>
+      </div>
+
+      <!-- Stat 3 -->
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:transform .3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:2.8rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">−2.5<span style="font-size:1.3rem;">t</span></div>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:6px 0;">CO₂ Per Flight Skipped</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.93rem;line-height:1.6;margin:0;">Skipping one long-haul return flight saves 2.5 tonnes of CO₂ — more than many cars emit in a year.</p>
+      </div>
+
+      <!-- Stat 4 -->
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:transform .3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:2.8rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">$75</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:6px 0;">Saved + −65 kg CO₂/yr</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.93rem;line-height:1.6;margin:0;">Switching to LED bulbs throughout a standard home saves money and slashes electricity emissions.</p>
+      </div>
+
+      <!-- Stat 5 -->
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:transform .3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:2.8rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">700</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:6px 0;">Plastic Bottles Avoided / Yr</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.93rem;line-height:1.6;margin:0;">One reusable water bottle eliminates ~700 single-use plastic bottles every year from landfills and oceans.</p>
+      </div>
+
+      <!-- Stat 6 -->
+      <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:transform .3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:2.8rem;font-weight:900;color:#6ee7b7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">−35<span style="font-size:1.3rem;">kg</span></div>
+        <div style="color:rgba(255,255,255,0.55);font-size:0.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:6px 0;">CO₂ Per Secondhand Item</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.93rem;line-height:1.6;margin:0;">Buying one secondhand garment instead of new avoids an average of 35 kg of carbon emissions.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — SUSTAINABLE TRANSPORT
+═══════════════════════════════════════════════════════════ -->
+<section class="section" aria-labelledby="transport-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span style="background:var(--primary-soft);color:var(--primary-dark);font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">🚲 Transport</span>
+      <h2 id="transport-heading" class="section-title" style="margin-top:16px;">How You Get Around Matters</h2>
+      <p class="section-subtitle">Transport accounts for roughly 16% of global CO₂ emissions. The mode you choose can make a tenfold difference to your footprint.</p>
+    </div>
+
+    <!-- Emissions Bar Chart -->
+    <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-md);margin-bottom:40px;">
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text-primary);margin:0 0 8px;">Emissions by Transport Mode</h3>
+      <p style="color:var(--text-secondary);font-size:0.9rem;margin:0 0 32px;">grams of CO₂ per passenger-kilometre (IEA / Our World in Data, 2023)</p>
+
+      {% set transport_modes = [
+        ("✈️ Aviation",         255, "#ef4444"),
+        ("🚗 Car (avg)",        192, "#f97316"),
+        ("🚌 Bus",              89,  "#eab308"),
+        ("🚆 Rail",             41,  "#22c55e"),
+        ("🚲 Cycling",          0,   "#10b981"),
+        ("🚶 Walking",          0,   "#10b981")
+      ] %}
+
+      {% for mode, value, color in transport_modes %}
+      <div style="margin-bottom:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-weight:600;font-size:0.95rem;color:var(--text-primary);">{{ mode }}</span>
+          <span style="font-weight:700;font-size:0.9rem;color:{{ color }};">{{ value }} g CO₂/km</span>
+        </div>
+        <div style="background:var(--bg-surface-alt);border-radius:50px;height:14px;overflow:hidden;">
+          <div style="height:100%;width:{{ (value / 255 * 100)|round|int }}%;background:{{ color }};border-radius:50px;transition:width 1s ease;"></div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Static fallback if Jinja is not used -->
+      <noscript>
+        <p style="color:var(--text-secondary);font-size:0.85rem;">Enable JavaScript for interactive features.</p>
+      </noscript>
+    </div>
+
+    <!-- Transport action cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;">
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🚆</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Switch to Rail</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;">A London–Edinburgh rail journey emits ~22 kg CO₂ vs. ~150 kg by plane. Rail electrification continues to drop this further as grids decarbonise.</p>
+        <div style="margin-top:16px;background:#dcfce7;border-radius:var(--radius-sm);padding:10px 14px;font-size:0.85rem;font-weight:600;color:#166534;">💚 Saves: up to 130 kg CO₂ per trip</div>
+      </div>
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🚗⚡</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Electric Vehicles</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;">EV benefits depend heavily on the electricity grid. In Norway (97% renewables), an EV emits ~7 g/km. In India (~70% coal), ~85 g/km — still better than petrol but context matters.</p>
+        <div style="margin-top:16px;background:#dcfce7;border-radius:var(--radius-sm);padding:10px 14px;font-size:0.85rem;font-weight:600;color:#166534;">💚 UK: ~45 g/km vs. petrol 192 g/km</div>
+      </div>
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🚲</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Cycle More</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;">Replacing a 5 km car commute with cycling 5 days a week saves ~310 kg CO₂ per year, reduces congestion, improves air quality, and boosts physical health.</p>
+        <div style="margin-top:16px;background:#dcfce7;border-radius:var(--radius-sm);padding:10px 14px;font-size:0.85rem;font-weight:600;color:#166534;">💚 Saves: ~310 kg CO₂/year</div>
+      </div>
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🚗👥</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Carpool & Car-Share</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;">Sharing a car journey with just one other person halves the per-person emissions. Apps like BlaBlaCar or Waze Carpool make this easy for commuters and long trips alike.</p>
+        <div style="margin-top:16px;background:#dcfce7;border-radius:var(--radius-sm);padding:10px 14px;font-size:0.85rem;font-weight:600;color:#166534;">💚 Saves: up to 96 kg CO₂/km shared</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — SUSTAINABLE DIET
+═══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-surface-alt);" aria-labelledby="diet-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span style="background:#fef9c3;color:#713f12;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">🥦 Diet</span>
+      <h2 id="diet-heading" class="section-title" style="margin-top:16px;">What You Eat Shapes the Planet</h2>
+      <p class="section-subtitle">Food production uses 50% of habitable land, 70% of fresh water, and generates 26% of global GHG emissions (Our World in Data, 2023).</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;" class="diet-grid">
+
+      <!-- Food Carbon Chart -->
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow-md);">
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.15rem;color:var(--text-primary);margin:0 0 6px;">Carbon Footprint by Food Type</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin:0 0 28px;">kg CO₂-equivalent per kg of food produced (Oxford University, Poore &amp; Nemecek 2018)</p>
+
+        {% set foods = [
+          ("🐄 Beef",       27.0, "#ef4444"),
+          ("🐑 Lamb",       24.0, "#f97316"),
+          ("🧀 Cheese",     13.5, "#f97316"),
+          ("🐖 Pork",       12.0, "#eab308"),
+          ("🐔 Chicken",    6.9,  "#84cc16"),
+          ("🥚 Eggs",       4.8,  "#22c55e"),
+          ("🍚 Rice",       2.7,  "#10b981"),
+          ("🫘 Legumes",    0.9,  "#14b8a6"),
+          ("🥦 Vegetables", 0.4,  "#06b6d4")
+        ] %}
+
+        {% for food, value, color in foods %}
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="font-size:0.9rem;font-weight:600;color:var(--text-primary);">{{ food }}</span>
+            <span style="font-size:0.85rem;font-weight:700;color:{{ color }};">{{ value }} kg</span>
+          </div>
+          <div style="background:var(--bg-surface-alt);border-radius:50px;height:11px;overflow:hidden;">
+            <div style="height:100%;width:{{ (value / 27 * 100)|round|int }}%;background:{{ color }};border-radius:50px;"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Diet Tips -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="background:var(--bg-surface);border-left:4px solid #22c55e;border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-sm);">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;">🥗 Plant-Based 101</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0 0 12px;">You don't need to go fully vegan. Reducing beef &amp; lamb — the two highest-emission foods — has the greatest impact. Try: lentil bolognese, chickpea curries, tofu stir-fries, black bean tacos.</p>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;"><strong style="color:var(--text-primary);">Protein sources:</strong> Lentils, chickpeas, tofu, tempeh, edamame, quinoa, hemp seeds, nuts.</p>
+        </div>
+        <div style="background:var(--bg-surface);border-left:4px solid #f97316;border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-sm);">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;">🗑️ Food Waste Is a Climate Crisis</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;"><strong>1/3 of all food produced globally is wasted</strong>, generating 8–10% of global GHG emissions — more than aviation (UNEP, 2021). Plan meals, use leftovers creatively, compost scraps. If food waste were a country, it would be the 3rd largest emitter.</p>
+        </div>
+        <div style="background:var(--bg-surface);border-left:4px solid #06b6d4;border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-sm);">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;">🌾 Seasonal &amp; Local Sourcing</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0;">Buying local seasonal produce reduces 'food miles' transport emissions and supports local farmers. Visit farmers' markets, join a community-supported agriculture (CSA) scheme, or grow your own herbs and salad leaves.</p>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius-md);padding:20px 24px;">
+          <p style="color:#166534;font-weight:600;font-size:0.92rem;margin:0;">💡 <strong>Quick Win:</strong> One meat-free Monday per week saves ~430 kg CO₂ annually — equivalent to driving 1,700 km.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — SUSTAINABLE FASHION
+═══════════════════════════════════════════════════════════ -->
+<section class="section" aria-labelledby="fashion-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span style="background:#fce7f3;color:#831843;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">👗 Fashion</span>
+      <h2 id="fashion-heading" class="section-title" style="margin-top:16px;">The Hidden Cost of Fast Fashion</h2>
+      <p class="section-subtitle">Fashion is one of the most polluting industries on Earth — but consumer power can drive rapid change.</p>
+    </div>
+
+    <!-- Fast Fashion Stat Strip -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px;" class="fashion-stats">
+      <div style="text-align:center;background:linear-gradient(135deg,#fce7f3,#fdf2f8);border:1px solid #f9a8d4;border-radius:var(--radius-lg);padding:32px 20px;">
+        <div style="font-size:2.5rem;font-weight:900;color:#be185d;font-family:'Plus Jakarta Sans',sans-serif;">92M</div>
+        <div style="font-size:0.78rem;font-weight:700;color:#9d174d;text-transform:uppercase;letter-spacing:.08em;margin:6px 0;">tonnes</div>
+        <p style="color:#6b21a8;font-size:0.88rem;margin:0;">Textile waste generated globally every year (UNEP)</p>
+      </div>
+      <div style="text-align:center;background:linear-gradient(135deg,#fce7f3,#fdf2f8);border:1px solid #f9a8d4;border-radius:var(--radius-lg);padding:32px 20px;">
+        <div style="font-size:2.5rem;font-weight:900;color:#be185d;font-family:'Plus Jakarta Sans',sans-serif;">10%</div>
+        <div style="font-size:0.78rem;font-weight:700;color:#9d174d;text-transform:uppercase;letter-spacing:.08em;margin:6px 0;">of global CO₂</div>
+        <p style="color:#6b21a8;font-size:0.88rem;margin:0;">Produced by the global fashion industry annually</p>
+      </div>
+      <div style="text-align:center;background:linear-gradient(135deg,#fce7f3,#fdf2f8);border:1px solid #f9a8d4;border-radius:var(--radius-lg);padding:32px 20px;">
+        <div style="font-size:2.5rem;font-weight:900;color:#be185d;font-family:'Plus Jakarta Sans',sans-serif;">20%</div>
+        <div style="font-size:0.78rem;font-weight:700;color:#9d174d;text-transform:uppercase;letter-spacing:.08em;margin:6px 0;">of water pollution</div>
+        <p style="color:#6b21a8;font-size:0.88rem;margin:0;">Caused by textile dyeing and treatment processes</p>
+      </div>
+    </div>
+
+    <!-- Fabric Comparison Table -->
+    <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);margin-bottom:40px;">
+      <div style="padding:24px 28px;border-bottom:1px solid var(--border-color);">
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0;font-size:1.15rem;">Fabric Environmental Comparison</h3>
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+          <thead>
+            <tr style="background:var(--bg-surface-alt);">
+              <th style="padding:14px 20px;text-align:left;font-weight:700;color:var(--text-secondary);font-size:0.8rem;text-transform:uppercase;letter-spacing:.06em;">Fabric</th>
+              <th style="padding:14px 20px;text-align:center;font-weight:700;color:var(--text-secondary);font-size:0.8rem;text-transform:uppercase;letter-spacing:.06em;">Water Use</th>
+              <th style="padding:14px 20px;text-align:center;font-weight:700;color:var(--text-secondary);font-size:0.8rem;text-transform:uppercase;letter-spacing:.06em;">CO₂ Intensity</th>
+              <th style="padding:14px 20px;text-align:center;font-weight:700;color:var(--text-secondary);font-size:0.8rem;text-transform:uppercase;letter-spacing:.06em;">Biodegradable</th>
+              <th style="padding:14px 20px;text-align:center;font-weight:700;color:var(--text-secondary);font-size:0.8rem;text-transform:uppercase;letter-spacing:.06em;">Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--border-color);">
+              <td style="padding:16px 20px;font-weight:600;color:var(--text-primary);">Conventional Cotton</td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Very High</span></td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">High</span></td>
+              <td style="padding:16px 20px;text-align:center;color:#22c55e;font-weight:700;">Yes</td>
+              <td style="padding:16px 20px;text-align:center;">⚠️ Fair</td>
+            </tr>
+            <tr style="border-top:1px solid var(--border-color);background:var(--bg-surface-alt);">
+              <td style="padding:16px 20px;font-weight:600;color:var(--text-primary);">Polyester</td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Low</span></td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Very High</span></td>
+              <td style="padding:16px 20px;text-align:center;color:#ef4444;font-weight:700;">No</td>
+              <td style="padding:16px 20px;text-align:center;">❌ Poor</td>
+            </tr>
+            <tr style="border-top:1px solid var(--border-color);">
+              <td style="padding:16px 20px;font-weight:600;color:var(--text-primary);">Organic Cotton</td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#fef9c3;color:#713f12;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Medium</span></td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Low</span></td>
+              <td style="padding:16px 20px;text-align:center;color:#22c55e;font-weight:700;">Yes</td>
+              <td style="padding:16px 20px;text-align:center;">✅ Good</td>
+            </tr>
+            <tr style="border-top:1px solid var(--border-color);background:var(--bg-surface-alt);">
+              <td style="padding:16px 20px;font-weight:600;color:var(--text-primary);">Lyocell (Tencel™)</td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Very Low</span></td>
+              <td style="padding:16px 20px;text-align:center;"><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:50px;font-size:0.8rem;font-weight:600;">Very Low</span></td>
+              <td style="padding:16px 20px;text-align:center;color:#22c55e;font-weight:700;">Yes</td>
+              <td style="padding:16px 20px;text-align:center;">🌟 Best</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Slow Fashion Principles -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
+      <div style="text-align:center;padding:28px 20px;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🛑</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 8px;">Buy Less</h4>
+        <p style="color:var(--text-secondary);font-size:0.87rem;margin:0;">Before you buy, ask: Do I need it? Do I already own something similar? Will I wear it 30+ times?</p>
+      </div>
+      <div style="text-align:center;padding:28px 20px;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">💎</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 8px;">Buy Quality</h4>
+        <p style="color:var(--text-secondary);font-size:0.87rem;margin:0;">Invest in timeless, durable pieces that last years, not fast-fashion items that fall apart in months.</p>
+      </div>
+      <div style="text-align:center;padding:28px 20px;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🪡</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 8px;">Repair &amp; Upcycle</h4>
+        <p style="color:var(--text-secondary);font-size:0.87rem;margin:0;">Sew buttons, patch tears, and take clothes to a tailor. Repair cafes and YouTube tutorials make it easy.</p>
+      </div>
+      <div style="text-align:center;padding:28px 20px;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:2.2rem;margin-bottom:12px;">♻️</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 8px;">Swap &amp; Secondhand</h4>
+        <p style="color:var(--text-secondary);font-size:0.87rem;margin:0;">Try Vinted, Depop, ThredUp, Poshmark, or local charity shops. Clothing swaps with friends cost nothing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — GREEN HOME
+═══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-surface-alt);" aria-labelledby="home-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span style="background:#e0f2fe;color:#0c4a6e;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">🏡 Home</span>
+      <h2 id="home-heading" class="section-title" style="margin-top:16px;">Transform Your Home Into a Green Haven</h2>
+      <p class="section-subtitle">Homes account for ~20% of global GHG emissions. These 10 changes deliver real CO₂ reductions and long-term financial savings.</p>
+    </div>
+
+    <!-- 10 Home Changes Table -->
+    <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);margin-bottom:48px;">
+      <div style="padding:24px 28px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.4rem;">🔟</span>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0;font-size:1.15rem;">10 Home Changes: Costs &amp; Savings</h3>
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+          <thead>
+            <tr style="background:var(--bg-surface-alt);">
+              <th style="padding:12px 20px;text-align:left;color:var(--text-secondary);font-size:0.78rem;text-transform:uppercase;font-weight:700;">#</th>
+              <th style="padding:12px 20px;text-align:left;color:var(--text-secondary);font-size:0.78rem;text-transform:uppercase;font-weight:700;">Action</th>
+              <th style="padding:12px 20px;text-align:center;color:var(--text-secondary);font-size:0.78rem;text-transform:uppercase;font-weight:700;">CO₂ Saved / Yr</th>
+              <th style="padding:12px 20px;text-align:center;color:var(--text-secondary);font-size:0.78rem;text-transform:uppercase;font-weight:700;">$ Saved / Yr</th>
+              <th style="padding:12px 20px;text-align:center;color:var(--text-secondary);font-size:0.78rem;text-transform:uppercase;font-weight:700;">Difficulty</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set home_actions = [
+              (1, "Switch all bulbs to LED",               "65 kg",   "$75",  "Easy",   "#dcfce7", "#166534"),
+              (2, "Install a smart thermostat",            "320 kg",  "$200", "Easy",   "#dcfce7", "#166534"),
+              (3, "Improve loft/roof insulation",          "730 kg",  "$450", "Medium", "#fef9c3", "#713f12"),
+              (4, "Install double-glazed windows",         "650 kg",  "$380", "Hard",   "#fee2e2", "#991b1b"),
+              (5, "Replace gas boiler with heat pump",     "2,200 kg","$700", "Hard",   "#fee2e2", "#991b1b"),
+              (6, "Fix dripping taps and leaks",           "30 kg",   "$40",  "Easy",   "#dcfce7", "#166534"),
+              (7, "Install low-flow showerheads",          "60 kg",   "$90",  "Easy",   "#dcfce7", "#166534"),
+              (8, "Add rooftop solar panels (3kW)",        "1,200 kg","$600", "Hard",   "#fee2e2", "#991b1b"),
+              (9, "Air-dry laundry instead of tumble dry", "200 kg",  "$120", "Easy",   "#dcfce7", "#166534"),
+              (10,"Use natural cleaning products",         "15 kg",   "$30",  "Easy",   "#dcfce7", "#166534")
+            ] %}
+            {% for num, action, co2, money, diff, bg, fg in home_actions %}
+            <tr style="border-top:1px solid var(--border-color);{% if loop.index is even %}background:var(--bg-surface-alt);{% endif %}">
+              <td style="padding:14px 20px;font-weight:700;color:var(--primary);">{{ num }}</td>
+              <td style="padding:14px 20px;font-weight:600;color:var(--text-primary);">{{ action }}</td>
+              <td style="padding:14px 20px;text-align:center;font-weight:700;color:#166534;">{{ co2 }}</td>
+              <td style="padding:14px 20px;text-align:center;font-weight:700;color:#0284c7;">{{ money }}</td>
+              <td style="padding:14px 20px;text-align:center;"><span style="background:{{ bg }};color:{{ fg }};padding:3px 10px;border-radius:50px;font-size:0.78rem;font-weight:600;">{{ diff }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Home category cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;">
+      <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border-color);border-top:4px solid #f59e0b;box-shadow:var(--shadow-sm);">
+        <div style="font-size:1.8rem;margin-bottom:10px;">⚡</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;font-size:1rem;">Energy</h4>
+        <ul style="color:var(--text-secondary);font-size:0.87rem;line-height:1.8;margin:0;padding-left:18px;">
+          <li>LED lighting throughout</li>
+          <li>Smart thermostat scheduling</li>
+          <li>Heat pump over gas boiler</li>
+          <li>Solar PV panels</li>
+          <li>Energy-efficient appliances (A+++)</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border-color);border-top:4px solid #0ea5e9;box-shadow:var(--shadow-sm);">
+        <div style="font-size:1.8rem;margin-bottom:10px;">💧</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;font-size:1rem;">Water</h4>
+        <ul style="color:var(--text-secondary);font-size:0.87rem;line-height:1.8;margin:0;padding-left:18px;">
+          <li>Low-flow showerheads</li>
+          <li>Dual-flush toilets</li>
+          <li>Fix dripping taps</li>
+          <li>Rainwater butt for garden</li>
+          <li>Full dishwasher only</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border-color);border-top:4px solid #10b981;box-shadow:var(--shadow-sm);">
+        <div style="font-size:1.8rem;margin-bottom:10px;">🌱</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;font-size:1rem;">Garden</h4>
+        <ul style="color:var(--text-secondary);font-size:0.87rem;line-height:1.8;margin:0;padding-left:18px;">
+          <li>Plant native wildflowers</li>
+          <li>No-dig gardening</li>
+          <li>Bee &amp; bat boxes</li>
+          <li>No pesticides or herbicides</li>
+          <li>Compost all food scraps</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:24px;border:1px solid var(--border-color);border-top:4px solid #8b5cf6;box-shadow:var(--shadow-sm);">
+        <div style="font-size:1.8rem;margin-bottom:10px;">🧹</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text-primary);margin:0 0 10px;font-size:1rem;">Cleaning</h4>
+        <ul style="color:var(--text-secondary);font-size:0.87rem;line-height:1.8;margin:0;padding-left:18px;">
+          <li>Natural cleaners (vinegar, bicarb)</li>
+          <li>Avoid synthetic microfibre cloths</li>
+          <li>Refill cleaning products</li>
+          <li>Eco laundry tablets</li>
+          <li>Cold wash (30°C)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 — MINDFUL CONSUMPTION
+═══════════════════════════════════════════════════════════ -->
+<section class="section" aria-labelledby="consumption-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span style="background:#ede9fe;color:#4c1d95;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">🧠 Mindful Consumption</span>
+      <h2 id="consumption-heading" class="section-title" style="margin-top:16px;">The True Cost of Everything You Own</h2>
+      <p class="section-subtitle">Every product has an invisible cost — in carbon, water, and human labour — that never appears on the price tag.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="consumption-grid">
+      <!-- Left: info cards -->
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:var(--radius-lg);padding:32px;color:#fff;">
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.15rem;margin:0 0 16px;color:#c4b5fd;">🌐 Your Digital Carbon Footprint</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+            <li style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px;">
+              <span style="color:rgba(255,255,255,0.8);font-size:0.9rem;">1 hour of HD video streaming</span>
+              <span style="font-weight:700;color:#a5f3fc;">36 g CO₂</span>
+            </li>
+            <li style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px;">
+              <span style="color:rgba(255,255,255,0.8);font-size:0.9rem;">Sending one email with attachment</span>
+              <span style="font-weight:700;color:#a5f3fc;">50 g CO₂</span>
+            </li>
+            <li style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px;">
+              <span style="color:rgba(255,255,255,0.8);font-size:0.9rem;">1 hour of video calls</span>
+              <span style="font-weight:700;color:#a5f3fc;">~150 g CO₂</span>
+            </li>
+            <li style="display:flex;justify-content:space-between;">
+              <span style="color:rgba(255,255,255,0.8);font-size:0.9rem;">AI prompt (LLM query)</span>
+              <span style="font-weight:700;color:#a5f3fc;">~4 g CO₂</span>
+            </li>
+          </ul>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.82rem;margin:16px 0 0;">Tip: Use dark mode on OLED screens, delete unused cloud files, and avoid unnecessary email forwards.</p>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);">
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 16px;">📦 Embedded Costs of Common Purchases</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-surface-alt);border-radius:var(--radius-sm);">
+              <span style="font-size:0.9rem;color:var(--text-primary);">👖 Pair of jeans</span>
+              <div style="text-align:right;"><span style="font-weight:700;font-size:0.9rem;color:#ef4444;">33.4 kg CO₂</span> <span style="font-size:0.78rem;color:var(--text-muted);">/ 7,500 L water</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-surface-alt);border-radius:var(--radius-sm);">
+              <span style="font-size:0.9rem;color:var(--text-primary);">📱 Smartphone</span>
+              <div style="text-align:right;"><span style="font-weight:700;font-size:0.9rem;color:#ef4444;">70 kg CO₂</span> <span style="font-size:0.78rem;color:var(--text-muted);">/ rare minerals</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-surface-alt);border-radius:var(--radius-sm);">
+              <span style="font-size:0.9rem;color:var(--text-primary);">💻 Laptop</span>
+              <div style="text-align:right;"><span style="font-weight:700;font-size:0.9rem;color:#ef4444;">316 kg CO₂</span> <span style="font-size:0.78rem;color:var(--text-muted);">/ mfg only</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-surface-alt);border-radius:var(--radius-sm);">
+              <span style="font-size:0.9rem;color:var(--text-primary);">🪑 IKEA sofa (avg)</span>
+              <div style="text-align:right;"><span style="font-weight:700;font-size:0.9rem;color:#ef4444;">80 kg CO₂</span> <span style="font-size:0.78rem;color:var(--text-muted);">/ lifecycle</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: principles -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="background:var(--bg-surface);border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border-color);box-shadow:var(--shadow-sm);">
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 16px;">🔄 Alternatives to Ownership</h3>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="font-size:1.6rem;flex-shrink:0;">🏛️</span>
+              <div><strong style="color:var(--text-primary);font-size:0.92rem;">Library of Things</strong><p style="color:var(--text-secondary);font-size:0.85rem;margin:4px 0 0;line-height:1.6;">Borrow drills, camping gear, party equipment — tools you'd use once a year don't need to live in your home.</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="font-size:1.6rem;flex-shrink:0;">☕</span>
+              <div><strong style="color:var(--text-primary);font-size:0.92rem;">Product-as-a-Service</strong><p style="color:var(--text-secondary);font-size:0.85rem;margin:4px 0 0;line-height:1.6;">Companies like Philips sell lighting-as-a-service; you pay per lux, not per bulb. This incentivises durability.</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="font-size:1.6rem;flex-shrink:0;">🔧</span>
+              <div><strong style="color:var(--text-primary);font-size:0.92rem;">Repair Cafes</strong><p style="color:var(--text-secondary);font-size:0.85rem;margin:4px 0 0;line-height:1.6;">Free community workshops where volunteers help you fix electronics, clothing, furniture — extending product life dramatically.</p></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="font-size:1.6rem;flex-shrink:0;">🧊</span>
+              <div><strong style="color:var(--text-primary);font-size:0.92rem;">Minimalism &amp; Decluttering</strong><p style="color:var(--text-secondary);font-size:0.85rem;margin:4px 0 0;line-height:1.6;">Owning fewer things means less embodied carbon, less cleaning, less waste, and — research confirms — greater wellbeing.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;border-radius:var(--radius-lg);padding:28px;">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#166534;font-size:1.05rem;margin:0 0 14px;">🛒 Before You Buy — 5 Questions</h4>
+          <ol style="color:#15803d;font-size:0.9rem;line-height:1.9;margin:0;padding-left:20px;">
+            <li>Do I actually <strong>need</strong> this, or just want it?</li>
+            <li>Can I <strong>borrow or rent</strong> it instead?</li>
+            <li>Can I buy it <strong>secondhand</strong>?</li>
+            <li>Will I use it more than <strong>30 times</strong>?</li>
+            <li>Is it <strong>repairable</strong> when it breaks?</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 — DAILY HABITS INTERACTIVE CHECKLIST
+═══════════════════════════════════════════════════════════ -->
+<section id="habits-checklist" class="section" style="background:linear-gradient(135deg,#0b2d14,#107c41,#1a4731);" aria-labelledby="habits-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span style="background:rgba(255,255,255,0.15);color:#6ee7b7;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">✅ Daily Habits</span>
+      <h2 id="habits-heading" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2rem;font-weight:800;color:#fff;margin:16px 0 12px;">Your Daily Green Checklist</h2>
+      <p style="color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto 24px;font-size:1rem;line-height:1.7;">Track 8 daily eco-habits. Your progress saves automatically in your browser.</p>
+
+      <!-- Progress Badge -->
+      <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:12px 28px;">
+        <span style="color:rgba(255,255,255,0.7);font-size:0.9rem;font-weight:600;">Today's Progress</span>
+        <span id="habit-progress-badge" style="background:#6ee7b7;color:#0b2d14;font-size:1.05rem;font-weight:800;padding:4px 16px;border-radius:50px;min-width:80px;text-align:center;transition:all .3s;">0 of 8</span>
+      </div>
+    </div>
+
+    <!-- Checklist Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:900px;margin:0 auto;" role="group" aria-label="Daily eco habits checklist">
+
+      <label for="h1" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h1" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Chose plant-based meal">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">🥦</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Chose a plant-based meal</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Saves ~1.4 kg CO₂ vs. beef dish</span>
+        </div>
+      </label>
+
+      <label for="h2" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h2" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Walked or cycled instead of drove">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">🚲</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Walked or cycled instead of drove</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Avoids ~0.2 kg CO₂ per km</span>
+        </div>
+      </label>
+
+      <label for="h3" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h3" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Used reusable bottle and bag">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">♻️</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Used reusable bottle &amp; bag</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Eliminates ~2 single-use plastics</span>
+        </div>
+      </label>
+
+      <label for="h4" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h4" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Kept shower under 5 minutes">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">🚿</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Kept shower under 5 minutes</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Saves ~35 litres of water</span>
+        </div>
+      </label>
+
+      <label for="h5" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h5" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Zero food waste today">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">🗑️</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Zero food waste today</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Avg household wastes 1.2 kg/day</span>
+        </div>
+      </label>
+
+      <label for="h6" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h6" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Turned off standby devices">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">🔌</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Turned off standby devices</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Standby costs ~$80/household/yr</span>
+        </div>
+      </label>
+
+      <label for="h7" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h7" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Recycled correctly">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">🗃️</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Recycled correctly &amp; composted</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Prevents landfill methane emissions</span>
+        </div>
+      </label>
+
+      <label for="h8" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-md);padding:18px 20px;cursor:pointer;transition:all .25s;" class="habit-label">
+        <input type="checkbox" id="h8" class="daily-habit-checkbox" style="width:20px;height:20px;accent-color:#10b981;cursor:pointer;flex-shrink:0;" aria-label="Shared eco action with someone">
+        <div>
+          <div style="font-size:1.3rem;margin-bottom:2px;">📢</div>
+          <span style="color:#fff;font-weight:600;font-size:0.92rem;">Shared an eco action with someone</span>
+          <span style="display:block;color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:2px;">Social contagion drives change</span>
+        </div>
+      </label>
+
+    </div>
+
+    <!-- Reset Button -->
+    <div style="text-align:center;margin-top:28px;">
+      <button id="reset-habits-btn" type="button" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:10px 28px;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'" aria-label="Reset daily habits checklist">
+        🔄 Reset for New Day
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8 — 30-DAY GREEN CHALLENGE
+═══════════════════════════════════════════════════════════ -->
+<section id="challenge" class="section" aria-labelledby="challenge-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span style="background:#fef3c7;color:#92400e;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;">📅 30-Day Challenge</span>
+      <h2 id="challenge-heading" class="section-title" style="margin-top:16px;">Your 30-Day Green Challenge</h2>
+      <p class="section-subtitle">One small eco-action every day for 30 days. Each builds a habit that lasts a lifetime. Print it. Share it. Live it.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;">
+
+      {% set challenges = [
+        (1,  "🥦", "Meatless Meal",          "Replace one meal with plant-based food"),
+        (2,  "🧴", "No Single-Use Plastic",  "Refuse plastic bags, straws, and cups"),
+        (3,  "🚿", "5-Min Shower",           "Time your shower and keep it under 5 min"),
+        (4,  "🚲", "Walk or Cycle",          "Replace one car trip with active travel"),
+        (5,  "🔧", "Fix a Leak",             "Check taps and pipes; fix any drips"),
+        (6,  "💡", "Switch to LED",          "Replace one bulb with an LED equivalent"),
+        (7,  "🛍️", "Reusable Bag Day",       "Leave home with only reusable bags"),
+        (8,  "📦", "Buy Secondhand",         "Browse Vinted or a charity shop instead"),
+        (9,  "🌱", "Plant Something",        "Sow seeds or plant a native wildflower"),
+        (10, "📵", "Digital Detox",          "Cut screen time in half for one day"),
+        (11, "🍽️", "Use All Leftovers",      "Turn yesterday's food into a new meal"),
+        (12, "🔌", "Unplug Standby",         "Pull plugs on all devices not in use"),
+        (13, "🧺", "Air-Dry Laundry",        "Skip the tumble dryer, hang clothes out"),
+        (14, "🤝", "Skill Share",            "Teach someone an eco-friendly skill"),
+        (15, "🛁", "Cold Rinse",             "End your shower with 30 s of cold water"),
+        (16, "🌍", "Calculate Footprint",    "Use the EcoProtect calculator today"),
+        (17, "♻️", "Proper Recycle Audit",   "Learn what CAN and CAN'T be recycled locally"),
+        (18, "🚌", "Take Public Transport",  "Swap the car for bus or train today"),
+        (19, "🍄", "Forage or Grow",         "Pick wild blackberries or harvest herbs"),
+        (20, "📣", "Sign a Petition",        "Back a local or national green policy"),
+        (21, "🧊", "Freezer Organise",       "Use up frozen food before buying more"),
+        (22, "🪡", "Repair Clothes",         "Sew a button, patch a tear, or hem"),
+        (23, "🌧️", "Collect Rainwater",      "Set up a water butt or catch bowl"),
+        (24, "📚", "Read Green News",        "Spend 20 min learning about the climate"),
+        (25, "🛒", "Shop Local",             "Buy from a local market or farm shop"),
+        (26, "🐝", "Support Pollinators",    "Plant lavender or leave dandelions"),
+        (27, "📱", "Delete Unused Apps",     "Clear digital clutter to save server energy"),
+        (28, "🍃", "Compost Setup",          "Start a compost bin for food scraps"),
+        (29, "✍️", "Write to a Leader",      "Contact your MP/rep about climate action"),
+        (30, "🌟", "Take the Pledge",        "Sign the EcoProtect Pledge for the year")
+      ] %}
+
+      {% for day, icon, title, desc in challenges %}
+      <div style="background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:18px 16px;position:relative;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="position:absolute;top:12px;right:14px;font-size:0.72rem;font-weight:800;color:var(--primary);background:var(--primary-soft);padding:2px 8px;border-radius:50px;">Day {{ day }}</div>
+        <div style="font-size:2rem;margin-bottom:8px;">{{ icon }}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.88rem;color:var(--text-primary);margin:0 0 6px;line-height:1.3;">{{ title }}</h4>
+        <p style="color:var(--text-secondary);font-size:0.78rem;line-height:1.5;margin:0;">{{ desc }}</p>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/pledge" class="btn btn-primary" style="padding:14px 36px;border-radius:50px;font-weight:700;font-size:1rem;">
+        🌟 Take the EcoProtect Pledge
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9 — CALL TO ACTION
+═══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-surface-alt);" aria-labelledby="cta-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h2 id="cta-heading" class="section-title">Ready to Go Further?</h2>
+      <p class="section-subtitle">Deepen your impact with these EcoProtect tools and commitments.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;max-width:900px;margin:0 auto;">
+
+      <a href="/calculator" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--bg-surface);border:2px solid var(--border-color);border-radius:var(--radius-lg);padding:36px 28px;box-shadow:var(--shadow-sm);transition:all .3s;color:inherit;" onmouseover="this.style.borderColor='var(--primary)';this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-xl)'" onmouseout="this.style.borderColor='var(--border-color)';this.style.transform='translateY(0)';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:16px;">🧮</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Carbon Calculator</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0 0 20px;">Measure your personal carbon footprint across transport, diet, home, and consumption — and get a personalised action plan.</p>
+        <span style="color:var(--primary);font-weight:700;font-size:0.9rem;">Calculate Now →</span>
+      </a>
+
+      <a href="/pledge" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--bg-surface);border:2px solid var(--border-color);border-radius:var(--radius-lg);padding:36px 28px;box-shadow:var(--shadow-sm);transition:all .3s;color:inherit;" onmouseover="this.style.borderColor='var(--primary)';this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-xl)'" onmouseout="this.style.borderColor='var(--border-color)';this.style.transform='translateY(0)';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:16px;">🤝</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Take the Pledge</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0 0 20px;">Commit to specific green actions for 2025. Join thousands of EcoProtect members who have already signed and are tracking their progress.</p>
+        <span style="color:var(--primary);font-weight:700;font-size:0.9rem;">Sign the Pledge →</span>
+      </a>
+
+      <a href="/waste-management" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--bg-surface);border:2px solid var(--border-color);border-radius:var(--radius-lg);padding:36px 28px;box-shadow:var(--shadow-sm);transition:all .3s;color:inherit;" onmouseover="this.style.borderColor='var(--primary)';this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-xl)'" onmouseout="this.style.borderColor='var(--border-color)';this.style.transform='translateY(0)';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:16px;">♻️</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary);margin:0 0 10px;">Waste Management Guide</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.65;margin:0 0 20px;">Go deeper on recycling, composting, zero-waste shopping, and the circular economy principles that close the loop on consumption.</p>
+        <span style="color:var(--primary);font-weight:700;font-size:0.9rem;">Explore Guide →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Responsive overrides for narrow screens -->
+<style>
+  @media (max-width: 768px) {
+    .diet-grid,
+    .consumption-grid { grid-template-columns: 1fr !important; }
+    .fashion-stats    { grid-template-columns: 1fr !important; }
+  }
+  .habit-label:has(input:checked) {
+    background: rgba(16,185,129,0.18) !important;
+    border-color: rgba(110,231,183,0.5) !important;
+  }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  'use strict';
+
+  const STORAGE_KEY = 'ecoprotect_daily_habits';
+  const checkboxes  = document.querySelectorAll('.daily-habit-checkbox');
+  const badge       = document.getElementById('habit-progress-badge');
+  const resetBtn    = document.getElementById('reset-habits-btn');
+
+  /* ---------- Helpers ---------- */
+  function getTodayKey() {
+    return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  }
+
+  function loadHabits() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return {};
+      const data = JSON.parse(raw);
+      // Auto-reset if stored date is not today
+      if (data.date !== getTodayKey()) return {};
+      return data.checked || {};
+    } catch (e) { return {}; }
+  }
+
+  function saveHabits(checkedMap) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        date:    getTodayKey(),
+        checked: checkedMap
+      }));
+    } catch (e) { /* silently fail in private browsing */ }
+  }
+
+  function updateBadge() {
+    const total   = checkboxes.length;
+    const done    = Array.from(checkboxes).filter(cb => cb.checked).length;
+    badge.textContent = done + ' of ' + total;
+
+    // Colour feedback
+    if (done === 0)         { badge.style.background = '#6ee7b7'; badge.style.color = '#0b2d14'; }
+    else if (done < 4)      { badge.style.background = '#fde68a'; badge.style.color = '#713f12'; }
+    else if (done < total)  { badge.style.background = '#34d399'; badge.style.color = '#0b2d14'; }
+    else                    { badge.style.background = '#10b981'; badge.style.color = '#fff';    badge.textContent = '🌟 All 8 done!'; }
+  }
+
+  /* ---------- Init ---------- */
+  const saved = loadHabits();
+  checkboxes.forEach(function (cb) {
+    if (saved[cb.id]) cb.checked = true;
+  });
+  updateBadge();
+
+  /* ---------- Event Listeners ---------- */
+  checkboxes.forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      // Rebuild map from current state
+      const map = {};
+      checkboxes.forEach(function (c) { if (c.checked) map[c.id] = true; });
+      saveHabits(map);
+      updateBadge();
+    });
+  });
+
+  resetBtn.addEventListener('click', function () {
+    checkboxes.forEach(function (cb) { cb.checked = false; });
+    saveHabits({});
+    updateBadge();
+    resetBtn.textContent = '✓ Reset!';
+    setTimeout(function () { resetBtn.textContent = '🔄 Reset for New Day'; }, 2000);
+  });
+})();
+</script>
+{% endblock %}

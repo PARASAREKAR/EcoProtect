@@ -1,0 +1,432 @@
+{% extends "base.html" %}
+{% block title %}Water Conservation – Global Freshwater Scarcity & Protection | EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#031726,#072b4a,#0284c7);padding:95px 0 65px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(56,189,248,0.2) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="container" style="position:relative;z-index:2;text-align:center;">
+    <nav aria-label="Breadcrumb" style="margin-bottom:1.25rem;">
+      <ol style="display:flex;justify-content:center;align-items:center;gap:.5rem;list-style:none;padding:0;margin:0;font-size:.875rem;">
+        <li><a href="/" style="color:rgba(255,255,255,.65);text-decoration:none;">Home</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li><a href="/solutions" style="color:rgba(255,255,255,.65);text-decoration:none;">Solutions</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li style="color:rgba(255,255,255,.95);font-weight:600;">Water Conservation</li>
+      </ol>
+    </nav>
+    <div style="font-size:4.5rem;margin-bottom:1rem;filter:drop-shadow(0 4px 24px rgba(2,132,199,.6));">💧</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:#fff;margin:0 0 1rem;line-height:1.15;">
+      Water Conservation &amp; Freshwater Security<br>
+      <span style="color:#38bdf8;">Preserving the Essence of Life</span>
+    </h1>
+    <p style="font-size:1.15rem;color:rgba(255,255,255,.8);max-width:720px;margin:0 auto 2rem;line-height:1.7;">
+      Less than 1% of all water on Earth is accessible freshwater. Over 2.2 billion people currently live without safe drinking water, while pollution, over-extraction, and climate disruption threaten global river basins and aquifers.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="#water-calc" style="background:#0284c7;color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:700;font-size:.95rem;box-shadow:0 4px 18px rgba(2,132,199,.4);transition:transform .2s;">
+        🧮 Water Consumption Estimator
+      </a>
+      <a href="/pledge" style="background:rgba(255,255,255,.12);color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid rgba(255,255,255,.25);transition:background .2s;">
+        🌍 Sign Water Pledge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- WATER STATS BANNER -->
+<section style="background:linear-gradient(135deg,#082f49,#0c4a6e);padding:3.5rem 0;">
+  <div class="container">
+    <p style="text-align:center;color:#38bdf8;font-weight:700;letter-spacing:.15em;font-size:.8rem;text-transform:uppercase;margin-bottom:2rem;">
+      UN-Water &amp; UNESCO Verified Statistics
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
+      {% set facts = [
+        ("0.5%","of Earth's water is usable, available freshwater","WMO 2023"),
+        ("2.2B","people live without safely managed drinking water","WHO / UNICEF"),
+        ("70%","of all global freshwater withdrawals go to agriculture","FAO AQUASTAT"),
+        ("80%","of global wastewater flows back into nature untreated","UN-Water"),
+        ("4B","people experience severe water scarcity at least 1 month/yr","Science Advances"),
+        ("50%","of global wetland systems lost in the last 100 years","Ramsar Convention")
+      ] %}
+      {% for val, desc, src in facts %}
+      <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2.2rem;font-weight:800;color:#38bdf8;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">{{val}}</div>
+        <div style="color:rgba(255,255,255,.85);font-size:.9rem;margin:.5rem 0 .4rem;line-height:1.4;">{{desc}}</div>
+        <div style="color:rgba(255,255,255,.45);font-size:.75rem;">{{src}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS OF WATER CONSUMPTION -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#e0f2fe;color:#0284c7;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Global Usage</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Where Does Our Freshwater Go?
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:620px;margin:0 auto;font-size:1.05rem;">
+        Water consumption is hidden inside supply chains, industrial energy production, and food cultivation far beyond our household taps.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;">
+      <!-- Agriculture -->
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;display:flex;flex-direction:column;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">🌾</div>
+        <span style="background:#dcfce7;color:#166534;font-size:.75rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;width:fit-content;margin-bottom:.5rem;">70% GLOBAL SHARE</span>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Agriculture &amp; Irrigation</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;flex:1;">
+          Growing crops and livestock requires massive volumes of water. Traditional flood irrigation loses up to 50% through evaporation and unlined canals. Meat and dairy production require 15,400 litres per kg of beef.
+        </p>
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);font-size:.85rem;color:#0284c7;font-weight:700;">
+          Solution: Precision drip irrigation &amp; soil moisture sensors →
+        </div>
+      </div>
+
+      <!-- Industry -->
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;display:flex;flex-direction:column;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">🏭</div>
+        <span style="background:#fef3c7;color:#b45309;font-size:.75rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;width:fit-content;margin-bottom:.5rem;">19% GLOBAL SHARE</span>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Industry &amp; Power Generation</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;flex:1;">
+          Thermal power plants require vast cooling reservoirs. Semiconductor manufacturing, textile dyeing, paper mills, and mining consume billions of cubic metres while discharging toxic heavy metals and chemicals.
+        </p>
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);font-size:.85rem;color:#0284c7;font-weight:700;">
+          Solution: Closed-loop zero liquid discharge (ZLD) recycling →
+        </div>
+      </div>
+
+      <!-- Municipal -->
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;display:flex;flex-direction:column;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">🚿</div>
+        <span style="background:#e0f2fe;color:#0369a1;font-size:.75rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;width:fit-content;margin-bottom:.5rem;">11% GLOBAL SHARE</span>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Municipal &amp; Domestic Use</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;flex:1;">
+          Drinking, sanitation, cooking, and lawn irrigation. In Western countries, average domestic water consumption reaches 300–400 L/person/day, compared to under 20 L in sub-Saharan Africa.
+        </p>
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);font-size:.85rem;color:#0284c7;font-weight:700;">
+          Solution: Aerated fixtures, leak detection &amp; dual-flush tech →
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE HIDDEN VIRTUAL WATER FOOTPRINT -->
+<section style="padding:5rem 0;background:var(--bg-surface,#fff);border-top:1px solid var(--border-color,#e2e8f0);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#e0f2fe;color:#0284c7;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Supply Chain Reality</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        The Invisible "Virtual Water" in Everyday Goods
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:650px;margin:0 auto;font-size:1.05rem;">
+        Virtual water is the total volume consumed and polluted throughout the entire lifecycle of a product.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;">
+      {% set virtual_items = [
+        ("☕","Cup of Coffee (125ml)","140 Litres","#ca8a04","Includes irrigating coffee cherries, washing, processing, roasting, and transport."),
+        ("🍫","Chocolate Bar (100g)","1,700 Litres","#ca8a04","Cocoa trees require equatorial rainfall; intensive processing and milk powder production."),
+        ("👕","Cotton T-Shirt","2,700 Litres","#0284c7","Enough water for one person to drink for 3 years; cotton is heavily water-intensive."),
+        ("👖","Pair of Denim Jeans","8,000 Litres","#0284c7","Cotton cultivation, spinning, toxic synthetic indigo dyeing, and stone-washing treatments."),
+        ("🥩","1 kg of Beef","15,400 Litres","#dc2626","Grain feed production (corn/soy), pasture irrigation, drinking water, and slaughterhouse sanitation."),
+        ("🧀","1 kg of Cheese","5,000 Litres","#ea580c","Requires ~10 litres of fresh milk per kg, carrying the embedded dairy livestock footprint."),
+        ("📱","New Smartphone","12,000 Litres","#4f46e5","Mining rare earth minerals, silicon semiconductor wafer purification, and component washing."),
+        ("🚗","New Passenger Car","400,000 Litres","#dc2626","Steel rolling, aluminum smelting, automotive paint booths, tire vulcanization, and plastics.")
+      ] %}
+      {% for icon, item, volume, col, desc in virtual_items %}
+      <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:1.5rem;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2.4rem;margin-bottom:.5rem;">{{icon}}</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 .3rem;">{{item}}</h4>
+        <div style="font-size:1.35rem;font-weight:900;color:{{col}};font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:.5rem;">💧 {{volume}}</div>
+        <p style="color:var(--text-secondary,#64748b);font-size:.82rem;line-height:1.5;margin:0;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- DAY ZERO & GROUNDWATER CRISIS -->
+<section style="background:linear-gradient(135deg,#0c4a6e,#082f49);padding:5rem 0;color:#fff;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:rgba(56,189,248,.15);color:#38bdf8;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Global Vulnerability</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;margin:1rem 0 .75rem;">
+        Cities on the Brink: "Day Zero" &amp; Sinking Aquifers
+      </h2>
+      <p style="color:rgba(255,255,255,.75);max-width:650px;margin:0 auto;font-size:1.05rem;">
+        When municipal taps run completely dry, civilized order breaks down. Climate disruption is pushing global megacities to the edge.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;">
+      {% set case_studies = [
+        ("🇿🇦","Cape Town (2018)","Avoided Day Zero through draconian 50L/person rations, agricultural shutoffs, and emergency borehole drilling. Serves as the global wake-up call."),
+        ("🇮🇳","Chennai (2019)","Four major reservoirs dried up completely. Millions queued for emergency water tankers in 42°C heat while hospitals and tech firms shut down."),
+        ("🇲🇽","Mexico City (Ongoing)","Built atop drained Aztec lakes, the city over-pumps subterranean aquifers by 200%, causing historical districts to sink up to 40 cm per year."),
+        ("🇺🇸","Colorado River Basin","Supplies 40 million people across 7 US states and Mexico. Lake Mead and Lake Powell hit historic lows due to 23 years of millennial megadrought.")
+      ] %}
+      {% for flag, city, desc in case_studies %}
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.75rem;">
+        <div style="font-size:2.2rem;margin-bottom:.5rem;">{{flag}}</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:#38bdf8;margin:0 0 .5rem;">{{city}}</h3>
+        <p style="color:rgba(255,255,255,.8);font-size:.88rem;line-height:1.65;margin:0;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- NATURE-BASED SOLUTIONS & SPONGE CITIES -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#dbeafe;color:#1d4ed8;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Restoration &amp; Tech</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Regenerative Water Systems &amp; Sponge Cities
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:620px;margin:0 auto;font-size:1.05rem;">
+        Working with natural hydrology rather than fighting it through concrete channeling.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🏙️</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Sponge City Urban Design</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Replacing impervious asphalt with permeable pavements, bioswales, sunken parks, and rooftop gardens that absorb 70–85% of urban stormwater, preventing floods and recharging groundwater.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🌿</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Constructed Wetlands</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Engineered reed beds and floating aquatic plants naturally filter wastewater, breaking down pathogenic bacteria, nitrogen, and heavy metals at 10% the operating cost of chemical treatment plants.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🌧️</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Decentralized Rainwater Harvesting</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Mandatory rooftop catchment systems channel clean rainwater into underground storage cisterns for toilet flushing, washing, and aquifer recharge shafts, providing resilience against dry spells.
+        </p>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:16px;padding:2rem;box-shadow:0 8px 25px rgba(0,0,0,.03);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">💧</div>
+        <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Solar Reverse Osmosis Desalination</h4>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin:0;">
+          Next-generation graphene membranes and photovoltaic-powered desalination provide clean coastal potable water without burning fossil fuels, coupled with mineral extraction from byproduct brine.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE HOUSEHOLD WATER AUDIT ESTIMATOR -->
+<section id="water-calc" style="padding:5rem 0;background:var(--bg-surface,#fff);border-top:1px solid var(--border-color,#e2e8f0);">
+  <div class="container" style="max-width:920px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#e0f2fe;color:#0284c7;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Interactive Calculator</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Household Water Consumption Estimator
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);font-size:1.05rem;">
+        See how daily habits impact your household water footprint and identify instant savings.
+      </p>
+    </div>
+
+    <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:22px;padding:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.04);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;" class="responsive-grid">
+        <!-- Controls -->
+        <div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1.5rem;">
+            🚿 Your Household Usage
+          </h3>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Average Shower Duration (minutes / person)
+            </label>
+            <div style="display:flex;align-items:center;gap:.75rem;">
+              <input type="range" id="w-shower" min="2" max="25" step="1" value="8" style="flex:1;accent-color:#0284c7;" oninput="calcWaterUsage()"/>
+              <span id="w-shower-val" style="font-weight:800;font-size:1.1rem;color:#0284c7;min-width:65px;">8 mins</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Household Size (people)
+            </label>
+            <div style="display:flex;align-items:center;gap:.75rem;">
+              <input type="range" id="w-members" min="1" max="8" step="1" value="2" style="flex:1;accent-color:#0284c7;" oninput="calcWaterUsage()"/>
+              <span id="w-members-val" style="font-weight:800;font-size:1.1rem;color:#0284c7;min-width:65px;">2 people</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Plumbing Fixture Efficiency
+            </label>
+            <select id="w-fixtures" style="width:100%;padding:.65rem .85rem;border-radius:10px;border:1px solid var(--border-color,#cbd5e1);background:var(--bg-surface,#fff);font-size:.9rem;" onchange="calcWaterUsage()">
+              <option value="standard" selected>Standard (12 L/min shower, 9 L flush)</option>
+              <option value="lowflow">Low-Flow WaterSense (6.5 L/min shower, 4.5 L flush)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Weekly Garden Watering (minutes)
+            </label>
+            <div style="display:flex;align-items:center;gap:.75rem;">
+              <input type="range" id="w-garden" min="0" max="180" step="15" value="30" style="flex:1;accent-color:#0284c7;" oninput="calcWaterUsage()"/>
+              <span id="w-garden-val" style="font-weight:800;font-size:1.1rem;color:#0284c7;min-width:65px;">30 mins</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Display -->
+        <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1.25rem;">
+            💧 Consumption Breakdown
+          </h3>
+
+          <div style="background:rgba(2,132,199,.08);padding:1.25rem;border-radius:14px;border:1px solid rgba(2,132,199,.2);margin-bottom:1rem;text-align:center;">
+            <span style="font-size:.8rem;color:var(--text-muted,#64748b);font-weight:700;text-transform:uppercase;">Daily Consumption per Person</span>
+            <div id="w-percapita" style="font-size:2.8rem;font-weight:900;color:#0284c7;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.2;margin:.25rem 0;">
+              156 Litres
+            </div>
+            <span id="w-status" style="font-size:.85rem;font-weight:700;color:#0369a1;">Moderate Saver (Global avg: 140 L)</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div style="background:var(--bg-page,#f8fafc);padding:1rem;border-radius:12px;border:1px solid var(--border-color,#e2e8f0);text-align:center;">
+              <span style="font-size:.78rem;color:var(--text-muted,#64748b);display:block;">Annual Total</span>
+              <strong id="w-annual" style="font-size:1.25rem;font-weight:800;color:var(--text-primary,#0f172a);">114 m³</strong>
+            </div>
+            <div style="background:rgba(22,163,74,.08);padding:1rem;border-radius:12px;border:1px solid rgba(22,163,74,.2);text-align:center;">
+              <span style="font-size:.78rem;color:var(--text-muted,#64748b);display:block;">Low-Flow Savings</span>
+              <strong id="w-savings" style="font-size:1.25rem;font-weight:800;color:#16a34a;">32,000 L/yr</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container" style="max-width:850px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#e0e7ff;color:#3730a3;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Hydrology Science</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Water Security FAQs
+      </h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+      {% set faqs = [
+        ("If water cycles endlessly through rain, how can Earth 'run out' of water?",
+         "The total volume of water on Earth is fixed, but freshwater is not distributed evenly in space or time. Humans are rapidly draining deep underground aquifers (fossil water accumulated over tens of thousands of years) far faster than rainfall can recharge them. Once drained, aquifer porous rock compacts permanently, destroying water storage capacity forever."),
+        ("Can ocean desalination provide infinite drinking water for everyone?",
+         "Desalination is a crucial lifeline for arid coastal cities, but it requires enormous amounts of energy (3–4 kWh per cubic metre) and produces millions of tonnes of hyper-saline brine toxic to coastal marine ecosystems. Pumping heavy water uphill to inland or high-elevation agricultural areas is prohibitively expensive."),
+        ("How much water is lost to silent leaks inside homes?",
+         "The average household leaks approximately 38,000 litres of treated water every year — equivalent to the water needed for 270 loads of laundry. A single toilet flapper valve leak can silently waste up to 750 litres per day unnoticed."),
+        ("What is graywater, and is it safe to use on residential gardens?",
+         "Graywater is gently used wastewater from bathroom sinks, showers, bathtubs, and washing machines (excluding toilet blackwater). When using biodegradable, boron-free and low-sodium soaps, graywater is completely safe for subsurface landscape irrigation, cutting outdoor potable water use to zero.")
+      ] %}
+      {% for q, a in faqs %}
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:14px;padding:1.5rem;box-shadow:0 4px 15px rgba(0,0,0,.02);">
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 .6rem;">
+          ❓ {{q}}
+        </h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.7;margin:0;">
+          {{a}}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CALL TO ACTION BANNER -->
+<section style="background:linear-gradient(135deg,#0369a1,#0284c7,#38bdf8);padding:4.5rem 0;text-align:center;color:#fff;">
+  <div class="container" style="max-width:760px;margin:0 auto;">
+    <div style="font-size:3.5rem;margin-bottom:1rem;">💧</div>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:900;margin:0 0 1rem;color:#fff;">
+      Protect Earth's Most Precious Molecule
+    </h2>
+    <p style="font-size:1.15rem;color:rgba(255,255,255,.9);line-height:1.7;margin:0 auto 2rem;">
+      Water is life. Clean rivers, replenished aquifers, and equitable access start with individual stewardship and collective community action.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/calculator" style="background:#fff;color:#0284c7;padding:.9rem 2.25rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:1rem;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:transform .2s;">
+        🧮 Native C++ Water Calculator
+      </a>
+      <a href="/pledge" style="background:rgba(255,255,255,.15);color:#fff;padding:.9rem 2.25rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:1rem;border:1.5px solid rgba(255,255,255,.4);transition:background .2s;">
+        ✍️ Sign the Water Pledge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function calcWaterUsage() {
+  const showerMins = parseFloat(document.getElementById('w-shower').value);
+  document.getElementById('w-shower-val').textContent = showerMins + ' mins';
+  const members = parseInt(document.getElementById('w-members').value, 10);
+  document.getElementById('w-members-val').textContent = members + (members === 1 ? ' person' : ' people');
+  const isLowFlow = document.getElementById('w-fixtures').value === 'lowflow';
+  const gardenMins = parseFloat(document.getElementById('w-garden').value);
+  document.getElementById('w-garden-val').textContent = gardenMins + ' mins';
+
+  const showerFlow = isLowFlow ? 6.5 : 12.0;
+  const flushVol = isLowFlow ? 4.5 : 9.0;
+  const laundryVol = isLowFlow ? 50 : 90;
+
+  // Daily per capita calculation
+  const dailyShower = showerMins * showerFlow;
+  const dailyToilet = 5 * flushVol;
+  const dailyLaundry = (3 * laundryVol) / 7;
+  const dailyDishes = (5 * 15) / 7;
+  const dailyGarden = (gardenMins * 18) / 7 / members;
+
+  const perCapitaDaily = Math.round(dailyShower + dailyToilet + dailyLaundry + dailyDishes + dailyGarden);
+  const totalDaily = perCapitaDaily * members;
+  const annualM3 = Math.round((totalDaily * 365) / 1000);
+
+  // If switched to lowflow savings
+  const potentialSavings = isLowFlow ? 0 : Math.round((((12-6.5)*showerMins + (9-4.5)*5 + ((90-50)*3/7))*members*365));
+
+  document.getElementById('w-percapita').textContent = perCapitaDaily + ' Litres';
+  document.getElementById('w-annual').textContent = annualM3 + ' m³';
+  document.getElementById('w-savings').textContent = (isLowFlow ? 'Optimized ✅' : potentialSavings.toLocaleString() + ' L/yr');
+
+  const status = document.getElementById('w-status');
+  if (perCapitaDaily <= 110) {
+    status.textContent = "Water Guardian ✅ (Below 110 L/day)";
+    status.style.color = "#16a34a";
+  } else if (perCapitaDaily <= 170) {
+    status.textContent = "Moderate Saver 🌿 (Global avg: 140 L)";
+    status.style.color = "#0284c7";
+  } else {
+    status.textContent = "High Footprint ⚠️ (Action needed)";
+    status.style.color = "#dc2626";
+  }
+}
+document.addEventListener('DOMContentLoaded', calcWaterUsage);
+</script>
+{% endblock %}

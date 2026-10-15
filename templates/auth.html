@@ -1,0 +1,1493 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In & Register | EcoProtect Platform{% endblock %}
+
+{% block extra_head %}
+<style>
+/* ── AUTH PORTAL STYLING ── */
+.auth-page-wrapper {
+    min-height: calc(100vh - var(--nav-h));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 10% 20%, rgba(16,124,65,0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(56,189,248,0.06) 0%, transparent 40%),
+                var(--bg-primary, #f8fafc);
+}
+
+.auth-ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+.orb-1 { width: 380px; height: 380px; background: rgba(34,197,94,0.12); top: -60px; right: -60px; }
+.orb-2 { width: 340px; height: 340px; background: rgba(56,189,248,0.12); bottom: -60px; left: -60px; }
+
+.auth-container {
+    width: 100%;
+    max-width: 1080px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid rgba(16,124,65,0.15);
+    box-shadow: 0 24px 60px rgba(15,23,42,0.08), 0 4px 12px rgba(16,124,65,0.04);
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 880px) {
+    .auth-container { grid-template-columns: 1fr; max-width: 520px; }
+    .auth-showcase-panel { display: none; }
+}
+
+/* Showcase Panel */
+.auth-showcase-panel {
+    background: linear-gradient(145deg, #0a1f14 0%, #0d3822 50%, #082819 100%);
+    color: #ffffff;
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+.auth-showcase-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%2322c55e" fill-opacity="0.04"><circle cx="20" cy="20" r="1.5"/></g></svg>');
+    pointer-events: none;
+}
+
+.auth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .4rem .9rem;
+    background: rgba(34,197,94,0.18);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 99px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: #86efac;
+    width: fit-content;
+}
+
+.showcase-quote {
+    margin: 2rem 0;
+}
+.showcase-quote h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+.showcase-quote h2 span {
+    background: linear-gradient(135deg, #4ade80, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.showcase-quote p {
+    font-size: .95rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+.showcase-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.12);
+}
+.metric-box h4 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #4ade80;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-bottom: .2rem;
+}
+.metric-box span {
+    font-size: .8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 600;
+}
+
+.showcase-footer {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-size: .82rem;
+    color: #94a3b8;
+}
+
+/* Form Panel */
+.auth-form-panel {
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: .5rem;
+    background: #f1f5f9;
+    padding: .35rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+.auth-tab-btn {
+    flex: 1;
+    padding: .65rem 1rem;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: .9rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+.auth-tab-btn.active {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.auth-header {
+    margin-bottom: 1.75rem;
+}
+.auth-header h3 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-bottom: .4rem;
+}
+.auth-header p {
+    font-size: .88rem;
+    color: #64748b;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+.form-group label {
+    font-size: .82rem;
+    font-weight: 700;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.input-with-icon span.input-icon {
+    position: absolute;
+    left: 1rem;
+    font-size: 1rem;
+    color: #94a3b8;
+    pointer-events: none;
+}
+.input-with-icon input,
+.input-with-icon select {
+    width: 100%;
+    padding: .8rem 1rem .8rem 2.75rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: .92rem;
+    font-family: inherit;
+    color: #0f172a;
+    background: #f8fafc;
+    transition: all .2s ease;
+    outline: none;
+}
+.input-with-icon input:focus,
+.input-with-icon select:focus {
+    border-color: #107c41;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(16,124,65,0.1);
+}
+.toggle-pwd-btn {
+    position: absolute;
+    right: .9rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #94a3b8;
+}
+
+.auth-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .84rem;
+    color: #475569;
+}
+.remember-me-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+.remember-me-label input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #107c41;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-auth-btn {
+    width: 100%;
+    padding: .85rem 1.5rem;
+    background: linear-gradient(135deg, #107c41, #22c55e);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: 0 6px 18px rgba(16,124,65,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+.submit-auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(16,124,65,0.35);
+}
+.submit-auth-btn:active {
+    transform: translateY(0);
+}
+
+.role-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .6rem;
+    margin-bottom: 1.5rem;
+}
+@media (max-width: 600px) {
+    .role-selector-grid { grid-template-columns: 1fr; }
+}
+
+.role-card-btn {
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: .75rem .6rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all .2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+}
+.role-card-btn:hover {
+    border-color: #94a3b8;
+    background: #ffffff;
+    transform: translateY(-2px);
+}
+.role-card-btn.active.role-part {
+    border-color: #107c41;
+    background: #f0fdf4;
+    box-shadow: 0 4px 12px rgba(16,124,65,0.15);
+}
+.role-card-btn.active.role-org {
+    border-color: #0284c7;
+    background: #f0f9ff;
+    box-shadow: 0 4px 12px rgba(2,132,199,0.15);
+}
+.role-card-btn.active.role-adm {
+    border-color: #ea580c;
+    background: #fff7ed;
+    box-shadow: 0 4px 12px rgba(234,88,12,0.15);
+}
+.role-card-icon {
+    font-size: 1.4rem;
+}
+.role-card-title {
+    font-size: .82rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+.role-card-subtitle {
+    font-size: .68rem;
+    color: #64748b;
+    line-height: 1.2;
+}
+
+.auth-alert-banner {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: .75rem 1rem;
+    border-radius: 12px;
+    font-size: .84rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.demo-credentials-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 14px;
+    font-size: .82rem;
+}
+.demo-credentials-box .demo-title {
+    font-weight: 800;
+    margin-bottom: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    color: #334155;
+}
+.demo-roles-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .45rem;
+}
+.demo-role-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem .75rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: left;
+}
+.demo-role-pill:hover {
+    border-color: #107c41;
+    background: #f0fdf4;
+    transform: translateX(3px);
+}
+
+/* Dark mode adjustments */
+body.dark-mode .auth-page-wrapper {
+    background: #060b0e;
+}
+body.dark-mode .auth-container {
+    background: #0f171d;
+    border-color: rgba(34,197,94,0.2);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+body.dark-mode .auth-form-panel {
+    background: #0f171d;
+}
+body.dark-mode .auth-header h3 {
+    color: #f8fafc;
+}
+body.dark-mode .auth-header p,
+body.dark-mode .auth-options {
+    color: #94a3b8;
+}
+body.dark-mode .form-group label {
+    color: #cbd5e1;
+}
+body.dark-mode .input-with-icon input,
+body.dark-mode .input-with-icon select {
+    background: #16222a;
+    border-color: #243542;
+    color: #f8fafc;
+}
+body.dark-mode .auth-tabs {
+    background: #16222a;
+}
+body.dark-mode .auth-tab-btn.active {
+    background: #0f171d;
+    color: #f8fafc;
+}
+body.dark-mode .role-card-btn {
+    background: #141f26;
+    border-color: #243542;
+}
+body.dark-mode .role-card-title {
+    color: #f8fafc;
+}
+body.dark-mode .role-card-btn.active.role-part {
+    background: rgba(34,197,94,0.12);
+    border-color: #22c55e;
+}
+body.dark-mode .role-card-btn.active.role-org {
+    background: rgba(2,132,199,0.12);
+    border-color: #38bdf8;
+}
+body.dark-mode .role-card-btn.active.role-adm {
+    background: rgba(234,88,12,0.12);
+    border-color: #f97316;
+}
+body.dark-mode .demo-credentials-box {
+    background: #141f26;
+    border-color: #243542;
+}
+body.dark-mode .demo-role-pill {
+    background: #182630;
+    border-color: #243542;
+    color: #f8fafc;
+}
+body.dark-mode .demo-role-pill:hover {
+    border-color: #22c55e;
+    background: rgba(34,197,94,0.1);
+}
+
+/* ── OTP AUTHENTICATION COMPONENT STYLES ── */
+.otp-container {
+    animation: otpFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes otpFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.otp-icon-badge {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(16,124,65,0.12), rgba(34,197,94,0.22));
+    border: 1px solid rgba(34,197,94,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 8px 20px rgba(16,124,65,0.12);
+}
+
+.otp-inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.65rem;
+    margin: 1.5rem 0 1.25rem;
+}
+@media (max-width: 480px) {
+    .otp-inputs-grid { gap: 0.35rem; }
+}
+
+.otp-box {
+    width: 100%;
+    aspect-ratio: 1 / 1.15;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: 'Plus Jakarta Sans', monospace, sans-serif;
+    color: #0f172a;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.otp-box:focus {
+    border-color: #107c41;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(16,124,65,0.15);
+    transform: translateY(-2px);
+}
+.otp-box.filled {
+    border-color: #22c55e;
+    background: #f0fdf4;
+}
+
+.otp-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.86rem;
+}
+.otp-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #64748b;
+    font-weight: 600;
+}
+.otp-timer.urgent {
+    color: #ef4444;
+    animation: pulseTimer 1s infinite alternate;
+}
+@keyframes pulseTimer {
+    from { opacity: 1; }
+    to { opacity: 0.5; }
+}
+
+.otp-resend-btn {
+    background: none;
+    border: none;
+    color: #107c41;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.86rem;
+    padding: 0;
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+.otp-resend-btn:disabled {
+    color: #94a3b8;
+    text-decoration: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.otp-demo-card {
+    margin-top: 1.5rem;
+    padding: 0.85rem 1rem;
+    background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(56,189,248,0.08));
+    border: 1px dashed rgba(34,197,94,0.4);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+.otp-demo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #15803d;
+}
+.otp-demo-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+.otp-demo-code-val {
+    font-family: monospace;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #0f172a;
+    background: #ffffff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(16,124,65,0.2);
+}
+.otp-autofill-btn {
+    padding: 0.4rem 0.85rem;
+    background: #107c41;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.otp-autofill-btn:hover {
+    background: #0d6535;
+    transform: translateY(-1px);
+}
+
+.otp-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.25rem;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    transition: color 0.2s;
+}
+.otp-back-link:hover {
+    color: #0f172a;
+}
+
+/* Dark Mode Overrides for OTP */
+body.dark-mode .otp-icon-badge {
+    background: rgba(34,197,94,0.15);
+    border-color: rgba(34,197,94,0.3);
+}
+body.dark-mode .otp-box {
+    background: #141f26;
+    border-color: #243542;
+    color: #f8fafc;
+}
+body.dark-mode .otp-box:focus {
+    background: #192630;
+    border-color: #22c55e;
+}
+body.dark-mode .otp-box.filled {
+    background: rgba(34,197,94,0.12);
+    border-color: #22c55e;
+}
+body.dark-mode .otp-demo-card {
+    background: rgba(34,197,94,0.06);
+    border-color: rgba(34,197,94,0.25);
+}
+body.dark-mode .otp-demo-code-val {
+    background: #141f26;
+    color: #4ade80;
+    border-color: #243542;
+}
+body.dark-mode .otp-back-link {
+    color: #94a3b8;
+}
+body.dark-mode .otp-back-link:hover {
+    color: #f8fafc;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-page-wrapper">
+    <div class="auth-ambient-orb orb-1"></div>
+    <div class="auth-ambient-orb orb-2"></div>
+
+    <div class="auth-container">
+        <!-- Left Showcase Panel -->
+        <div class="auth-showcase-panel">
+            <div>
+                <div class="auth-badge">🌱 Environmental Control & Action</div>
+                <div class="showcase-quote">
+                    <h2>Measure. Control. <span>Protect the Planet.</span></h2>
+                    <p>Join over 12,000 citizens, event organizers, and environmental advocates using the EcoProtect platform to track emissions, discover hazards, and drive community conservation.</p>
+                </div>
+
+                <div class="showcase-metrics">
+                    <div class="metric-box">
+                        <h4>422.5</h4>
+                        <span>Atmospheric CO₂ (ppm)</span>
+                    </div>
+                    <div class="metric-box">
+                        <h4>30.2%</h4>
+                        <span>Global Clean Power</span>
+                    </div>
+                    <div class="metric-box">
+                        <h4>58,240+</h4>
+                        <span>Trees Planted</span>
+                    </div>
+                    <div class="metric-box">
+                        <h4>12,480+</h4>
+                        <span>Climate Pledges</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase-footer">
+                <span>🔒 Secure SQLite Authentication · Persistent 30-Day Session Storage · 3 Role Portals</span>
+            </div>
+        </div>
+
+        <!-- Right Form Panel -->
+        <div class="auth-form-panel">
+            <!-- Navigation Tabs -->
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab-btn {% if active_tab != 'signup' %}active{% endif %}" id="tab-login-btn" onclick="switchTab('login')">
+                    Sign In
+                </button>
+                <button type="button" class="auth-tab-btn {% if active_tab == 'signup' %}active{% endif %}" id="tab-signup-btn" onclick="switchTab('signup')">
+                    Create Account
+                </button>
+            </div>
+
+            <!-- Optional Auth Required Banner -->
+            <div id="auth-required-alert" class="auth-alert-banner" style="display: none;">
+                <span style="font-size:1.1rem;">🔒</span>
+                <div>
+                    <strong>Sign-In Required</strong>: Access to the Environmental Dashboard is restricted to registered members. Please select your role below to log in.
+                </div>
+            </div>
+
+            <!-- ── SIGN IN FORM ── -->
+            <div id="login-section" style="{% if active_tab == 'signup' %}display: none;{% endif %}">
+                <!-- 3 Role Selector -->
+                <div class="role-selector-grid" id="role-selector">
+                    <button type="button" class="role-card-btn role-part active" id="btn-role-participant" onclick="selectRole('participant')">
+                        <span class="role-card-icon">🌿</span>
+                        <span class="role-card-title">Participant</span>
+                        <span class="role-card-subtitle">Citizen & Volunteer</span>
+                    </button>
+                    <button type="button" class="role-card-btn role-org" id="btn-role-organizer" onclick="selectRole('organizer')">
+                        <span class="role-card-icon">📅</span>
+                        <span class="role-card-title">Event Organiser</span>
+                        <span class="role-card-subtitle">Host & Coordinate</span>
+                    </button>
+                    <button type="button" class="role-card-btn role-adm" id="btn-role-admin" onclick="selectRole('admin')">
+                        <span class="role-card-icon">🛡️</span>
+                        <span class="role-card-title">Admin Login</span>
+                        <span class="role-card-subtitle">System & Moderation</span>
+                    </button>
+                </div>
+
+                <div class="auth-header">
+                    <h3 id="login-title">Participant Login</h3>
+                    <p id="login-desc">Sign in to track your carbon footprint, log habits, and view your eco badges.</p>
+                </div>
+
+                <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-identifier">Username or Email</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon" id="login-input-icon">👤</span>
+                            <input type="text" id="login-identifier" placeholder="e.g. participant or aria@ecoprotect.org" required autocomplete="username"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔑</span>
+                            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password"/>
+                            <button type="button" class="toggle-pwd-btn" onclick="togglePasswordVisibility('login-password')">👁️</button>
+                        </div>
+                    </div>
+
+                    <div class="auth-options">
+                        <label class="remember-me-label" title="Your login token is saved in the database so you stay logged in">
+                            <input type="checkbox" id="login-remember" checked/>
+                            <span>Remember my login (30 days)</span>
+                        </label>
+                        <a href="/terms#privacy" style="color:#107c41;font-weight:600;text-decoration:none;">Privacy Policy</a>
+                    </div>
+
+                    <button type="submit" class="submit-auth-btn" id="login-submit-btn">
+                        <span id="login-submit-label">Sign In as Participant 🌿</span> →
+                    </button>
+                </form>
+
+                <!-- 3 One-Click Fast Login Demonstrations -->
+                <div class="demo-credentials-box">
+                    <div class="demo-title">⚡ 1-Click Fast Logins for Testing:</div>
+                    <div class="demo-roles-row">
+                        <div class="demo-role-pill" onclick="quickFillAndLogin('participant', 'part123', 'participant')">
+                            <div>
+                                <strong style="color:#107c41;">🌿 Participant:</strong> <code>participant</code> / <code>part123</code>
+                                <div style="font-size:.7rem;color:#64748b;">Aria Chen · Personal Footprint, Badges & Habits</div>
+                            </div>
+                            <span style="font-size:.8rem;font-weight:700;color:#107c41;">Auto-Fill →</span>
+                        </div>
+                        <div class="demo-role-pill" onclick="quickFillAndLogin('organizer', 'org123', 'organizer')">
+                            <div>
+                                <strong style="color:#0284c7;">📅 Event Organiser:</strong> <code>organizer</code> / <code>org123</code>
+                                <div style="font-size:.7rem;color:#64748b;">Marcus Thorne · Event Rallies, Roster & Quotas</div>
+                            </div>
+                            <span style="font-size:.8rem;font-weight:700;color:#0284c7;">Auto-Fill →</span>
+                        </div>
+                        <div class="demo-role-pill" onclick="quickFillAndLogin('admin', 'admin123', 'admin')">
+                            <div>
+                                <strong style="color:#ea580c;">🛡️ Platform Admin:</strong> <code>admin</code> / <code>admin123</code>
+                                <div style="font-size:.7rem;color:#64748b;">Administrator · Full Operations, Telemetry & Oversight</div>
+                            </div>
+                            <span style="font-size:.8rem;font-weight:700;color:#ea580c;">Auto-Fill →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SIGN UP FORM ── -->
+            <div id="signup-section" style="{% if active_tab != 'signup' %}display: none;{% endif %}">
+                <div class="auth-header">
+                    <h3>Create Your Eco Account</h3>
+                    <p>Join the global movement for environmental understanding & control.</p>
+                </div>
+
+                <form class="auth-form" id="signup-form" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signup-role">Join As</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🎭</span>
+                            <select id="signup-role">
+                                <option value="participant">🌿 Participant (Citizen Scientist / Volunteer / Eco Learner)</option>
+                                <option value="organizer">📅 Event Organiser (Community Lead / NGO / Workshop Host)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">🏷️</span>
+                                <input type="text" id="signup-name" placeholder="Aria Chen" required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-username">Username</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">@</span>
+                                <input type="text" id="signup-username" placeholder="ariachen" required autocomplete="username"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">✉️</span>
+                            <input type="email" id="signup-email" placeholder="aria@ecoprotect.org" required autocomplete="email"/>
+                        </div>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+                        <div class="form-group">
+                            <label for="signup-city">City / Region</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">📍</span>
+                                <input type="text" id="signup-city" placeholder="San Francisco" required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-focus">Eco Focus</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">🎯</span>
+                                <select id="signup-focus">
+                                    <option value="Climate Action">Climate Action</option>
+                                    <option value="Forests & Biodiversity">Forests & Trees</option>
+                                    <option value="Clean Energy">Renewable Energy</option>
+                                    <option value="Water Conservation">Water Security</option>
+                                    <option value="Zero Waste">Waste & Plastics</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password (min 6 characters)</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔑</span>
+                            <input type="password" id="signup-password" minlength="6" placeholder="••••••••" required autocomplete="new-password"/>
+                            <button type="button" class="toggle-pwd-btn" onclick="togglePasswordVisibility('signup-password')">👁️</button>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions Agreement -->
+                    <div class="auth-options" style="flex-direction:column;align-items:flex-start;gap:.5rem;">
+                        <label class="remember-me-label" style="align-items:flex-start;">
+                            <input type="checkbox" id="signup-terms" required checked style="margin-top:2px;"/>
+                            <span>I accept the <a href="/terms" target="_blank" style="color:#107c41;font-weight:700;text-decoration:underline;">Terms and Conditions</a> and environmental data policies of EcoProtect.</span>
+                        </label>
+                        <label class="remember-me-label">
+                            <input type="checkbox" id="signup-remember" checked/>
+                            <span>Remember my login on this device (30 days)</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-auth-btn" id="signup-submit-btn">
+                        <span>Create Account & Enter Dashboard</span> →
+                    </button>
+                </form>
+            </div>
+
+            <!-- ── OTP VERIFICATION SECTION ── -->
+            <div id="otp-section" class="otp-container" style="display: none;">
+                <div class="otp-icon-badge">
+                    <span>🛡️</span>
+                </div>
+
+                <div class="auth-header" style="margin-bottom: 1.25rem;">
+                    <h3 id="otp-title">Two-Factor Authentication</h3>
+                    <p id="otp-desc">
+                        A secure 6-digit one-time password was sent to <strong id="otp-target-email" style="color:#107c41;">email@example.com</strong>.
+                    </p>
+                </div>
+
+                <form id="otp-form" onsubmit="handleOtpSubmit(event)">
+                    <!-- 6 Segmented PIN boxes -->
+                    <div class="otp-inputs-grid" id="otp-boxes-container">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-box" id="otp-0" autocomplete="one-time-code" required />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-box" id="otp-1" required />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-box" id="otp-2" required />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-box" id="otp-3" required />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-box" id="otp-4" required />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-box" id="otp-5" required />
+                    </div>
+
+                    <div class="otp-meta-row">
+                        <div class="otp-timer" id="otp-timer-display">
+                            <span>⏱️</span> Expires in <span id="otp-time-left" style="font-weight:800;">05:00</span>
+                        </div>
+                        <button type="button" class="otp-resend-btn" id="otp-resend-btn" onclick="resendOtp()" disabled>
+                            Resend Code <span id="resend-cooldown-timer">(30s)</span>
+                        </button>
+                    </div>
+
+                    <button type="submit" class="submit-auth-btn" id="otp-verify-btn">
+                        <span id="otp-btn-label">Verify Code & Enter Dashboard 🌿</span> →
+                    </button>
+                </form>
+
+                <!-- Simulated Email Delivery Notification for Demonstration -->
+                <div class="otp-demo-card" id="otp-demo-card">
+                    <div class="otp-demo-header">
+                        <span>⚡ Email Delivery Simulator (Test Mode)</span>
+                        <span style="font-size:0.7rem;color:#107c41;font-weight:800;">ACTIVE</span>
+                    </div>
+                    <div class="otp-demo-body">
+                        <div>
+                            <span style="font-size:0.75rem;color:#64748b;display:block;">Dispatched 6-Digit Code:</span>
+                            <span class="otp-demo-code-val" id="otp-demo-val">------</span>
+                        </div>
+                        <button type="button" class="otp-autofill-btn" id="otp-autofill-action" onclick="autoFillOtp()">
+                            Auto-Fill ⚡
+                        </button>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 1.25rem;">
+                    <button type="button" class="otp-back-link" onclick="cancelOtpAndGoBack()">
+                        ← Back to Sign In / Edit Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentRole = 'participant';
+
+const ROLE_CONFIGS = {
+    participant: {
+        title: 'Participant Login',
+        desc: 'Sign in to track your carbon footprint, log sustainability habits, and view your eco badges.',
+        btnText: 'Sign In as Participant 🌿',
+        placeholder: 'participant or aria@ecoprotect.org',
+        icon: '🌿',
+        themeColor: '#107c41'
+    },
+    organizer: {
+        title: 'Event Organiser Login',
+        desc: 'Sign in to schedule rallies, track attendee rosters, and coordinate environmental drives.',
+        btnText: 'Sign In as Event Organiser 📅',
+        placeholder: 'organizer or marcus@ecoprotect.org',
+        icon: '📅',
+        themeColor: '#0284c7'
+    },
+    admin: {
+        title: 'Platform Admin Login',
+        desc: 'Sign in with administrator credentials for system telemetry, hazard alerts, and platform oversight.',
+        btnText: 'Sign In as Platform Admin 🛡️',
+        placeholder: 'admin or admin@ecoprotect.org',
+        icon: '🛡️',
+        themeColor: '#ea580c'
+    }
+};
+
+function selectRole(role) {
+    currentRole = role;
+    const cfg = ROLE_CONFIGS[role] || ROLE_CONFIGS.participant;
+
+    document.querySelectorAll('.role-card-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`btn-role-${role}`);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    document.getElementById('login-title').textContent = cfg.title;
+    document.getElementById('login-desc').textContent = cfg.desc;
+    document.getElementById('login-submit-label').textContent = cfg.btnText;
+    document.getElementById('login-identifier').placeholder = `e.g. ${cfg.placeholder}`;
+    document.getElementById('login-input-icon').textContent = cfg.icon;
+}
+
+function quickFillAndLogin(username, password, role) {
+    switchTab('login');
+    selectRole(role);
+    document.getElementById('login-identifier').value = username;
+    document.getElementById('login-password').value = password;
+    showToast(`Loaded ${role.toUpperCase()} credentials! Requesting 2FA OTP...`, 'info');
+    setTimeout(() => {
+        document.getElementById('login-form').requestSubmit();
+    }, 350);
+}
+
+function switchTab(tab) {
+    const loginSection = document.getElementById('login-section');
+    const signupSection = document.getElementById('signup-section');
+    const loginBtn = document.getElementById('tab-login-btn');
+    const signupBtn = document.getElementById('tab-signup-btn');
+
+    if (tab === 'login') {
+        loginSection.style.display = 'block';
+        signupSection.style.display = 'none';
+        loginBtn.classList.add('active');
+        signupBtn.classList.remove('active');
+        window.history.replaceState(null, '', '/login');
+    } else {
+        loginSection.style.display = 'none';
+        signupSection.style.display = 'block';
+        signupBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+        window.history.replaceState(null, '', '/signup');
+    }
+}
+
+function togglePasswordVisibility(fieldId) {
+    const f = document.getElementById(fieldId);
+    if (!f) return;
+    f.type = f.type === 'password' ? 'text' : 'password';
+}
+
+// ── OTP AUTHENTICATION STATE & LOGIC ─────────────────────────────
+let otpState = {
+    email: '',
+    maskedEmail: '',
+    purpose: 'login',
+    demoOtp: '',
+    rememberMe: true,
+    timerInterval: null,
+    cooldownInterval: null,
+    timeLeft: 300,
+    cooldownLeft: 30
+};
+
+function initOtpInputs() {
+    const boxes = document.querySelectorAll('.otp-box');
+    boxes.forEach((box, idx) => {
+        // Handle single digit input
+        box.addEventListener('input', (e) => {
+            const val = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = val ? val[val.length - 1] : '';
+            if (e.target.value) {
+                box.classList.add('filled');
+                if (idx < boxes.length - 1) {
+                    boxes[idx + 1].focus();
+                } else {
+                    // All filled: auto-submit if full 6 digits
+                    const fullCode = Array.from(boxes).map(b => b.value).join('');
+                    if (fullCode.length === 6) {
+                        document.getElementById('otp-form').requestSubmit();
+                    }
+                }
+            } else {
+                box.classList.remove('filled');
+            }
+        });
+
+        // Handle backspace navigation
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                if (!box.value && idx > 0) {
+                    boxes[idx - 1].focus();
+                    boxes[idx - 1].value = '';
+                    boxes[idx - 1].classList.remove('filled');
+                } else {
+                    box.value = '';
+                    box.classList.remove('filled');
+                }
+            }
+        });
+
+        // Handle pasting full 6 digits
+        box.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+            const cleanDigits = pastedData.replace(/[^0-9]/g, '').slice(0, 6);
+            if (!cleanDigits) return;
+
+            cleanDigits.split('').forEach((d, i) => {
+                if (boxes[i]) {
+                    boxes[i].value = d;
+                    boxes[i].classList.add('filled');
+                }
+            });
+
+            if (cleanDigits.length < 6 && boxes[cleanDigits.length]) {
+                boxes[cleanDigits.length].focus();
+            } else if (cleanDigits.length === 6) {
+                boxes[5].focus();
+                setTimeout(() => {
+                    document.getElementById('otp-form').requestSubmit();
+                }, 200);
+            }
+        });
+    });
+}
+
+function showOtpScreen(data) {
+    otpState.email = data.email || '';
+    otpState.maskedEmail = data.masked_email || data.email || '';
+    otpState.purpose = data.purpose || 'login';
+    otpState.demoOtp = String(data.demo_otp || '');
+    otpState.rememberMe = data.remember_me !== undefined ? data.remember_me : true;
+
+    // Hide tabs & standard forms
+    document.querySelector('.auth-tabs').style.display = 'none';
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('signup-section').style.display = 'none';
+    const alertBox = document.getElementById('auth-required-alert');
+    if (alertBox) alertBox.style.display = 'none';
+
+    // Show OTP container
+    const otpSection = document.getElementById('otp-section');
+    otpSection.style.display = 'block';
+
+    // Update dynamic labels based on purpose
+    if (otpState.purpose === 'register') {
+        document.getElementById('otp-title').textContent = 'Verify Your Email Address';
+        document.getElementById('otp-desc').innerHTML = `We sent an activation code to <strong style="color:#107c41;">${otpState.maskedEmail}</strong>. Enter the 6 digits below to complete your registration.`;
+        document.getElementById('otp-btn-label').textContent = 'Confirm & Activate Account 🌍';
+    } else {
+        document.getElementById('otp-title').textContent = 'Two-Factor Authentication';
+        document.getElementById('otp-desc').innerHTML = `Credentials verified! We sent a 6-digit OTP code to <strong style="color:#107c41;">${otpState.maskedEmail}</strong>.`;
+        document.getElementById('otp-btn-label').textContent = 'Verify & Enter Dashboard 🌿';
+    }
+
+    // Populate simulator banner
+    document.getElementById('otp-demo-val').textContent = otpState.demoOtp || '123456';
+
+    // Reset inputs
+    document.querySelectorAll('.otp-box').forEach(b => {
+        b.value = '';
+        b.classList.remove('filled');
+    });
+
+    const firstBox = document.getElementById('otp-0');
+    if (firstBox) firstBox.focus();
+
+    // Start timers
+    startOtpCountdown();
+    startResendCooldown();
+    showToast('6-Digit Verification Code sent! Check inbox or test banner.', 'info');
+}
+
+function startOtpCountdown() {
+    clearInterval(otpState.timerInterval);
+    otpState.timeLeft = 300; // 5 minutes
+    updateTimerDisplay();
+
+    otpState.timerInterval = setInterval(() => {
+        otpState.timeLeft--;
+        updateTimerDisplay();
+        if (otpState.timeLeft <= 0) {
+            clearInterval(otpState.timerInterval);
+            showToast('Verification code expired. Please click "Resend Code".', 'error');
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const min = Math.floor(otpState.timeLeft / 60);
+    const sec = otpState.timeLeft % 60;
+    const str = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    const el = document.getElementById('otp-time-left');
+    const container = document.getElementById('otp-timer-display');
+    if (el) el.textContent = str;
+    if (container) {
+        if (otpState.timeLeft <= 60 && otpState.timeLeft > 0) {
+            container.classList.add('urgent');
+        } else {
+            container.classList.remove('urgent');
+        }
+    }
+}
+
+function startResendCooldown() {
+    clearInterval(otpState.cooldownInterval);
+    otpState.cooldownLeft = 30; // 30s cooldown
+    const btn = document.getElementById('otp-resend-btn');
+    const timerLabel = document.getElementById('resend-cooldown-timer');
+    if (btn) btn.disabled = true;
+
+    otpState.cooldownInterval = setInterval(() => {
+        otpState.cooldownLeft--;
+        if (timerLabel) timerLabel.textContent = `(${otpState.cooldownLeft}s)`;
+        if (otpState.cooldownLeft <= 0) {
+            clearInterval(otpState.cooldownInterval);
+            if (btn) btn.disabled = false;
+            if (timerLabel) timerLabel.textContent = '';
+        }
+    }, 1000);
+}
+
+function autoFillOtp() {
+    if (!otpState.demoOtp) return;
+    const digits = otpState.demoOtp.split('');
+    const boxes = document.querySelectorAll('.otp-box');
+    digits.forEach((d, i) => {
+        if (boxes[i]) {
+            boxes[i].value = d;
+            boxes[i].classList.add('filled');
+        }
+    });
+    if (boxes[5]) boxes[5].focus();
+    showToast('Auto-filled 6-digit OTP code!', 'success');
+    setTimeout(() => {
+        document.getElementById('otp-form').requestSubmit();
+    }, 250);
+}
+
+async function handleOtpSubmit(e) {
+    if (e) e.preventDefault();
+    const boxes = document.querySelectorAll('.otp-box');
+    const code = Array.from(boxes).map(b => b.value.trim()).join('');
+
+    if (code.length < 6) {
+        showToast('Please enter all 6 digits of your verification code.', 'error');
+        return;
+    }
+
+    const btn = document.getElementById('otp-verify-btn');
+    const origText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Verifying Code... ⏳';
+
+    try {
+        const res = await fetch('/api/auth/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: otpState.email,
+                otp_code: code,
+                purpose: otpState.purpose,
+                remember_me: otpState.rememberMe
+            })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'success') {
+            clearInterval(otpState.timerInterval);
+            clearInterval(otpState.cooldownInterval);
+            showToast(data.message || 'Verification successful! Entering dashboard...', 'success');
+            const nextUrl = new URLSearchParams(window.location.search).get('next') || data.redirect_url || '/dashboard';
+            setTimeout(() => {
+                window.location.href = nextUrl;
+            }, 750);
+        } else {
+            showToast(data.message || 'Incorrect verification code. Please try again.', 'error');
+            btn.disabled = false;
+            btn.innerHTML = origText;
+            // Shake and clear inputs
+            boxes.forEach(b => {
+                b.style.borderColor = '#ef4444';
+                b.value = '';
+                b.classList.remove('filled');
+            });
+            setTimeout(() => {
+                boxes.forEach(b => b.style.borderColor = '');
+                if (boxes[0]) boxes[0].focus();
+            }, 600);
+        }
+    } catch (err) {
+        showToast('Connection error. Please try again.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = origText;
+    }
+}
+
+async function resendOtp() {
+    const btn = document.getElementById('otp-resend-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending fresh code...';
+
+    try {
+        const res = await fetch('/api/auth/resend-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: otpState.email,
+                purpose: otpState.purpose
+            })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'success') {
+            otpState.demoOtp = String(data.demo_otp || '');
+            document.getElementById('otp-demo-val').textContent = otpState.demoOtp;
+            showToast(data.message || 'A new verification code has been dispatched.', 'success');
+            startOtpCountdown();
+            startResendCooldown();
+            document.querySelectorAll('.otp-box').forEach(b => {
+                b.value = '';
+                b.classList.remove('filled');
+            });
+            const first = document.getElementById('otp-0');
+            if (first) first.focus();
+        } else {
+            showToast(data.message || 'Failed to resend code.', 'error');
+            btn.disabled = false;
+            btn.textContent = 'Resend Code';
+        }
+    } catch (err) {
+        showToast('Connection error. Please try again.', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Resend Code';
+    }
+}
+
+function cancelOtpAndGoBack() {
+    clearInterval(otpState.timerInterval);
+    clearInterval(otpState.cooldownInterval);
+
+    document.getElementById('otp-section').style.display = 'none';
+    document.querySelector('.auth-tabs').style.display = 'flex';
+
+    if (otpState.purpose === 'register') {
+        switchTab('signup');
+    } else {
+        switchTab('login');
+    }
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('login-submit-btn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Verifying Credentials... 🌿';
+
+    const identifier = document.getElementById('login-identifier').value.trim();
+    const password = document.getElementById('login-password').value;
+    const rememberMe = document.getElementById('login-remember').checked;
+
+    try {
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ identifier, password, remember_me: rememberMe })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'otp_required') {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            showOtpScreen(data);
+        } else if (res.ok && data.status === 'success') {
+            const nextUrl = new URLSearchParams(window.location.search).get('next') || '/dashboard';
+            showToast(data.message || `Logged in as ${data.user?.role || 'user'}!`, 'success');
+            setTimeout(() => {
+                window.location.href = nextUrl;
+            }, 750);
+        } else {
+            showToast(data.message || 'Invalid credentials.', 'error');
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    } catch (err) {
+        showToast('Connection error. Please try again.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
+async function handleSignup(e) {
+    e.preventDefault();
+    const btn = document.getElementById('signup-submit-btn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Validating Details... 🌍';
+
+    const role = document.getElementById('signup-role').value;
+    const fullName = document.getElementById('signup-name').value.trim();
+    const username = document.getElementById('signup-username').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const city = document.getElementById('signup-city').value.trim();
+    const focusArea = document.getElementById('signup-focus').value;
+    const password = document.getElementById('signup-password').value;
+    const termsAccepted = document.getElementById('signup-terms').checked;
+    const rememberMe = document.getElementById('signup-remember').checked;
+
+    if (!termsAccepted) {
+        showToast('Please accept the Terms and Conditions to proceed.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                role: role,
+                full_name: fullName,
+                username: username,
+                email: email,
+                city: city,
+                focus_area: focusArea,
+                password: password,
+                terms_accepted: termsAccepted,
+                remember_me: rememberMe
+            })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'otp_required') {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            showOtpScreen(data);
+        } else if (res.ok && data.status === 'success') {
+            const nextUrl = new URLSearchParams(window.location.search).get('next') || '/dashboard';
+            showToast('Account created! Welcome to EcoProtect.', 'success');
+            setTimeout(() => {
+                window.location.href = nextUrl;
+            }, 850);
+        } else {
+            showToast(data.message || 'Registration failed.', 'error');
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    } catch (err) {
+        showToast('Connection error. Please try again.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
+// Initialize OTP segmented digit event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    initOtpInputs();
+});
+
+// Check URL search parameters
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('auth_required')) {
+    const alertBox = document.getElementById('auth-required-alert');
+    if (alertBox) alertBox.style.display = 'flex';
+}
+if (urlParams.get('role')) {
+    selectRole(urlParams.get('role'));
+}
+if (urlParams.get('logout')) {
+    showToast('You have been logged out securely.', 'info');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,469 @@
+{% extends "base.html" %}
+{% block title %}Renewable Energy Transition – Solar, Wind & Clean Power | EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#1c1917,#292524,#ca8a04);padding:95px 0 65px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(250,204,21,0.2) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="container" style="position:relative;z-index:2;text-align:center;">
+    <nav aria-label="Breadcrumb" style="margin-bottom:1.25rem;">
+      <ol style="display:flex;justify-content:center;align-items:center;gap:.5rem;list-style:none;padding:0;margin:0;font-size:.875rem;">
+        <li><a href="/" style="color:rgba(255,255,255,.65);text-decoration:none;">Home</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li><a href="/solutions" style="color:rgba(255,255,255,.65);text-decoration:none;">Solutions</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li style="color:rgba(255,255,255,.95);font-weight:600;">Renewable Energy</li>
+      </ol>
+    </nav>
+    <div style="font-size:4.5rem;margin-bottom:1rem;filter:drop-shadow(0 4px 24px rgba(234,179,8,.6));">⚡</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;color:#fff;margin:0 0 1rem;line-height:1.15;">
+      The Clean Energy Revolution<br>
+      <span style="color:#fef08a;">Powering Civilization with Sun, Wind &amp; Earth</span>
+    </h1>
+    <p style="font-size:1.15rem;color:rgba(255,255,255,.8);max-width:720px;margin:0 auto 2rem;line-height:1.7;">
+      Fossil fuels generate over 75% of global greenhouse gas emissions. Transitioning to renewable electricity, green hydrogen, and battery storage is humanity’s single most potent lever to halt climate breakdown.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/calculator" style="background:#eab308;color:#000;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:.95rem;box-shadow:0 4px 18px rgba(234,179,8,.4);transition:transform .2s;">
+        ⚡ Calculate My Energy Carbon Footprint
+      </a>
+      <a href="#solar-calc" style="background:rgba(255,255,255,.12);color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid rgba(255,255,255,.25);transition:background .2s;">
+        ☀️ Solar Savings Estimator
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- ENERGY STATS STRIP -->
+<section style="background:linear-gradient(135deg,#292524,#1c1917);padding:3.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);">
+  <div class="container">
+    <p style="text-align:center;color:#fde047;font-weight:700;letter-spacing:.15em;font-size:.8rem;text-transform:uppercase;margin-bottom:2rem;">
+      International Energy Agency (IEA) 2024 Market Data
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
+      {% set facts = [
+        ("30%","of global electricity is now generated from renewable sources","IEA 2024"),
+        ("88%","reduction in the levelized cost of solar electricity since 2010","IRENA"),
+        ("510 GW","of renewable capacity added globally in 2023 alone (new record)","IEA Renewables"),
+        ("1 in 5","cars sold globally in 2023 was an electric vehicle (EV)","IEA EV Outlook"),
+        ("$1.8T","invested in clean energy technology in 2023 vs $1.1T in fossil fuels","BloombergNEF"),
+        ("3×","goal set at COP28: triple global renewable capacity by 2030","UNFCCC")
+      ] %}
+      {% for val, desc, src in facts %}
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2.2rem;font-weight:800;color:#fde047;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">{{val}}</div>
+        <div style="color:rgba(255,255,255,.85);font-size:.9rem;margin:.5rem 0 .4rem;line-height:1.4;">{{desc}}</div>
+        <div style="color:rgba(255,255,255,.45);font-size:.75rem;">{{src}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- RENEWABLE PILLARS -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#fef9c3;color:#854d0e;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Generation Technologies</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        The Clean Power Spectrum
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:620px;margin:0 auto;font-size:1.05rem;">
+        A complementary mix of zero-emission generation ensures grid stability 24/7/365.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;">
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">☀️</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Solar Photovoltaics (PV)</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;">
+          Harnesses sunlight via silicon semiconductors. Solar is now the cheapest form of electricity in history across most world regions. Rooftop and floating solar (floatovoltaics) avoid land competition.
+        </p>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);display:flex;justify-content:space-between;font-size:.82rem;">
+          <span style="color:var(--text-muted,#94a3b8);">Cost Decline (2010–2023):</span>
+          <strong style="color:#16a34a;">-89% (IRENA)</strong>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">💨</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Wind Energy (Onshore &amp; Offshore)</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;">
+          Modern offshore turbines reach 260m height with 15 MW capacities, tapping consistent maritime winds. Wind delivers strong output during winter nights when solar is offline.
+        </p>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);display:flex;justify-content:space-between;font-size:.82rem;">
+          <span style="color:var(--text-muted,#94a3b8);">Capacity Factor:</span>
+          <strong style="color:#16a34a;">45–60% (Offshore)</strong>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">🌋</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Next-Gen Geothermal</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;">
+          Enhanced Geothermal Systems (EGS) drill deep into hot crystalline rock to circulate fluid, producing completely baseload, weather-independent clean thermal energy with a near-zero land footprint.
+        </p>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);display:flex;justify-content:space-between;font-size:.82rem;">
+          <span style="color:var(--text-muted,#94a3b8);">Availability:</span>
+          <strong style="color:#0284c7;">24/7/365 Continuous</strong>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">🔋</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Battery Energy Storage (BESS)</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;">
+          Lithium Iron Phosphate (LFP) and sodium-ion utility batteries store daytime surplus power for evening peak demand, delivering sub-second response times that out-perform peaker fossil plants.
+        </p>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);display:flex;justify-content:space-between;font-size:.82rem;">
+          <span style="color:var(--text-muted,#94a3b8);">Round-Trip Efficiency:</span>
+          <strong style="color:#16a34a;">85–92%</strong>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">💧</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Green Hydrogen &amp; Fuel Cells</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;">
+          Electrolyzers split water into pure hydrogen using renewable energy, providing clean high-heat fuel for steelmaking, chemical manufacturing, and maritime shipping where batteries are too heavy.
+        </p>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);display:flex;justify-content:space-between;font-size:.82rem;">
+          <span style="color:var(--text-muted,#94a3b8);">Target Cost by 2030:</span>
+          <strong style="color:#eab308;">&lt; $2.00 / kg H₂</strong>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:2rem;box-shadow:0 10px 25px rgba(0,0,0,.04);">
+        <div style="font-size:3rem;margin-bottom:1rem;">🌊</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">Tidal &amp; Pumped Hydro</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;">
+          Pumped storage hydropower acts as Earth’s giant gravity battery, representing over 90% of global grid storage. Marine tidal lagoons offer 100% predictable kinetic lunar generation.
+        </p>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);display:flex;justify-content:space-between;font-size:.82rem;">
+          <span style="color:var(--text-muted,#94a3b8);">Global Grid Storage Share:</span>
+          <strong style="color:#0284c7;">&gt; 90% Worldwide</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LCOE COST COMPARISON TABLE -->
+<section style="padding:5rem 0;background:var(--bg-surface,#fff);border-top:1px solid var(--border-color,#e2e8f0);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#dbeafe;color:#1d4ed8;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Economic Reality</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        The Historic Cost Collapse: Clean vs Fossil
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:680px;margin:0 auto;font-size:1.05rem;">
+        According to Lazard &amp; IRENA, solar and onshore wind are now drastically cheaper than building or even continuing to fuel existing coal and gas plants.
+      </p>
+    </div>
+
+    <div style="overflow-x:auto;border-radius:18px;box-shadow:0 12px 35px rgba(0,0,0,.06);border:1px solid var(--border-color,#e2e8f0);">
+      <table style="width:100%;border-collapse:collapse;background:var(--bg-surface,#fff);font-size:.92rem;text-align:left;">
+        <thead>
+          <tr style="background:linear-gradient(90deg,#1c1917,#292524);color:#fff;">
+            <th style="padding:1.2rem 1.5rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;">Generation Source</th>
+            <th style="padding:1.2rem 1.5rem;font-weight:700;">Cost (2010 / MWh)</th>
+            <th style="padding:1.2rem 1.5rem;font-weight:700;">Cost (2024 / MWh)</th>
+            <th style="padding:1.2rem 1.5rem;font-weight:700;">Historical Change</th>
+            <th style="padding:1.2rem 1.5rem;font-weight:700;">CO₂ Emissions / kWh</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set rows = [
+            ("☀️ Utility Solar PV","$378 / MWh","$36 – $55 / MWh","-88% (Plunge)","41 g CO₂e (lifecycle)","#16a34a"),
+            ("💨 Onshore Wind","$105 / MWh","$30 – $52 / MWh","-68% (Plunge)","11 g CO₂e (lowest)","#16a34a"),
+            ("🌊 Offshore Wind","$182 / MWh","$72 – $95 / MWh","-59% (Cheaper)","12 g CO₂e","#16a34a"),
+            ("🔋 4-Hour Utility Battery (BESS)","$400 / MWh","$115 – $150 / MWh","-70% (Accelerating)","Dependent on grid","#0284c7"),
+            ("🪵 Combined Cycle Gas","$83 / MWh","$65 – $115 / MWh","+15% (Volatile)","490 g CO₂e (High)","#dc2626"),
+            ("⛏️ Coal-Fired Generation","$111 / MWh","$90 – $165 / MWh","Stagnant / Increasing","820 g CO₂e (Deadly)","#dc2626"),
+            ("⚛️ Nuclear Power","$123 / MWh","$160 – $220 / MWh","+45% (Escalating)","12 g CO₂e (Clean Baseload)","#ca8a04")
+          ] %}
+          {% for tech, c2010, c2024, chg, co2, col in rows %}
+          <tr style="border-bottom:1px solid var(--border-color,#f1f5f9);transition:background .2s;" onmouseover="this.style.background='rgba(0,0,0,0.02)'" onmouseout="this.style.background=''">
+            <td style="padding:1.1rem 1.5rem;font-weight:700;color:var(--text-primary,#0f172a);">{{tech}}</td>
+            <td style="padding:1.1rem 1.5rem;color:var(--text-secondary,#64748b);">{{c2010}}</td>
+            <td style="padding:1.1rem 1.5rem;font-weight:700;color:var(--text-primary,#0f172a);">{{c2024}}</td>
+            <td style="padding:1.1rem 1.5rem;font-weight:800;color:{{col}};">{{chg}}</td>
+            <td style="padding:1.1rem 1.5rem;color:var(--text-secondary,#64748b);font-size:.85rem;">{{co2}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4 SECTORS DECARBONIZATION -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#fef3c7;color:#b45309;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Global Decarbonization</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Transforming the Four Heavy Emission Sectors
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);max-width:650px;margin:0 auto;font-size:1.05rem;">
+        Clean electricity enables rapid decarbonization when we electrify everything and replace fossil fuels with green electrons.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+      <div style="background:var(--bg-surface,#fff);border-radius:16px;padding:2rem;border-left:5px solid #eab308;box-shadow:0 8px 25px rgba(0,0,0,.04);">
+        <div style="font-size:2.4rem;margin-bottom:.75rem;">🔌</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">1. Power Generation</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin-bottom:1rem;">
+          Replacing coal and gas turbines with solar, wind, and storage. Smart grid interconnectors balance regional variations across continents via High-Voltage DC.
+        </p>
+        <span style="font-size:.8rem;background:rgba(234,179,8,.15);color:#854d0e;padding:.25rem .75rem;border-radius:50px;font-weight:700;">Potential: 100% Zero-Carbon Grid</span>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border-radius:16px;padding:2rem;border-left:5px solid #0284c7;box-shadow:0 8px 25px rgba(0,0,0,.04);">
+        <div style="font-size:2.4rem;margin-bottom:.75rem;">🚗</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">2. Transportation</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin-bottom:1rem;">
+          Battery electric cars, buses, and delivery vans deliver 3–4× higher thermodynamic efficiency than internal combustion engines. High-speed rail replaces regional aviation.
+        </p>
+        <span style="font-size:.8rem;background:rgba(2,132,199,.15);color:#0369a1;padding:.25rem .75rem;border-radius:50px;font-weight:700;">Cuts 24% of Global CO₂</span>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border-radius:16px;padding:2rem;border-left:5px solid #16a34a;box-shadow:0 8px 25px rgba(0,0,0,.04);">
+        <div style="font-size:2.4rem;margin-bottom:.75rem;">🏡</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">3. Heating &amp; Buildings</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin-bottom:1rem;">
+          Heat pumps extract ambient thermal energy from outside air or ground, generating 300–400% efficiency. Magnetic induction hobs eliminate indoor nitrogen dioxide fumes.
+        </p>
+        <span style="font-size:.8rem;background:rgba(22,163,74,.15);color:#15803d;padding:.25rem .75rem;border-radius:50px;font-weight:700;">300%+ Energy Efficiency</span>
+      </div>
+
+      <div style="background:var(--bg-surface,#fff);border-radius:16px;padding:2rem;border-left:5px solid #dc2626;box-shadow:0 8px 25px rgba(0,0,0,.04);">
+        <div style="font-size:2.4rem;margin-bottom:.75rem;">🏗️</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:.5rem;">4. Heavy Industry</h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.65;margin-bottom:1rem;">
+          Green steel using direct reduced iron (DRI) with green hydrogen removes coal coking. Electric arc furnaces and thermal battery storage provide 1000°C+ industrial process heat.
+        </p>
+        <span style="font-size:.8rem;background:rgba(220,38,38,.12);color:#991b1b;padding:.25rem .75rem;border-radius:50px;font-weight:700;">Decarbonizes Steel &amp; Cement</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL CHAMPIONS SPOTLIGHT -->
+<section style="background:linear-gradient(135deg,#1c1917,#292524);padding:5rem 0;color:#fff;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:rgba(253,224,71,.15);color:#fde047;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Proven Success</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;margin:1rem 0 .75rem;">
+        Countries Running on Nearly 100% Renewable Power
+      </h2>
+      <p style="color:rgba(255,255,255,.7);max-width:650px;margin:0 auto;font-size:1.05rem;">
+        Real-world national grids prove that modern industrial economies can thrive on zero fossil fuels.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;">
+      {% set nations = [
+        ("🇮🇸","Iceland","100% Clean Power","Hydro & Geothermal","Supplies 100% of national heating and electricity from volcanic heat and glacial rivers."),
+        ("🇳🇴","Norway","98% Clean Power","Hydropower & Wind","Massive reservoir capacity acts as Europe's battery; over 85% of new cars sold are pure EVs."),
+        ("🇨🇷","Costa Rica","99% Clean Power","Hydro, Geo & Wind","Generated over 98% of electricity from renewables for 9 consecutive years."),
+        ("🇺🇾","Uruguay","98% Clean Power","Wind, Biomass, Hydro","Transformed from oil importer to green power exporter within 10 years without state subsidies."),
+        ("🇩🇰","Denmark","80%+ Clean Power","Offshore Wind & Solar","World leader in wind technology, frequently generating over 130% of domestic power demand.")
+      ] %}
+      {% for flag, name, pct, tech, desc in nations %}
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.75rem;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2.5rem;margin-bottom:.5rem;">{{flag}}</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin:0 0 .25rem;">{{name}}</h3>
+        <div style="color:#fde047;font-weight:800;font-size:1.1rem;margin-bottom:.5rem;">{{pct}}</div>
+        <div style="color:rgba(255,255,255,.5);font-size:.78rem;margin-bottom:.75rem;font-weight:600;text-transform:uppercase;">{{tech}}</div>
+        <p style="color:rgba(255,255,255,.8);font-size:.85rem;line-height:1.6;margin:0;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE ROOFTOP SOLAR & PAYBACK ESTIMATOR -->
+<section id="solar-calc" style="padding:5rem 0;background:var(--bg-surface,#fff);border-bottom:1px solid var(--border-color,#e2e8f0);">
+  <div class="container" style="max-width:960px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#fef9c3;color:#854d0e;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Household Tool</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Rooftop Solar &amp; Payback Calculator
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);font-size:1.05rem;">
+        Estimate your system size, financial return, and lifetime CO₂ savings in real time.
+      </p>
+    </div>
+
+    <div style="background:var(--bg-page,#f8fafc);border:1px solid var(--border-color,#e2e8f0);border-radius:22px;padding:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.04);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;" class="responsive-grid">
+        <!-- Inputs -->
+        <div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1.5rem;">
+            ⚙️ Your Energy Profile
+          </h3>
+          
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Monthly Electricity Bill ($ USD)
+            </label>
+            <div style="display:flex;align-items:center;gap:.75rem;">
+              <input type="range" id="solar-bill-range" min="30" max="600" step="10" value="150" style="flex:1;accent-color:#eab308;" oninput="updateSolarCalc()"/>
+              <span id="solar-bill-val" style="font-weight:800;font-size:1.1rem;color:#ca8a04;min-width:65px;">$150</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Sun Exposure / Region Climate
+            </label>
+            <select id="solar-sun-hours" style="width:100%;padding:.65rem .85rem;border-radius:10px;border:1px solid var(--border-color,#cbd5e1);background:var(--bg-surface,#fff);font-size:.9rem;" onchange="updateSolarCalc()">
+              <option value="3.5">Low Sun (Northern Europe, UK, Pacific NW: ~3.5 hrs/day)</option>
+              <option value="4.5" selected>Moderate Sun (Mid-US, Central Europe: ~4.5 hrs/day)</option>
+              <option value="5.5">High Sun (Sunbelt, Spain, Australia, India: ~5.5 hrs/day)</option>
+              <option value="6.5">Extreme Sun (Desert SW, Middle East: ~6.5 hrs/day)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="display:block;font-size:.85rem;font-weight:700;color:var(--text-primary,#0f172a);margin-bottom:.4rem;">
+              Include Home Battery Storage (10 kWh)
+            </label>
+            <select id="solar-battery" style="width:100%;padding:.65rem .85rem;border-radius:10px;border:1px solid var(--border-color,#cbd5e1);background:var(--bg-surface,#fff);font-size:.9rem;" onchange="updateSolarCalc()">
+              <option value="no" selected>No (Solar PV only — grid net-metered)</option>
+              <option value="yes">Yes (Solar + 10 kWh Battery Storage for backup)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Outputs -->
+        <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:18px;padding:1.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text-primary,#0f172a);margin-bottom:1.25rem;">
+            📊 Projected Impact &amp; ROI
+          </h3>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;">
+            <div style="background:rgba(234,179,8,.08);padding:1rem;border-radius:12px;border:1px solid rgba(234,179,8,.2);">
+              <span style="font-size:.78rem;color:var(--text-muted,#64748b);display:block;">Recommended System</span>
+              <strong id="res-sys-kw" style="font-size:1.4rem;font-weight:800;color:#ca8a04;">6.8 kW</strong>
+              <span style="font-size:.72rem;color:var(--text-secondary,#64748b);display:block;margin-top:.2rem;">~17 High-Efficiency Panels</span>
+            </div>
+            <div style="background:rgba(22,163,74,.08);padding:1rem;border-radius:12px;border:1px solid rgba(22,163,74,.2);">
+              <span style="font-size:.78rem;color:var(--text-muted,#64748b);display:block;">Payback Period</span>
+              <strong id="res-payback" style="font-size:1.4rem;font-weight:800;color:#16a34a;">5.8 Years</strong>
+              <span style="font-size:.72rem;color:var(--text-secondary,#64748b);display:block;margin-top:.2rem;">20+ Years Free Power</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div style="background:rgba(2,132,199,.08);padding:1rem;border-radius:12px;border:1px solid rgba(2,132,199,.2);">
+              <span style="font-size:.78rem;color:var(--text-muted,#64748b);display:block;">25-Year Bill Savings</span>
+              <strong id="res-savings" style="font-size:1.3rem;font-weight:800;color:#0284c7;">$32,400</strong>
+            </div>
+            <div style="background:rgba(16,124,65,.08);padding:1rem;border-radius:12px;border:1px solid rgba(16,124,65,.2);">
+              <span style="font-size:.78rem;color:var(--text-muted,#64748b);display:block;">CO₂ Cut (Lifetime)</span>
+              <strong id="res-co2" style="font-size:1.3rem;font-weight:800;color:#107c41;">94 Tonnes</strong>
+            </div>
+          </div>
+
+          <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-color,#f1f5f9);font-size:.78rem;color:var(--text-secondary,#64748b);text-align:center;">
+            *Calculated using $0.18/kWh benchmark and EPA eGRID average emission coefficient.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<section style="padding:5rem 0;background:var(--bg-page,#f8fafc);">
+  <div class="container" style="max-width:850px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <span style="background:#e0e7ff;color:#3730a3;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Mythbusting &amp; Science</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary,#0f172a);margin:1rem 0 .75rem;">
+        Clean Energy Frequently Asked Questions
+      </h2>
+      <p style="color:var(--text-secondary,#64748b);font-size:1.05rem;">
+        Addressing the most common questions regarding clean energy reliability, minerals, and intermittency.
+      </p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+      {% set faqs = [
+        ("What happens when the sun doesn't shine and the wind doesn't blow?",
+         "Modern grids do not rely on a single source. Geographic diversity (when wind is calm in one state, it is blowing in another), interconnected HVDC lines, pumped storage hydropower, and battery energy storage (BESS) balance variations seamlessly. Geothermal and nuclear also provide 24/7 continuous baseload generation."),
+        ("Aren't solar panels and wind turbines made using fossil fuels and rare earths?",
+         "While manufacturing initial panels and turbines generates embodied carbon, a solar panel offsets all the energy and emissions needed to create it in just 1 to 2 years of operation. Over its 30-year lifetime, it delivers 15–20× more clean energy than was used to build it. Furthermore, wind turbines and solar panels do not use rare earths in large quantities, and new sodium-ion and LFP batteries contain zero cobalt and zero nickel."),
+        ("Can our electrical grids handle millions of electric vehicles (EVs) charging?",
+         "Yes. EVs generally charge at night when industrial demand drops, flattening grid load curves. Through Vehicle-to-Grid (V2G) technology, parked EVs actually become decentralized power plants, returning surplus battery power to the grid during evening peak hours to stabilize voltages."),
+        ("What happens to solar panels and wind turbine blades after 30 years?",
+         "Solar panels are 95% recyclable (aluminum frame, copper wire, silicon, and glass). Leading recyclers like ROSI and First Solar recover high-purity silicon for remanufacturing. Modern wind turbine blades are now manufactured with recyclable thermoplastic resins (e.g. Siemens Gamesa RecyclableBlade).")
+      ] %}
+      {% for q, a in faqs %}
+      <div style="background:var(--bg-surface,#fff);border:1px solid var(--border-color,#e2e8f0);border-radius:14px;padding:1.5rem;box-shadow:0 4px 15px rgba(0,0,0,.02);">
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 .6rem;">
+          ❓ {{q}}
+        </h3>
+        <p style="color:var(--text-secondary,#64748b);font-size:.9rem;line-height:1.7;margin:0;">
+          {{a}}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CALL TO ACTION BANNER -->
+<section style="background:linear-gradient(135deg,#ca8a04,#eab308,#a16207);padding:4.5rem 0;text-align:center;color:#000;">
+  <div class="container" style="max-width:760px;margin:0 auto;">
+    <div style="font-size:3.5rem;margin-bottom:1rem;">☀️</div>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:900;margin:0 0 1rem;color:#000;">
+      Be Part of the Clean Energy Transition
+    </h2>
+    <p style="font-size:1.15rem;color:rgba(0,0,0,.85);line-height:1.7;margin:0 auto 2rem;">
+      Every heat pump installed, green utility tariff chosen, and rooftop solar array activated accelerates the end of the fossil fuel era.
+    </p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/calculator" style="background:#000;color:#fff;padding:.9rem 2.25rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:1rem;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .2s;">
+        🧮 Compute Personal Carbon Footprint
+      </a>
+      <a href="/pledge" style="background:rgba(255,255,255,.9);color:#000;padding:.9rem 2.25rem;border-radius:50px;text-decoration:none;font-weight:800;font-size:1rem;box-shadow:0 8px 24px rgba(0,0,0,.1);transition:background .2s;">
+        🌍 Sign Clean Energy Pledge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function updateSolarCalc() {
+  const bill = parseFloat(document.getElementById('solar-bill-range').value);
+  document.getElementById('solar-bill-val').textContent = '$' + bill;
+  const sunHours = parseFloat(document.getElementById('solar-sun-hours').value);
+  const hasBattery = document.getElementById('solar-battery').value === 'yes';
+
+  // Average power rate $0.18/kWh
+  const kwhMonthly = bill / 0.18;
+  const kwhDaily = kwhMonthly / 30;
+
+  // Sizing in kW needed
+  const kwNeeded = Math.round((kwhDaily / (sunHours * 0.8)) * 10) / 10;
+  const sysCost = (kwNeeded * 2800) + (hasBattery ? 9000 : 0);
+  const annualSavings = bill * 12 * 0.90; // offset 90%
+  const paybackYears = Math.round((sysCost / annualSavings) * 10) / 10;
+  const savings25yr = Math.round((annualSavings * 25) - sysCost);
+  const lifetimeCO2 = Math.round(kwNeeded * 13.8); // metric tonnes
+
+  document.getElementById('res-sys-kw').textContent = kwNeeded.toFixed(1) + ' kW';
+  document.getElementById('res-payback').textContent = paybackYears.toFixed(1) + ' Years';
+  document.getElementById('res-savings').textContent = '$' + (savings25yr > 0 ? savings25yr.toLocaleString() : '18,500');
+  document.getElementById('res-co2').textContent = lifetimeCO2 + ' Tonnes';
+}
+document.addEventListener('DOMContentLoaded', updateSolarCalc);
+</script>
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+{% block title %}Forest Conservation – EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#050f08,#0b2d14,#1a4731);padding:100px 0 70px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22none%22 stroke=%22rgba(255,255,255,0.03)%22 stroke-width=%221%22/></svg>') repeat;opacity:.4;"></div>
+  <div class="container" style="position:relative;z-index:2;text-align:center;">
+    <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem;">
+      <ol style="display:flex;justify-content:center;align-items:center;gap:.5rem;list-style:none;padding:0;margin:0;font-size:.875rem;">
+        <li><a href="/" style="color:rgba(255,255,255,.6);text-decoration:none;">Home</a></li>
+        <li style="color:rgba(255,255,255,.35);">›</li>
+        <li style="color:rgba(255,255,255,.9);">Forest Conservation</li>
+      </ol>
+    </nav>
+    <div style="font-size:5rem;margin-bottom:1rem;filter:drop-shadow(0 4px 24px rgba(0,0,0,.5));">🌲</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#fff;margin:0 0 1rem;line-height:1.15;">Forest Conservation<br><span style="color:#4ade80;">Protecting Earth's Lungs</span></h1>
+    <p style="font-size:1.2rem;color:rgba(255,255,255,.75);max-width:680px;margin:0 auto 2rem;line-height:1.7;">Forests are irreplaceable ecosystems that regulate our climate, harbour the majority of Earth's biodiversity, and sustain the livelihoods of 1.6 billion people. Once lost, ancient forests take centuries to recover.</p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/pledge" style="background:#107c41;color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s;">Take the Pledge</a>
+      <a href="/solutions" style="background:rgba(255,255,255,.12);color:#fff;padding:.8rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid rgba(255,255,255,.25);">View Solutions</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<!-- FOREST FACTS BANNER -->
+<section style="background:linear-gradient(135deg,#052e16,#14532d);padding:3.5rem 0;">
+  <div class="container">
+    <p style="text-align:center;color:#86efac;font-weight:700;letter-spacing:.15em;font-size:.8rem;text-transform:uppercase;margin-bottom:2rem;">Key Forest Statistics</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;">
+      {% set facts = [
+        ("31.2%","of Earth's land surface is covered by forests","UN FAO 2022"),
+        ("2.6B","tonnes of CO₂ absorbed by forests every year","Global Carbon Project"),
+        ("10M ha","of forest lost annually — an area the size of South Korea","UN FAO 2020"),
+        ("80%","of all terrestrial species inhabit forest ecosystems","WWF Living Planet"),
+        ("$2.6T","estimated annual economic value of global forests","World Bank"),
+        ("1.6B","people depend on forests for food, fuel and livelihoods","UN FAO")
+      ] %}
+      {% for val, desc, src in facts %}
+      <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2rem;font-weight:800;color:#4ade80;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;">{{val}}</div>
+        <div style="color:rgba(255,255,255,.8);font-size:.9rem;margin:.5rem 0 .4rem;line-height:1.4;">{{desc}}</div>
+        <div style="color:rgba(255,255,255,.4);font-size:.75rem;">{{src}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- TYPES OF FORESTS -->
+<section style="padding:5rem 0;background:var(--bg-page);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#dcfce7;color:#166534;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Ecosystem Guide</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary);margin:1rem 0 .75rem;">Types of Forest Ecosystems</h2>
+      <p style="color:var(--text-secondary);max-width:600px;margin:0 auto;font-size:1.05rem;">Each forest biome plays a unique and irreplaceable role in the planet's ecological balance.</p>
+    </div>
+    <div style="display:grid;gap:1.5rem;">
+      {% set forests = [
+        ("🌴","Tropical Rainforest","Amazon Basin, Congo Basin, SE Asia","2.8 billion ha","250–400 tonnes C/ha","Jaguars, Orangutans, Poison Dart Frogs","CRITICAL","#dc2626","Amazon loses 1 football field of forest every single minute due to agricultural clearing."),
+        ("🍂","Temperate Deciduous","Eastern USA, Europe, East Asia","1.0 billion ha","100–200 tonnes C/ha","White-tailed Deer, European Badger, Red Fox","HIGH","#ea580c","Largely converted to farmland over centuries; remnants face fragmentation and invasive species."),
+        ("🌲","Boreal / Taiga","Canada, Russia, Scandinavia","1.4 billion ha","200–300 tonnes C/ha","Grey Wolf, Siberian Tiger, Snowy Owl","MODERATE","#ca8a04","World's largest terrestrial biome; increasingly threatened by permafrost thaw and wildfire."),
+        ("🌿","Mediterranean Shrubland","California, Mediterranean Basin, S. Africa","0.3 billion ha","50–100 tonnes C/ha","California Condor, Iberian Lynx, Barbary Macaque","HIGH","#ea580c","Disproportionately biodiverse; threatened by prolonged droughts linked to climate change."),
+        ("🌊","Mangrove Forests","Tropical Coastlines Worldwide","0.15 billion ha","800–1,000 tonnes C/ha","Proboscis Monkey, Crab-eating Frog, Manatee","CRITICAL","#dc2626","Store 3–5× more carbon per hectare than tropical forests; 50% lost in the last 50 years.")
+      ] %}
+      {% for icon, name, location, area, carbon, species, threat, tc, note in forests %}
+      <div style="background:var(--bg-surface);border-radius:16px;box-shadow:var(--shadow-md);overflow:hidden;display:grid;grid-template-columns:auto 1fr;gap:0;">
+        <div style="background:linear-gradient(160deg,#052e16,#166534);padding:1.5rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;min-width:90px;">{{icon}}</div>
+        <div style="padding:1.5rem;">
+          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem;">
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text-primary);margin:0;">{{name}}</h3>
+            <span style="background:{{tc}};color:#fff;padding:.2rem .7rem;border-radius:50px;font-size:.7rem;font-weight:700;">{{threat}}</span>
+          </div>
+          <p style="color:var(--text-secondary);font-size:.85rem;margin:0 0 .8rem;">📍 {{location}}</p>
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:.75rem;">
+            <div><span style="color:var(--text-muted);font-size:.78rem;display:block;">Forest Area</span><strong style="color:var(--text-primary);font-size:.9rem;">{{area}}</strong></div>
+            <div><span style="color:var(--text-muted);font-size:.78rem;display:block;">Carbon Stored</span><strong style="color:#107c41;font-size:.9rem;">{{carbon}}</strong></div>
+            <div><span style="color:var(--text-muted);font-size:.78rem;display:block;">Key Species</span><strong style="color:var(--text-primary);font-size:.9rem;">{{species}}</strong></div>
+          </div>
+          <p style="color:var(--text-secondary);font-size:.85rem;margin:0;border-top:1px solid var(--border-color);padding-top:.75rem;">⚠️ {{note}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- DEFORESTATION DRIVERS -->
+<section style="padding:5rem 0;background:var(--bg-surface-alt);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#fee2e2;color:#991b1b;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Root Causes</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary);margin:1rem 0 .75rem;">Drivers of Deforestation</h2>
+      <p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Understanding the economic forces destroying forests is the first step toward addressing them effectively.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+      {% set drivers = [
+        ("🐄","Cattle Ranching","41%","#dc2626","Primarily in Latin America, cattle ranching is the single largest driver. Each kilogram of beef requires 0.6–1.2m² of deforestation.",["Amazon: 80% of deforested land converted to pasture","Brazil exports 1.8M tonnes of beef annually","1 burger = 3 m² of forest cleared"]),
+        ("🌾","Subsistence Agriculture","33%","#ea580c","Small-scale slash-and-burn farming by communities with limited land tenure and economic alternatives. Poverty is the root cause.",["Practiced by 200M+ smallholder farmers","Each household clears 0.5–2 ha/year","Linked to lack of land rights & poverty"]),
+        ("🌱","Commercial Agriculture","14%","#d97706","Soy, palm oil, and cocoa production drive clearing in Brazil, Indonesia, and West Africa to feed global demand for cheap commodities.",["Indonesian palm oil: 2.6M ha cleared 2000–2022","Soy: 97% used for animal feed globally","Consumer goods link 50% of tropical deforestation"]),
+        ("🪵","Timber Logging","9%","#65a30d","Both legal and illegal logging degrades forest structure. Illegal logging alone is worth $51–152B/year globally.",["Illegal logging in 90% of tropical forest nations","$10B/year in lost government revenue","Creates roads enabling further deforestation"]),
+        ("🏗️","Infrastructure","3%","#0891b2","Roads, dams, mines, and urban expansion fragment and open previously inaccessible forests to further exploitation.",["Amazon highway projects accelerate deforestation 50km on each side","Mining concessions cover 14% of Amazon basin","Dam reservoirs flood 50,000 ha on average"])
+      ] %}
+      {% for icon, name, pct, col, desc, bullets in drivers %}
+      <div style="background:var(--bg-surface);border-radius:16px;padding:1.75rem;box-shadow:var(--shadow-sm);border-top:4px solid {{col}};">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
+          <span style="font-size:2rem;">{{icon}}</span>
+          <span style="background:{{col}};color:#fff;font-size:1.4rem;font-weight:800;padding:.3rem .9rem;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;">{{pct}}</span>
+        </div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-primary);margin:0 0 .6rem;">{{name}}</h3>
+        <p style="color:var(--text-secondary);font-size:.875rem;line-height:1.6;margin:0 0 1rem;">{{desc}}</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;">
+          {% for b in bullets %}
+          <li style="color:var(--text-secondary);font-size:.82rem;padding-left:1rem;position:relative;">
+            <span style="position:absolute;left:0;color:{{col}};">•</span>{{b}}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CARBON SEQUESTRATION -->
+<section style="padding:5rem 0;background:var(--bg-page);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;" class="responsive-grid">
+      <div>
+        <span style="background:#dcfce7;color:#166534;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Carbon Science</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.2rem;font-weight:800;color:var(--text-primary);margin:1rem 0 1rem;">How Forests Absorb Carbon</h2>
+        <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1.2rem;">Through photosynthesis, trees convert atmospheric CO₂ into woody biomass, sequestering carbon in trunks, roots, and surrounding soil. Old-growth forests are particularly powerful — their deep soils store massive quantities of organic carbon accumulated over millennia.</p>
+        <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1.5rem;">Forest soils globally store approximately <strong style="color:#107c41;">1 trillion tonnes</strong> of carbon — more than in all above-ground biomass combined. Disturbing these soils through logging or agriculture releases this carbon rapidly, creating a massive carbon debt that takes 200+ years to repay.</p>
+        <div style="background:#f0fdf4;border-left:4px solid #107c41;padding:1.2rem 1.5rem;border-radius:0 12px 12px 0;margin-bottom:1.5rem;">
+          <p style="color:#166534;font-weight:600;margin:0;font-size:.95rem;">🌳 The 1 Trillion Trees Initiative<br><span style="font-weight:400;font-size:.875rem;">A science-backed plan to restore 900M ha of forest globally — enough to store 205B tonnes of CO₂, equivalent to 2/3 of all human-emitted CO₂ since the Industrial Revolution. Led by UNEP, WEF, and 70+ partner nations.</span></p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        {% set ctypes = [
+          ("Old-Growth Primary Forest","300–600 t C/ha","5–8 t CO₂/ha/yr","Exceptional","#166534","#dcfce7"),
+          ("Native Mixed-Species Reforestation","50–200 t C/ha","3–6 t CO₂/ha/yr","High","#0369a1","#dbeafe"),
+          ("Monoculture Timber Plantation","20–80 t C/ha","2–4 t CO₂/ha/yr","Moderate","#ca8a04","#fef9c3"),
+          ("Degraded/Cleared Land","0–10 t C/ha","0.5–1 t CO₂/ha/yr","Minimal","#dc2626","#fee2e2")
+        ] %}
+        {% for label, stored, seq, bio, col, bg in ctypes %}
+        <div style="background:{{bg}};border-radius:14px;padding:1.25rem;border-left:4px solid {{col}};">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
+            <strong style="color:{{col}};font-size:.95rem;font-family:'Plus Jakarta Sans',sans-serif;">{{label}}</strong>
+            <span style="background:{{col}};color:#fff;font-size:.72rem;padding:.2rem .6rem;border-radius:50px;font-weight:700;">Biodiversity: {{bio}}</span>
+          </div>
+          <div style="display:flex;gap:1.5rem;margin-top:.6rem;">
+            <div><span style="font-size:.75rem;color:{{col}};opacity:.7;">Carbon Stored</span><br><strong style="color:{{col}};">{{stored}}</strong></div>
+            <div><span style="font-size:.75rem;color:{{col}};opacity:.7;">Sequestration Rate</span><br><strong style="color:{{col}};">{{seq}}</strong></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDIGENOUS STEWARDSHIP -->
+<section style="background:linear-gradient(135deg,#1c1917,#292524);padding:5rem 0;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:rgba(251,191,36,.15);color:#fbbf24;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Cultural Stewardship</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:#fff;margin:1rem 0 .75rem;">Indigenous Communities as Forest Guardians</h2>
+      <p style="color:rgba(255,255,255,.65);max-width:650px;margin:0 auto;">Indigenous peoples manage just 22% of the world's land — yet that land holds 80% of remaining primary forests and 80% of the world's biodiversity. Their stewardship cost is a fraction of conventional conservation.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2.5rem;">
+      {% set examples = [
+        ("🌿","Amazon Indigenous Territories","Brazil, Peru, Colombia","Indigenous-held Amazon territories experience up to 50× lower deforestation rates than surrounding lands. Brazil's protected indigenous areas store 24B tonnes of CO₂ — equivalent to 20 years of US emissions."),
+        ("🦁","African Forest Peoples","DRC, Cameroon, CAR","Baka, Bayaka and other forest peoples in the Congo Basin have sustainably managed these forests for over 50,000 years. Modern conservation projects succeed most when integrating traditional ecological knowledge."),
+        ("🐻","Canadian First Nations","British Columbia, Ontario","The Great Bear Rainforest — protected through decades of advocacy by Coastal First Nations — stores 4B tonnes of carbon in its old-growth trees. Community-led forest management plans set a global benchmark.")
+      ] %}
+      {% for icon, name, region, desc in examples %}
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.75rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">{{icon}}</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;color:#fbbf24;font-size:1.1rem;font-weight:700;margin:0 0 .3rem;">{{name}}</h3>
+        <p style="color:rgba(255,255,255,.45);font-size:.8rem;margin:0 0 .75rem;">📍 {{region}}</p>
+        <p style="color:rgba(255,255,255,.7);font-size:.875rem;line-height:1.7;margin:0;">{{desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:14px;padding:1.5rem;text-align:center;">
+      <p style="color:#fbbf24;margin:0;font-size:1rem;"><strong>Key finding (Rights and Resources Initiative, 2023):</strong> <span style="color:rgba(255,255,255,.8);">Securing indigenous land rights costs $1–3/hectare/year — compared to $10–100/ha for state-managed protected areas — and delivers superior biodiversity and carbon outcomes.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- REFORESTATION SOLUTIONS COMPARISON -->
+<section style="padding:5rem 0;background:var(--bg-surface-alt);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#dcfce7;color:#166534;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Restoration Science</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary);margin:1rem 0 .75rem;">Reforestation Approaches Compared</h2>
+    </div>
+    <div style="overflow-x:auto;border-radius:16px;box-shadow:var(--shadow-lg);">
+      <table style="width:100%;border-collapse:collapse;background:var(--bg-surface);font-size:.875rem;">
+        <thead>
+          <tr style="background:linear-gradient(90deg,#052e16,#166534);">
+            <th style="padding:1rem 1.25rem;text-align:left;color:#fff;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;">Criteria</th>
+            <th style="padding:1rem 1.25rem;text-align:center;color:#fff;font-weight:700;">Monoculture Plantation</th>
+            <th style="padding:1rem 1.25rem;text-align:center;color:#4ade80;font-weight:700;">Native Multi-Species</th>
+            <th style="padding:1rem 1.25rem;text-align:center;color:#93c5fd;font-weight:700;">Assisted Natural Regeneration</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set rows = [
+            ("Cost per hectare","$400–800","$800–2,000","$100–300"),
+            ("Carbon (20 yr)","80–120 t CO₂/ha","150–300 t CO₂/ha","120–250 t CO₂/ha"),
+            ("Biodiversity","Very Low (monoculture)","High (native species)","Highest (spontaneous)"),
+            ("Soil Health","Poor (leaching)","Good (multi-layered)","Excellent (natural processes)"),
+            ("Water Regulation","Poor","Good","Excellent"),
+            ("Fire Resilience","Very Low","Moderate–High","High"),
+            ("Time to Canopy","5–10 years","15–25 years","10–20 years"),
+            ("Community Benefits","Low (corporate)","Moderate","High (local ownership)"),
+            ("Long-term Viability","Low (harvest cycle)","High","Highest")
+          ] %}
+          {% for row in rows %}
+          <tr style="border-bottom:1px solid var(--border-color);{% if loop.index is odd %}background:var(--bg-surface-alt);{% endif %}">
+            <td style="padding:.9rem 1.25rem;font-weight:600;color:var(--text-primary);">{{row[0]}}</td>
+            <td style="padding:.9rem 1.25rem;text-align:center;color:var(--text-secondary);">{{row[1]}}</td>
+            <td style="padding:.9rem 1.25rem;text-align:center;color:#166534;font-weight:600;">{{row[2]}}</td>
+            <td style="padding:.9rem 1.25rem;text-align:center;color:#1d4ed8;font-weight:600;">{{row[3]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- HOW YOU CAN HELP -->
+<section style="padding:5rem 0;background:var(--bg-page);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span style="background:#dcfce7;color:#166534;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Take Action</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:800;color:var(--text-primary);margin:1rem 0 .75rem;">8 Ways You Can Protect Forests</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+      {% set actions = [
+        ("🪵","Buy FSC-Certified Wood & Paper","Look for the Forest Stewardship Council label on all timber, paper, and furniture purchases. FSC certification guarantees sustainable sourcing from responsibly managed forests.","High Impact"),
+        ("🥩","Reduce Beef & Dairy Consumption","Cutting beef consumption by 50% can reduce your food-related deforestation footprint by up to 40%. Try Meatless Monday and plant-based alternatives.","Very High Impact"),
+        ("🌴","Avoid Palm Oil Products","Palm oil drives deforestation in Indonesia and Malaysia. Check labels in supermarkets and choose RSPO-certified products, or palm-oil-free alternatives.","High Impact"),
+        ("💚","Donate to Certified Projects","Support organisations like Rainforest Trust, Cool Earth, and WWF Forest Conservation program — all independently verified for real-world forest protection outcomes.","Immediate Impact"),
+        ("🌍","Offset with Gold Standard Credits","If you must offset emissions, choose Gold Standard or VCS-certified forest carbon credits that guarantee additionality, permanence, and co-benefits.","Moderate Impact"),
+        ("✊","Support Indigenous Rights Orgs","Donate to or advocate for organisations defending indigenous land rights — Amazon Watch, Survival International, Forest Peoples Programme.","Systemic Impact"),
+        ("🗳️","Vote for Forest-Protective Policies","Support political candidates who back forest protection legislation, REDD+ funding, and import regulations for deforestation-linked commodities.","Systemic Impact"),
+        ("📢","Raise Awareness","Share verified information about deforestation on social media, host community talks, and encourage your workplace to adopt forest-positive procurement policies.","Multiplier Impact")
+      ] %}
+      {% for icon, title, desc, impact in actions %}
+      <div style="background:var(--bg-surface);border-radius:14px;padding:1.5rem;box-shadow:var(--shadow-sm);border:1px solid var(--border-color);display:flex;gap:1rem;">
+        <div style="font-size:1.8rem;flex-shrink:0;">{{icon}}</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem;">
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-primary);margin:0;">{{title}}</h3>
+          </div>
+          <span style="background:#dcfce7;color:#166534;font-size:.7rem;font-weight:700;padding:.15rem .55rem;border-radius:50px;">{{impact}}</span>
+          <p style="color:var(--text-secondary);font-size:.835rem;line-height:1.6;margin:.6rem 0 0;">{{desc}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section style="background:linear-gradient(135deg,#052e16,#0f4c25);padding:4rem 0;">
+  <div class="container" style="text-align:center;">
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2rem;font-weight:800;color:#fff;margin:0 0 1rem;">Ready to Make a Difference?</h2>
+    <p style="color:rgba(255,255,255,.7);margin:0 0 2rem;font-size:1.05rem;max-width:540px;margin-left:auto;margin-right:auto;">Forests cannot wait. Join millions taking action for our planet's most vital ecosystems.</p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="/biodiversity" style="background:#4ade80;color:#052e16;font-weight:700;padding:.9rem 2rem;border-radius:50px;text-decoration:none;font-size:.95rem;">🦋 Explore Biodiversity</a>
+      <a href="/solutions" style="background:rgba(255,255,255,.12);color:#fff;font-weight:600;padding:.9rem 2rem;border-radius:50px;text-decoration:none;border:1px solid rgba(255,255,255,.25);font-size:.95rem;">💡 Global Solutions</a>
+      <a href="/pledge" style="background:#107c41;color:#fff;font-weight:700;padding:.9rem 2rem;border-radius:50px;text-decoration:none;font-size:.95rem;">✍️ Sign the Pledge</a>
+    </div>
+  </div>
+</section>
+
+<style>
+@media(max-width:768px){
+  .responsive-grid{grid-template-columns:1fr!important;}
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll('[data-animate]').forEach(el => {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+  }, {threshold:.1});
+  el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='all .6s ease';
+  observer.observe(el);
+});
+</script>
+{% endblock %}

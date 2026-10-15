@@ -1,0 +1,518 @@
+{% extends "base.html" %}
+{% block title %}Biodiversity & Wildlife – EcoProtect{% endblock %}
+
+{% block hero %}
+<section class="page-hero" style="background:linear-gradient(160deg,#050f08,#0b2d14,#1a4731);padding:100px 0 80px;position:relative;overflow:hidden;">
+  <!-- Decorative particles -->
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;">
+    <div style="position:absolute;top:18%;left:8%;width:340px;height:340px;background:radial-gradient(circle,rgba(16,124,65,0.18) 0%,transparent 70%);border-radius:50%;"></div>
+    <div style="position:absolute;bottom:10%;right:6%;width:260px;height:260px;background:radial-gradient(circle,rgba(2,132,199,0.12) 0%,transparent 70%);border-radius:50%;"></div>
+    <div style="position:absolute;top:5%;right:20%;width:180px;height:180px;background:radial-gradient(circle,rgba(16,124,65,0.10) 0%,transparent 70%);border-radius:50%;"></div>
+  </div>
+  <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1;text-align:center;">
+    <nav aria-label="Breadcrumb" style="margin-bottom:28px;">
+      <ol style="display:flex;align-items:center;justify-content:center;gap:8px;list-style:none;padding:0;margin:0;flex-wrap:wrap;">
+        <li><a href="/" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.88rem;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Home</a></li>
+        <li aria-hidden="true" style="color:rgba(255,255,255,0.35);font-size:0.88rem;">›</li>
+        <li><a href="/problems" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.88rem;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Environmental Problems</a></li>
+        <li aria-hidden="true" style="color:rgba(255,255,255,0.35);font-size:0.88rem;">›</li>
+        <li style="color:#6ee7b7;font-size:0.88rem;font-weight:600;">Biodiversity</li>
+      </ol>
+    </nav>
+    <div style="font-size:clamp(3rem,8vw,5.5rem);margin-bottom:20px;line-height:1;filter:drop-shadow(0 4px 24px rgba(16,124,65,0.5));" role="img" aria-label="Butterfly">🦋</div>
+    <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:800;color:#fff;line-height:1.12;margin:0 0 20px;letter-spacing:-0.02em;">
+      Earth's Web of Life<br><span style="color:#6ee7b7;">in Crisis</span>
+    </h1>
+    <p style="font-size:clamp(1rem,2.5vw,1.25rem);color:rgba(255,255,255,0.78);max-width:680px;margin:0 auto 36px;line-height:1.7;">
+      Scientists warn we are entering the <strong style="color:#6ee7b7;">sixth mass extinction</strong> — the first driven by a single species. Over one million plants and animals face extinction, threatening the intricate web of life that sustains all of us.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="#extinction-crisis" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#107c41,#16a34a);color:#fff;text-decoration:none;padding:14px 28px;border-radius:50px;font-weight:700;font-size:0.97rem;box-shadow:0 4px 20px rgba(16,124,65,0.4);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(16,124,65,0.5)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(16,124,65,0.4)'">
+        🔬 Explore the Crisis
+      </a>
+      <a href="/pledge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:#fff;text-decoration:none;padding:14px 28px;border-radius:50px;font-weight:600;font-size:0.97rem;border:1.5px solid rgba(255,255,255,0.22);transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+        🤝 Take the Pledge
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<main>
+
+  <!-- ═══════════════════════════════════════════════
+       1. EXTINCTION CRISIS BANNER
+  ═══════════════════════════════════════════════ -->
+  <section id="extinction-crisis" style="background:linear-gradient(135deg,#0b2d14,#0f3d1c);padding:80px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:50px;">
+        <span style="display:inline-block;background:rgba(239,68,68,0.15);color:#fca5a5;font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 18px;border-radius:50px;border:1px solid rgba(239,68,68,0.3);margin-bottom:16px;">⚠ Emergency Status</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin:0 0 12px;">The Extinction Crisis — By the Numbers</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:600px;margin:0 auto;">Sources: IUCN Red List, WWF Living Planet Index, IPBES Global Assessment 2019</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;">
+        <!-- Stat 1 -->
+        <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:18px;padding:36px 28px;text-align:center;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(239,68,68,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="font-size:2.8rem;margin-bottom:12px;">🔴</div>
+          <div style="font-size:3rem;font-weight:900;color:#fca5a5;line-height:1;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">1M+</div>
+          <div style="color:#fff;font-weight:700;font-size:1.05rem;margin-bottom:8px;">Species Threatened</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.5;">Out of ~8 million total species on Earth face extinction threat — IPBES 2019</div>
+        </div>
+        <!-- Stat 2 -->
+        <div style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.25);border-radius:18px;padding:36px 28px;text-align:center;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(251,146,60,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="font-size:2.8rem;margin-bottom:12px;">📉</div>
+          <div style="font-size:3rem;font-weight:900;color:#fdba74;line-height:1;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">68%</div>
+          <div style="color:#fff;font-weight:700;font-size:1.05rem;margin-bottom:8px;">Wildlife Population Decline</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.5;">Average decline in monitored vertebrate populations between 1970–2020 — WWF LPI</div>
+        </div>
+        <!-- Stat 3 -->
+        <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:18px;padding:36px 28px;text-align:center;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(239,68,68,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="font-size:2.8rem;margin-bottom:12px;">⚡</div>
+          <div style="font-size:3rem;font-weight:900;color:#fca5a5;line-height:1;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">1,000×</div>
+          <div style="color:#fff;font-weight:700;font-size:1.05rem;margin-bottom:8px;">Above Natural Rate</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.5;">Current extinction rate is 1,000 times the natural background rate — IUCN</div>
+        </div>
+        <!-- Stat 4 -->
+        <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:18px;padding:36px 28px;text-align:center;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(59,130,246,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="font-size:2.8rem;margin-bottom:12px;">💧</div>
+          <div style="font-size:3rem;font-weight:900;color:#93c5fd;line-height:1;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">50%</div>
+          <div style="color:#fff;font-weight:700;font-size:1.05rem;margin-bottom:8px;">Wetlands Lost</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.5;">Half of the world's wetlands have disappeared since 1900, destroying critical habitat — Ramsar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       2. WHAT IS BIODIVERSITY
+  ═══════════════════════════════════════════════ -->
+  <section style="background:var(--bg-page,#f8fafc);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <span style="display:inline-block;background:#dcfce7;color:#107c41;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:18px;">Foundation of Life</span>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 20px;line-height:1.2;">What Is Biodiversity & Why Does It Matter?</h2>
+          <p style="color:var(--text-secondary,#475569);line-height:1.8;margin:0 0 16px;font-size:1.05rem;">Biodiversity encompasses the variety of <strong>life on Earth</strong> at every level — genes, species, and ecosystems. It is the foundation upon which all human civilisation is built, providing clean air, fresh water, food, medicine, and climate stability.</p>
+          <p style="color:var(--text-secondary,#475569);line-height:1.8;margin:0 0 24px;font-size:1.05rem;">Nature's web of interactions — predator and prey, plant and pollinator, fungus and root — creates resilience. When we remove threads from this web, the entire fabric weakens.</p>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+              <span style="font-size:1.6rem;flex-shrink:0;">🌿</span>
+              <div><strong style="color:#107c41;display:block;margin-bottom:4px;">Genetic Diversity</strong><span style="color:var(--text-secondary,#475569);font-size:0.9rem;">The raw material for adaptation and resilience against disease, climate shifts, and environmental change.</span></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+              <span style="font-size:1.6rem;flex-shrink:0;">🕸️</span>
+              <div><strong style="color:#107c41;display:block;margin-bottom:4px;">Species Diversity</strong><span style="color:var(--text-secondary,#475569);font-size:0.9rem;">8+ million species create complex food webs that cycle nutrients and energy through ecosystems.</span></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+              <span style="font-size:1.6rem;flex-shrink:0;">🏔️</span>
+              <div><strong style="color:#107c41;display:block;margin-bottom:4px;">Ecosystem Diversity</strong><span style="color:var(--text-secondary,#475569);font-size:0.9rem;">From coral reefs to boreal forests, each ecosystem type provides unique services to the planet.</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Ecosystem Services Grid -->
+        <div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary,#0f172a);margin:0 0 24px;text-align:center;">Key Ecosystem Services</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-radius:14px;padding:22px 18px;text-align:center;border:1px solid #a7f3d0;">
+              <div style="font-size:2rem;margin-bottom:10px;">💊</div>
+              <div style="font-weight:700;color:#065f46;font-size:0.95rem;margin-bottom:6px;">Medicines</div>
+              <div style="color:#059669;font-size:0.85rem;line-height:1.5;"><strong>60%</strong> of modern drugs are derived from or inspired by natural compounds</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:14px;padding:22px 18px;text-align:center;border:1px solid #bfdbfe;">
+              <div style="font-size:2rem;margin-bottom:10px;">🌸</div>
+              <div style="font-weight:700;color:#1e40af;font-size:0.95rem;margin-bottom:6px;">Pollination</div>
+              <div style="color:#2563eb;font-size:0.85rem;line-height:1.5;"><strong>⅓ of global food supply</strong> depends on animal pollinators</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:14px;padding:22px 18px;text-align:center;border:1px solid #bbf7d0;">
+              <div style="font-size:2rem;margin-bottom:10px;">💧</div>
+              <div style="font-weight:700;color:#14532d;font-size:0.95rem;margin-bottom:6px;">Water Purification</div>
+              <div style="color:#16a34a;font-size:0.85rem;line-height:1.5;">Forests & wetlands filter <strong>trillions of litres</strong> of water annually</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#fef9c3,#fef08a);border-radius:14px;padding:22px 18px;text-align:center;border:1px solid #fde047;">
+              <div style="font-size:2rem;margin-bottom:10px;">🌱</div>
+              <div style="font-weight:700;color:#78350f;font-size:0.95rem;margin-bottom:6px;">Carbon Sequestration</div>
+              <div style="color:#92400e;font-size:0.85rem;line-height:1.5;">Forests alone store <strong>662 billion tonnes</strong> of carbon globally — FAO</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#fdf4ff,#f3e8ff);border-radius:14px;padding:22px 18px;text-align:center;border:1px solid #e9d5ff;">
+              <div style="font-size:2rem;margin-bottom:10px;">🐟</div>
+              <div style="font-weight:700;color:#581c87;font-size:0.95rem;margin-bottom:6px;">Food Security</div>
+              <div style="color:#7c3aed;font-size:0.85rem;line-height:1.5;"><strong>3.3 billion people</strong> rely on wild fish as their primary protein source</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-radius:14px;padding:22px 18px;text-align:center;border:1px solid #fecdd3;">
+              <div style="font-size:2rem;margin-bottom:10px;">🌊</div>
+              <div style="font-weight:700;color:#881337;font-size:0.95rem;margin-bottom:6px;">Flood Control</div>
+              <div style="color:#be123c;font-size:0.85rem;line-height:1.5;">Healthy wetlands reduce flood damage worth <strong>$46 billion</strong> per year globally</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       3. MAIN DRIVERS OF BIODIVERSITY LOSS
+  ═══════════════════════════════════════════════ -->
+  <section style="background:#fff;padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span style="display:inline-block;background:#fee2e2;color:#dc2626;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Root Causes</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">The Five Drivers of Biodiversity Loss</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:640px;margin:0 auto;font-size:1.05rem;line-height:1.7;">The IPBES framework identifies five direct drivers responsible for the accelerating collapse of natural systems worldwide.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;">
+        <!-- Driver 1 -->
+        <div style="background:linear-gradient(180deg,#fff7ed,#fff);border:1px solid #fed7aa;border-radius:18px;padding:32px 22px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(251,146,60,0.18)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#f97316,#fb923c);"></div>
+          <div style="font-size:2.5rem;margin-bottom:14px;">🏗️</div>
+          <div style="background:#fed7aa;color:#c2410c;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px;display:inline-block;margin-bottom:12px;">#1 Biggest Driver</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.05rem;color:#7c2d12;margin:0 0 10px;">Habitat Destruction</h3>
+          <div style="font-size:1.9rem;font-weight:900;color:#f97316;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">73%</div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;">of Earth's land surface has been altered by humans through agriculture, urban sprawl, and logging</p>
+        </div>
+        <!-- Driver 2 -->
+        <div style="background:linear-gradient(180deg,#fef2f2,#fff);border:1px solid #fecaca;border-radius:18px;padding:32px 22px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(239,68,68,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#ef4444,#f87171);"></div>
+          <div style="font-size:2.5rem;margin-bottom:14px;">🎣</div>
+          <div style="background:#fecaca;color:#b91c1c;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px;display:inline-block;margin-bottom:12px;">#2 Direct Killing</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.05rem;color:#7f1d1d;margin:0 0 10px;">Overexploitation</h3>
+          <div style="font-size:1.9rem;font-weight:900;color:#ef4444;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">34%</div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;">of the world's fisheries are overfished; illegal wildlife trade worth $23B/yr is second only to drug trafficking</p>
+        </div>
+        <!-- Driver 3 -->
+        <div style="background:linear-gradient(180deg,#ecfdf5,#fff);border:1px solid #a7f3d0;border-radius:18px;padding:32px 22px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(16,124,65,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#107c41,#22c55e);"></div>
+          <div style="font-size:2.5rem;margin-bottom:14px;">🌡️</div>
+          <div style="background:#a7f3d0;color:#065f46;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px;display:inline-block;margin-bottom:12px;">#3 Growing Threat</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.05rem;color:#065f46;margin:0 0 10px;">Climate Change</h3>
+          <div style="font-size:1.9rem;font-weight:900;color:#107c41;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">18%</div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;">of species face extinction with +2°C warming; coral reefs face near-total collapse above +1.5°C — IPCC</p>
+        </div>
+        <!-- Driver 4 -->
+        <div style="background:linear-gradient(180deg,#f0f9ff,#fff);border:1px solid #bae6fd;border-radius:18px;padding:32px 22px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(2,132,199,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0284c7,#38bdf8);"></div>
+          <div style="font-size:2.5rem;margin-bottom:14px;">☠️</div>
+          <div style="background:#bae6fd;color:#075985;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px;display:inline-block;margin-bottom:12px;">#4 Silent Killer</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.05rem;color:#075985;margin:0 0 10px;">Pollution</h3>
+          <div style="font-size:1.9rem;font-weight:900;color:#0284c7;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">8M</div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;">tonnes of plastic enter oceans annually; agricultural chemicals have caused 45% insect decline in 27 years</p>
+        </div>
+        <!-- Driver 5 -->
+        <div style="background:linear-gradient(180deg,#fdf4ff,#fff);border:1px solid #e9d5ff;border-radius:18px;padding:32px 22px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(147,51,234,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#9333ea,#c084fc);"></div>
+          <div style="font-size:2.5rem;margin-bottom:14px;">🐀</div>
+          <div style="background:#e9d5ff;color:#581c87;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px;display:inline-block;margin-bottom:12px;">#5 Bio-Invasion</div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.05rem;color:#581c87;margin:0 0 10px;">Invasive Species</h3>
+          <div style="font-size:1.9rem;font-weight:900;color:#9333ea;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">40%</div>
+          <p style="color:var(--text-secondary,#475569);font-size:0.875rem;line-height:1.6;">of animal extinctions linked to invasive species; costing global economies $1.4 trillion per year — IUCN</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       4. ENDANGERED SPECIES SPOTLIGHT
+  ═══════════════════════════════════════════════ -->
+  <section style="background:var(--bg-page,#f8fafc);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span style="display:inline-block;background:#dcfce7;color:#107c41;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Species Spotlight</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Faces of the Extinction Crisis</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:620px;margin:0 auto;font-size:1.05rem;line-height:1.7;">Each represents thousands of others. The IUCN Red List tracks over 42,100 species threatened with extinction.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;">
+        <!-- Bengal Tiger -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🐯</span>
+            <span style="background:#fef2f2;color:#dc2626;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fecaca;">ENDANGERED</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Bengal Tiger</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">~2,500</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">wild individuals remaining</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Habitat fragmentation & poaching for traditional medicine</div>
+        </article>
+        <!-- African Forest Elephant -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🐘</span>
+            <span style="background:#fef2f2;color:#dc2626;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fecaca;">CRITICALLY END.</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">African Forest Elephant</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">~100,000</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">declined 86% over 31 years</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Ivory poaching & forest loss across Central Africa</div>
+        </article>
+        <!-- Snow Leopard -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🐆</span>
+            <span style="background:#fef9c3;color:#a16207;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fde047;">VULNERABLE</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Snow Leopard</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">4,000–6,500</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">across 12 Asian countries</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Climate change shrinking alpine habitat & prey depletion</div>
+        </article>
+        <!-- Amur Leopard -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🐾</span>
+            <span style="background:#fef2f2;color:#dc2626;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fecaca;">CRITICALLY END.</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Amur Leopard</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">~100</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">the world's rarest big cat</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Forest fires, logging & poaching in Russian Far East</div>
+        </article>
+        <!-- Vaquita -->
+        <article style="background:linear-gradient(135deg,#fef2f2,#fff);border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(239,68,68,0.15);border:2px solid #fecaca;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(239,68,68,0.25)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(239,68,68,0.15)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🐬</span>
+            <span style="background:#ef4444;color:#fff;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;">⚠ NEAR EXTINCT</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Vaquita Porpoise</h3>
+          <div style="color:#ef4444;font-weight:900;font-size:1.6rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">&lt; 10 LEFT</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">Gulf of California only — world's rarest marine mammal</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Bycatch in illegal gillnets targeting totoaba fish</div>
+        </article>
+        <!-- Mountain Gorilla -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🦍</span>
+            <span style="background:#fef2f2;color:#dc2626;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fecaca;">ENDANGERED</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Mountain Gorilla</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">1,063</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">a rare conservation success — numbers slowly rising</div>
+          <div style="background:#ecfdf5;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#065f46;"><strong>Main Threat:</strong> Habitat loss & civil conflict in Uganda/Rwanda/DRC</div>
+        </article>
+        <!-- Hawksbill Turtle -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🐢</span>
+            <span style="background:#fef2f2;color:#dc2626;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fecaca;">CRITICALLY END.</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Hawksbill Sea Turtle</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">~8,000</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">nesting females; declined 80% in 100 years</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Shell trade, coral reef loss & plastic ingestion</div>
+        </article>
+        <!-- Sumatran Orangutan -->
+        <article style="background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--border-color,#e2e8f0);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 36px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.07)'">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+            <span style="font-size:2.8rem;">🦧</span>
+            <span style="background:#fef2f2;color:#dc2626;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;border:1px solid #fecaca;">CRITICALLY END.</span>
+          </div>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text-primary,#0f172a);margin:0 0 8px;">Sumatran Orangutan</h3>
+          <div style="color:#107c41;font-weight:800;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px;">~14,000</div>
+          <div style="color:var(--text-muted,#94a3b8);font-size:0.78rem;margin-bottom:10px;">restricted to northern Sumatra, Indonesia</div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#92400e;"><strong>Primary Threat:</strong> Palm oil plantation expansion destroying rainforest</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       5. ECOSYSTEMS AT RISK
+  ═══════════════════════════════════════════════ -->
+  <section style="background:#fff;padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Under Threat</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Critical Ecosystems Collapsing</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:600px;margin:0 auto;font-size:1.05rem;line-height:1.7;">These biomes support the majority of Earth's biodiversity — and they are disappearing faster than ever.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;">
+        <!-- Coral Reefs -->
+        <div style="background:linear-gradient(180deg,#fff1f2,#fdf2f8);border:1px solid #fecdd3;border-radius:20px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(239,68,68,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="background:linear-gradient(135deg,#be123c,#f43f5e);padding:28px 24px;text-align:center;">
+            <div style="font-size:3rem;margin-bottom:8px;">🪸</div>
+            <div style="color:rgba(255,255,255,0.9);font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Coral Reefs</div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:2.4rem;font-weight:900;color:#be123c;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:4px;">50%</div>
+            <div style="color:var(--text-secondary,#475569);font-size:0.875rem;margin-bottom:16px;font-weight:600;">have bleached or died since 1990</div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#f43f5e;flex-shrink:0;">•</span>Home to 25% of all marine species</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#f43f5e;flex-shrink:0;">•</span>Great Barrier Reef lost 50% of corals since 2016</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#f43f5e;flex-shrink:0;">•</span>Worth $375 billion/yr in goods & services</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Amazon -->
+        <div style="background:linear-gradient(180deg,#ecfdf5,#f0fdf4);border:1px solid #a7f3d0;border-radius:20px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(16,124,65,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="background:linear-gradient(135deg,#065f46,#107c41);padding:28px 24px;text-align:center;">
+            <div style="font-size:3rem;margin-bottom:8px;">🌳</div>
+            <div style="color:rgba(255,255,255,0.9);font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Amazon Rainforest</div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:2.4rem;font-weight:900;color:#065f46;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:4px;">20%</div>
+            <div style="color:var(--text-secondary,#475569);font-size:0.875rem;margin-bottom:16px;font-weight:600;">deforested — approaching a tipping point</div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#107c41;flex-shrink:0;">•</span>10% of all species on Earth live here</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#107c41;flex-shrink:0;">•</span>Generates its own rainfall via "flying rivers"</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#107c41;flex-shrink:0;">•</span>Stores 150–200 billion tonnes of carbon</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Boreal Forest -->
+        <div style="background:linear-gradient(180deg,#eff6ff,#f0f9ff);border:1px solid #bfdbfe;border-radius:20px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(2,132,199,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="background:linear-gradient(135deg,#075985,#0284c7);padding:28px 24px;text-align:center;">
+            <div style="font-size:3rem;margin-bottom:8px;">🌲</div>
+            <div style="color:rgba(255,255,255,0.9);font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Boreal Forest (Taiga)</div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:2.4rem;font-weight:900;color:#075985;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:4px;">10%</div>
+            <div style="color:var(--text-secondary,#475569);font-size:0.875rem;margin-bottom:16px;font-weight:600;">significantly degraded by logging & fires</div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#0284c7;flex-shrink:0;">•</span>World's largest land biome — 27% of global forests</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#0284c7;flex-shrink:0;">•</span>Stores twice the carbon of tropical forests</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#0284c7;flex-shrink:0;">•</span>Home to wolves, wolverines & boreal caribou</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Freshwater -->
+        <div style="background:linear-gradient(180deg,#f5f3ff,#ede9fe);border:1px solid #ddd6fe;border-radius:20px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 48px rgba(147,51,234,0.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+          <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:28px 24px;text-align:center;">
+            <div style="font-size:3rem;margin-bottom:8px;">🏞️</div>
+            <div style="color:rgba(255,255,255,0.9);font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;">Freshwater Ecosystems</div>
+          </div>
+          <div style="padding:24px;">
+            <div style="font-size:2.4rem;font-weight:900;color:#4c1d95;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:4px;">83%</div>
+            <div style="color:var(--text-secondary,#475569);font-size:0.875rem;margin-bottom:16px;font-weight:600;">freshwater wildlife decline since 1970 — WWF</div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#7c3aed;flex-shrink:0;">•</span>Rivers, lakes & wetlands hold 10% of species</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#7c3aed;flex-shrink:0;">•</span>Only 37% of long rivers remain free-flowing</li>
+              <li style="color:var(--text-secondary,#475569);font-size:0.875rem;display:flex;align-items:flex-start;gap:8px;"><span style="color:#7c3aed;flex-shrink:0;">•</span>Half of all wetland area lost since 1900</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       6. CONSERVATION SUCCESS STORIES
+  ═══════════════════════════════════════════════ -->
+  <section style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span style="display:inline-block;background:#bbf7d0;color:#065f46;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">✅ Hope Exists</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">Conservation Success Stories</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:620px;margin:0 auto;font-size:1.05rem;line-height:1.7;">When humanity commits to conservation, nature recovers. These stories prove that extinction is not inevitable.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;">
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #107c41;display:flex;gap:18px;align-items:flex-start;">
+          <span style="font-size:2.4rem;flex-shrink:0;">🦅</span>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-primary,#0f172a);margin:0 0 6px;">Bald Eagle — From 417 to 9,789 Pairs</h3><p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0;">Banned DDT in 1972, Endangered Species Act protections, and habitat restoration brought the US national symbol back from the brink by 2007. Removed from endangered list — a landmark victory.</p></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #0284c7;display:flex;gap:18px;align-items:flex-start;">
+          <span style="font-size:2.4rem;flex-shrink:0;">🐋</span>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-primary,#0f172a);margin:0 0 6px;">Humpback Whale — 90% Recovery</h3><p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0;">The 1986 International Whaling Commission moratorium allowed populations to rebound from 10,000 to over 80,000 individuals. Removed from Endangered List in 2016 — international cooperation at its best.</p></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #f97316;display:flex;gap:18px;align-items:flex-start;">
+          <span style="font-size:2.4rem;flex-shrink:0;">🐼</span>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-primary,#0f172a);margin:0 0 6px;">Giant Panda — Downlisted to Vulnerable</h3><p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0;">China's $10 billion investment in panda reserves and anti-poaching measures grew the population from 1,000 to 1,864. Downlisted from Endangered to Vulnerable in 2021 by IUCN.</p></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #eab308;display:flex;gap:18px;align-items:flex-start;">
+          <span style="font-size:2.4rem;flex-shrink:0;">🦌</span>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-primary,#0f172a);margin:0 0 6px;">Arabian Oryx — Extinct to 1,000+</h3><p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0;">Declared extinct in the wild in 1972, the Arabian Oryx was reintroduced through captive breeding programs. By 2011, the species became the first to go from Extinct in the Wild to Vulnerable — a reintroduction miracle.</p></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #ef4444;display:flex;gap:18px;align-items:flex-start;">
+          <span style="font-size:2.4rem;flex-shrink:0;">🦅</span>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-primary,#0f172a);margin:0 0 6px;">California Condor — 22 to 537</h3><p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0;">All wild birds were captured in 1987 to prevent extinction. Through captive breeding and lead ammunition bans, the condor population grew to 537 by 2023, with 347 flying free.</p></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #8b5cf6;display:flex;gap:18px;align-items:flex-start;">
+          <span style="font-size:2.4rem;flex-shrink:0;">🦡</span>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--text-primary,#0f172a);margin:0 0 6px;">Black-footed Ferret — 18 to 300+</h3><p style="color:var(--text-secondary,#475569);font-size:0.88rem;line-height:1.6;margin:0;">North America's most endangered mammal in 1987, brought back through intensive captive breeding and prairie dog habitat restoration. Now 300+ wild individuals across 29 reintroduction sites in the USA.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       7. HOW TO HELP
+  ═══════════════════════════════════════════════ -->
+  <section style="background:#fff;padding:90px 0;">
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+      <div style="text-align:center;margin-bottom:56px;">
+        <span style="display:inline-block;background:#dcfce7;color:#107c41;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:16px;">Take Action</span>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:var(--text-primary,#0f172a);margin:0 0 16px;">8 Ways You Can Protect Biodiversity</h2>
+        <p style="color:var(--text-secondary,#475569);max-width:600px;margin:0 auto;font-size:1.05rem;line-height:1.7;">Individual actions, multiplied across billions of people, create systemic change. Here's where to start.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🌿</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Go Plant-Rich</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Shifting to plant-based diets could reduce agricultural land use by 75%, freeing space for wildlife habitats.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🚫</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Avoid Single-Use Plastic</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Plastic kills 1 million seabirds and 100,000 marine mammals annually. Bring reusable bags, bottles & containers.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🌻</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Make Your Garden Wild</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Plant native flowers, build insect hotels, and avoid pesticides. UK gardens combined are larger than all nature reserves.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🛒</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Choose Certified Products</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Look for FSC timber, MSC seafood, and Rainforest Alliance certifications to support sustainable supply chains.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">💰</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Support Conservation</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Donate to WWF, Wildlife Conservation Society, or your local nature trust. Even $10/month makes a measurable difference.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">📢</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Use Your Political Voice</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Contact your representatives to support the 30×30 initiative — protecting 30% of land and ocean by 2030.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🔭</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Citizen Science</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Join iNaturalist or eBird to document local biodiversity. Your observations help scientists track species populations globally.</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:var(--bg-page,#f8fafc);border-radius:14px;padding:20px;">
+          <div style="background:#dcfce7;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">✈️</div>
+          <div><h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.97rem;color:var(--text-primary,#0f172a);margin:0 0 5px;">Travel Responsibly</h3><p style="color:var(--text-secondary,#475569);font-size:0.855rem;margin:0;line-height:1.5;">Choose ethical eco-tourism, never buy wild animal products, and ensure your tourist dollars support local conservation.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       8. CTA SECTION
+  ═══════════════════════════════════════════════ -->
+  <section style="background:linear-gradient(135deg,#050f08,#0b2d14,#107c41);padding:90px 0;">
+    <div class="container" style="max-width:900px;margin:0 auto;padding:0 24px;text-align:center;">
+      <div style="font-size:3rem;margin-bottom:20px;">🌍</div>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin:0 0 16px;">Every Species We Save Matters</h2>
+      <p style="color:rgba(255,255,255,0.75);font-size:1.1rem;line-height:1.7;margin:0 auto 40px;max-width:620px;">Biodiversity is connected to every environmental issue — forests, water, climate. Explore how it all fits together.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="/forests" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#107c41,#16a34a);color:#fff;text-decoration:none;padding:16px 30px;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 4px 24px rgba(16,124,65,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">🌲 Forest Conservation</a>
+        <a href="/water-conservation" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#0284c7,#0ea5e9);color:#fff;text-decoration:none;padding:16px 30px;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 4px 24px rgba(2,132,199,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">💧 Water Conservation</a>
+        <a href="/pledge" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);color:#fff;text-decoration:none;padding:16px 30px;border-radius:50px;font-weight:700;font-size:1rem;border:1.5px solid rgba(255,255,255,0.3);transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">🤝 Take the Pledge</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Animate stat numbers on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('article, section > .container > div > div').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+{% endblock %}
