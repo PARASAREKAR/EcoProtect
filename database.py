@@ -4,7 +4,18 @@ import os
 import json
 from datetime import datetime
 
-DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ecoplanet.db')
+if os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
+    import shutil
+    DB_DIR = '/tmp'
+    DB_FILE = os.path.join(DB_DIR, 'ecoplanet.db')
+    bundled_db = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ecoplanet.db')
+    if os.path.exists(bundled_db) and not os.path.exists(DB_FILE):
+        try:
+            shutil.copy2(bundled_db, DB_FILE)
+        except Exception:
+            pass
+else:
+    DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ecoplanet.db')
 
 def get_db():
     conn = sqlite3.connect(DB_FILE)

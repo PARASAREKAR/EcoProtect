@@ -3,7 +3,13 @@ from datetime import datetime
 from flask import Flask, render_template, request, jsonify, send_from_directory, session, make_response, redirect, url_for
 import database
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(
+    __name__,
+    static_folder=os.path.join(BASE_DIR, 'static'),
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_url_path='/static'
+)
 app.secret_key = 'ecoplanet_secret_key_environment_protection_website_2026'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
